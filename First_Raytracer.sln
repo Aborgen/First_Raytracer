@@ -11,6 +11,8 @@ Global
 		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
+		Testing|x64 = Testing|x64
+		Testing|x86 = Testing|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1BDE4A3E-8695-4A79-8DBB-7B1EC51F04AF}.Debug|x64.ActiveCfg = Debug|x64
@@ -21,6 +23,10 @@ Global
 		{1BDE4A3E-8695-4A79-8DBB-7B1EC51F04AF}.Release|x64.Build.0 = Release|x64
 		{1BDE4A3E-8695-4A79-8DBB-7B1EC51F04AF}.Release|x86.ActiveCfg = Release|Win32
 		{1BDE4A3E-8695-4A79-8DBB-7B1EC51F04AF}.Release|x86.Build.0 = Release|Win32
+		{1BDE4A3E-8695-4A79-8DBB-7B1EC51F04AF}.Testing|x64.ActiveCfg = Testing|x64
+		{1BDE4A3E-8695-4A79-8DBB-7B1EC51F04AF}.Testing|x64.Build.0 = Testing|x64
+		{1BDE4A3E-8695-4A79-8DBB-7B1EC51F04AF}.Testing|x86.ActiveCfg = Testing|Win32
+		{1BDE4A3E-8695-4A79-8DBB-7B1EC51F04AF}.Testing|x86.Build.0 = Testing|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
