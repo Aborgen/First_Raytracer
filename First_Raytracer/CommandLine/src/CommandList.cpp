@@ -8,7 +8,6 @@ bool CommandList::operator==(const CommandList &other) {
 	);
 }
 
-
 std::pair<float, float> CommandList::getSize()
 {
 	return size;
