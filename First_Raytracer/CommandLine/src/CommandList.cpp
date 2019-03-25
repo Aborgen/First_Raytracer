@@ -1,40 +1,43 @@
 #include "CommandList.h"
 
-bool CommandList::operator==(const CommandList &other) {
-	return (
-		this->size == other.size  &&
-		this->depth == other.depth &&
-		this->filename == other.filename
-	);
-}
-
-std::pair<float, float> CommandList::getSize()
+namespace Controll
 {
-	return size;
-}
+	bool CommandList::operator==(const CommandList &other) {
+		return (
+			this->size == other.size  &&
+			this->depth == other.depth &&
+			this->filename == other.filename
+			);
+	}
 
-void CommandList::setSize(float height, float width)
-{
-	size.first = height;
-	size.second = width;
-}
+	std::pair<float, float> CommandList::getSize()
+	{
+		return size;
+	}
 
-float CommandList::getDepth()
-{
-	return depth;
-}
+	void CommandList::setSize(float height, float width)
+	{
+		size.first = height;
+		size.second = width;
+	}
 
-void CommandList::setDepth(float depth)
-{
-	this->depth = depth;
-}
+	float CommandList::getDepth()
+	{
+		return depth;
+	}
 
-std::string CommandList::getFilename()
-{
-	return filename;
-}
+	void CommandList::setDepth(float depth)
+	{
+		this->depth = depth;
+	}
 
-void CommandList::setFilename(std::string filename)
-{
-	this->filename = filename;
+	std::string CommandList::getFilename()
+	{
+		return filename;
+	}
+
+	void CommandList::setFilename(std::string filename)
+	{
+		this->filename = filename;
+	}
 }
