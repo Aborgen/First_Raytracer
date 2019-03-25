@@ -1,11 +1,8 @@
 #pragma once
 
 #include <array>
-#include <iostream>
 #include <map>
 #include <optional>
-#include <regex>
-#include <stack>
 #include <string>
 #include <vector>
 

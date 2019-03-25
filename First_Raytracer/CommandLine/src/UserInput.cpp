@@ -1,3 +1,6 @@
+#include <iostream>
+#include <regex>
+
 #include "UserInput.h"
 
 bool UserInput::parse(std::vector<std::string> input)
