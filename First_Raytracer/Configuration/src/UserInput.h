@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "CommandList.h"
+#include "ConfigList.h"
 
 namespace Controll
 {
@@ -15,7 +15,7 @@ namespace Controll
 	public:
 		int maxInputLength = 30;
 		bool parse(std::vector<std::string> args);
-		CommandList generateCommandList();
+		ConfigList generateConfigList();
 	private:
 		bool hasBeenParsed = false;
 		bool essentialInputPresent = false;

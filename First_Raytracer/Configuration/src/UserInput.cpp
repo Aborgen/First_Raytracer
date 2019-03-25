@@ -77,14 +77,14 @@ namespace Controll
 		return true;
 	}
 
-	CommandList UserInput::generateCommandList()
+	ConfigList UserInput::generateConfigList()
 	{
 		if (!hasBeenParsed)
 		{
 			throw std::exception("Hey. Caller needs to note the result of parse before it can use this method.");
 		}
 
-		CommandList commandList = CommandList();
+		ConfigList configList = ConfigList();
 		// c++17 feature: structured bindings
 		for (auto const&[command, args] : commandToArgs) {
 			if (command == "size") {
@@ -95,7 +95,7 @@ namespace Controll
 					continue;
 				}
 
-				commandList.setSize(height.value(), width.value());
+				configList.setSize(height.value(), width.value());
 			}
 			else if (command == "maxdepth") {
 				std::optional<float> depth = stringToFloat(args.at(0));
@@ -104,15 +104,15 @@ namespace Controll
 					continue;
 				}
 
-				commandList.setDepth(depth.value());
+				configList.setDepth(depth.value());
 			}
 			else if (command == "filename") {
 				std::string filename = args.at(0);
-				commandList.setFilename(filename);
+				configList.setFilename(filename);
 			}
 		}
 
-		return commandList;
+		return configList;
 	}
 
 	std::optional<float> UserInput::stringToFloat(std::string str)

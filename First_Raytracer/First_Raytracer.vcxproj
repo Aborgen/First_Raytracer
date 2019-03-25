@@ -171,22 +171,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CommandLine\src\CommandList.h" />
-    <ClInclude Include="CommandLine\src\UserInput.h" />
+    <ClInclude Include="Configuration\src\ConfigList.h" />
+    <ClInclude Include="Configuration\src\UserInput.h" />
     <ClInclude Include="include\catch.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CommandLine\src\CommandList.cpp" />
-    <ClCompile Include="CommandLine\src\UserInput.cpp" />
-    <ClCompile Include="CommandLine\test\UserInputTests.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    <ClCompile Include="Configuration\src\ConfigList.cpp" />
+    <ClCompile Include="Configuration\src\UserInput.cpp" />
+    <ClCompile Include="Configuration\test\UserInputTests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="testInit.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>

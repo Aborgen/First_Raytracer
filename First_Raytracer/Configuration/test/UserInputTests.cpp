@@ -3,16 +3,17 @@
 
 SCENARIO("When taking well formatted input passed directly from main")
 {
+	using namespace Controll;
 	GIVEN("Filename alone")
 	{
-		CommandList expected = CommandList();
+		ConfigList expected = ConfigList();
 		UserInput input = UserInput();
 
 		std::vector<std::string> args = { "filename", "example.txt" };
 		bool properlyFormatted = input.parse(args);
 		CHECK(properlyFormatted);
 
-		CommandList received = input.generateCommandList();
+		ConfigList received = input.generateConfigList();
 		expected.setFilename("example.txt");
 		bool objectEquality = received == expected;
 		REQUIRE(objectEquality);
@@ -20,14 +21,14 @@ SCENARIO("When taking well formatted input passed directly from main")
 
 	GIVEN("Size and filename")
 	{
-		CommandList expected = CommandList();
+		ConfigList expected = ConfigList();
 		UserInput input = UserInput();
 
 		std::vector<std::string> args = { "size", "55", "55", "filename", "example.txt" };
 		bool properlyFormatted = input.parse(args);
 		CHECK(properlyFormatted);
 
-		CommandList received = input.generateCommandList();
+		ConfigList received = input.generateConfigList();
 		expected.setSize(55.0f, 55.0f);
 		expected.setFilename("example.txt");
 		bool objectEquality = received == expected;
@@ -36,14 +37,14 @@ SCENARIO("When taking well formatted input passed directly from main")
 
 	GIVEN("Depth and filename")
 	{
-		CommandList expected = CommandList();
+		ConfigList expected = ConfigList();
 		UserInput input = UserInput();
 
 		std::vector<std::string> args = { "maxdepth", "0", "filename", "example.txt" };
 		bool properlyFormatted = input.parse(args);
 		CHECK(properlyFormatted);
 
-		CommandList received = input.generateCommandList();
+		ConfigList received = input.generateConfigList();
 		expected.setDepth(0.0f);
 		expected.setFilename("example.txt");
 		bool objectEquality = received == expected;
@@ -52,14 +53,14 @@ SCENARIO("When taking well formatted input passed directly from main")
 
 	GIVEN("Size and depth and filename")
 	{
-		CommandList expected = CommandList();
+		ConfigList expected = ConfigList();
 		UserInput input = UserInput();
 
 		std::vector<std::string> args = { "filename", "example.txt", "maxdepth", "0", "size", "55", "55" };
 		bool properlyFormatted = input.parse(args);
 		CHECK(properlyFormatted);
 
-		CommandList received = input.generateCommandList();
+		ConfigList received = input.generateConfigList();
 		expected.setSize(55.0f, 55.0f);
 		expected.setDepth(0.0f);
 		expected.setFilename("example.txt");
@@ -69,14 +70,14 @@ SCENARIO("When taking well formatted input passed directly from main")
 
 	GIVEN("Just filename and a bunch of junk")
 	{
-		CommandList expected = CommandList();
+		ConfigList expected = ConfigList();
 		UserInput input = UserInput();
 
 		std::vector<std::string> args = { "size", "foo", "5454134914", "0x00", "filename", "example.txt", "bar", "length", "100", "width", "100", "qwertyuiop!!", "^[a-zA-Z]" };
 		bool properlyFormatted = input.parse(args);
 		CHECK(properlyFormatted);
 
-		CommandList received = input.generateCommandList();
+		ConfigList received = input.generateConfigList();
 		expected.setFilename("example.txt");
 		bool objectEquality = received == expected;
 		REQUIRE(objectEquality);
@@ -85,6 +86,7 @@ SCENARIO("When taking well formatted input passed directly from main")
 
 SCENARIO("When taking malformed input directly from main")
 {
+	using namespace Controll;
 	GIVEN("Just depth")
 	{
 		UserInput input = UserInput();

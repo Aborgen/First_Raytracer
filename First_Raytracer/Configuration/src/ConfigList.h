@@ -5,10 +5,10 @@
 
 namespace Controll
 {
-	class CommandList
+	class ConfigList
 	{
 	public:
-		bool operator==(const CommandList &other);
+		bool operator==(const ConfigList &other);
 
 		std::pair<float, float> getSize();
 		void setSize(float height, float width);
