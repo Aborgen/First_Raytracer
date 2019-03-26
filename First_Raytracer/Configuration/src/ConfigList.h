@@ -1,3 +1,5 @@
+#ifndef CONFIGLIST_H
+#define CONFIGLIST_H
 #pragma once
 
 #include <list>
@@ -23,3 +25,5 @@ namespace Controll
 		std::string filename;
 	};
 }
+
+#endif // !CONFIGLIST_H

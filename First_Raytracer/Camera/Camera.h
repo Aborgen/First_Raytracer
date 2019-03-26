@@ -1,3 +1,5 @@
+#ifndef CAMERA_H
+#define CAMERA_H
 #pragma once
 
 #include "../Utils/Vec3.h"
@@ -18,3 +20,5 @@ namespace Visual
 		initCoordinateFrame();
 	};
 }
+
+#endif // !CAMERA_H

@@ -1,3 +1,5 @@
+#ifndef OPERATIONS_H
+#define OPERATIONS_H
 #pragma once
 
 #include "Vec3.h"
@@ -16,3 +18,5 @@ namespace Utils
 
 	};
 }
+
+#endif // !OPERATIONS_H

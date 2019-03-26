@@ -1,3 +1,5 @@
+#ifndef VEC3_H
+#define VEC3_H
 #pragma once
 
 #include "Coordinates.h"
@@ -15,3 +17,5 @@ namespace Utils
 		bool operator-(const Vec3 &other);
 	}
 }
+
+#endif // !VEC3_H

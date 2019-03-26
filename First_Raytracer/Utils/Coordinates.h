@@ -1,3 +1,5 @@
+#ifndef COORDINATES_H
+#define COORDINATES_H
 #pragma once
 
 namespace Utils
@@ -19,3 +21,5 @@ namespace Utils
 		float z;
 	};
 }
+
+#endif // !COORDINATES_H

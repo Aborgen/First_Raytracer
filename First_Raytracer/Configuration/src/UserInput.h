@@ -1,4 +1,6 @@
 #pragma once
+#ifndef USERINPUT_H
+#define USERINPUT_H
 
 #include <array>
 #include <map>
@@ -31,3 +33,5 @@ namespace Controll
 		bool validateFilename(std::string filename);
 	};
 }
+
+#endif // !USERINPUT_H
