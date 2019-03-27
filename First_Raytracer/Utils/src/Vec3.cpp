@@ -11,9 +11,9 @@ namespace Utils
 		this->z = z;
 	}
 
-	int Vec3::length()
+	double Vec3::length()
 	{
-		return (int) sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
+		return sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
 	}
 
 	bool Vec3::operator==(const Vec3 &other)

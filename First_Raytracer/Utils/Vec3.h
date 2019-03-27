@@ -10,7 +10,7 @@ namespace Utils
 	{
 	public:
 		Vec3(float x, float y, float z);
-		int length();
+		double length();
 		bool operator==(const Vec3 &other);
 		bool operator!=(const Vec3 &other);
 		Vec3& operator+=(const Vec3 &other);

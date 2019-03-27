@@ -10,7 +10,7 @@ namespace Utils
 	public:
 		Vector(float x, float y, float z) {};
 		Vector(float x, float y, float z, float w) {};
-		virtual int length() = 0;
+		virtual double length() = 0;
 		virtual bool operator==(const T &other) = 0;
 		virtual bool operator!=(const T &other) = 0;
 		virtual T& operator+=(const T &other) = 0;
