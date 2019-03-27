@@ -1,11 +1,13 @@
+#define _USE_MATH_DEFINES
 #include <cmath>
+#include <exception>
 
 #include "../Operations.h"
 
 
 namespace Utils
 {
-	Vec3 Operations::cross(const Vec3 &one, const Vec3 &two)
+	Vec3 Operations::cross(Vec3 &one, Vec3 &two)
 	{
 		float oneX = one.getX();
 		float oneY = one.getY();
@@ -22,7 +24,7 @@ namespace Utils
 	}
 
 
-	float Operations::dot(const Vec3 &one, const Vec3 &two)
+	float Operations::dot(Vec3 &one, Vec3 &two)
 	{
 		float sumOfProducts = (
 			(one.getX() * two.getX()) + 
@@ -33,23 +35,23 @@ namespace Utils
 		return sumOfProducts;
 	}
 
-	Vec3 Operations::normalize(const Vec3 &vector)
+	Vec3 Operations::normalize(Vec3 &vector)
 	{
-		int length = vector.length();
+		double length = vector.length();
 		if (length <= 0)
 		{
 			throw std::exception("A vector with a length of 0 cannot be normalized");
 		}
 
-		float normX = vector.getX() / length;
-		float normY = vector.getY() / length;
-		float normZ = vector.getZ() / length;
+		float normX = (float) (vector.getX() / length);
+		float normY = (float)(vector.getY() / length);
+		float normZ = (float)(vector.getZ() / length);
 		return Vec3(normX, normY, normZ);
 	}
 
 	float Operations::toRadians(float degrees)
 	{
-		float halfCircle = M_PI / 180;
+		float halfCircle = (float) (M_PI / 180);
 		return degrees * halfCircle;
 	}
 }

@@ -9,13 +9,13 @@ namespace Utils
 	class Operations
 	{
 	public:
-		Vec3 cross(const Vec3 &one, const Vec3 &two);
-		float dot(const Vec3 &one, const Vec3 &two);
-		Vec3 normalize(const Vec3 &vector);
-		float toRadians(float degrees);
+		static Vec3 cross(Vec3 &one, Vec3 &two);
+		static float dot(Vec3 &one, Vec3 &two);
+		static Vec3 normalize(Vec3 &vector);
+		static float toRadians(float degrees);
 
 	private:
-
+		Operations() {}
 	};
 }
 
