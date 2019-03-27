@@ -2,21 +2,33 @@
 #define VECTOR_H
 #pragma once
 
-#include "Coordinates.h"
-
 namespace Utils
 {
-	class Vector : public Coordinates
+	template <class T>
+	class Vector
 	{
 	public:
-		int length();
-		operator==(const Vector &other);
-		operator!=(const Vector &other);
-		operator+(const Vector &other);
-		operator-(const Vector &other);
+		Vector(float x, float y, float z) {};
+		Vector(float x, float y, float z, float w) {};
+		virtual int length() = 0;
+		virtual bool operator==(const T &other) = 0;
+		virtual bool operator!=(const T &other) = 0;
+		virtual T& operator+=(const T &other) = 0;
+		virtual T operator+(const T &other) = 0;
+		virtual T& operator-=(const T &other) = 0;
+		virtual T operator-(const T &other) = 0;
+		float getX() { return x; }
+		void setX(float x) { this->x = x; }
+		float getY() { return y; }
+		void setY(float y) { this->y = y; }
+		float getZ() { return z; }
+		void setZ(float z) { this->z = z; }
+		virtual ~Vector() {}
 
-	private:
-
+	protected:
+		float x;
+		float y;
+		float z;
 	};
 }
 

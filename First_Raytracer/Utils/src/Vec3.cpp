@@ -4,7 +4,7 @@
 
 namespace Utils
 {
-	Vec3::Vec3(float x, float y, float z)
+	Vec3::Vec3(float x, float y, float z) : Vector(x, y, z)
 	{
 		this->x = x;
 		this->y = y;
@@ -13,42 +13,50 @@ namespace Utils
 
 	int Vec3::length()
 	{
-		return sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
+		return (int) sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
 	}
 
-	Vec3::operator==(const Vec3 &other)
+	bool Vec3::operator==(const Vec3 &other)
 	{
 		return (
-			this->x == other->getX() &&
-			this->y == other->getY() &&
-			this->z == other->getZ()
+			x == other.x &&
+			y == other.y &&
+			z == other.z
 		);
 	}
 
-	Vec3::operator!=(const Vec3 &other)
+	bool Vec3::operator!=(const Vec3 &other)
 	{
 		return !operator==(other);
 	}
 
-	Vec3::operator+(const Vec3 &other)
+	Vec3& Vec3::operator+=(const Vec3 &other)
 	{
-		Vec3 sum(
-			this->x + other->getX(),
-			this->y + other->getY(),
-			this->z + other->getZ()
-		);
-
-		return sum;
+		x += other.x;
+		y += other.y;
+		z += other.z;
+		return *this;
+	}
+	
+	Vec3 Vec3::operator+(const Vec3 &other)
+	{
+		Vec3 temp(*this);
+		temp += other;
+		return temp;
 	}
 
-	Vec3::operator-(const Vec3 &other)
+	Vec3& Vec3::operator-=(const Vec3 &other)
 	{
-		Vec3 difference(
-			this->x - other->getX(),
-			this->y - other->getY(),
-			this->z - other->getZ()
-		);
+		x -= other.x;
+		y -= other.y;
+		z -= other.z;
+		return *this;
+	}
 
-		return difference;
+	Vec3 Vec3::operator-(const Vec3 &other)
+	{
+		Vec3 temp(*this);
+		temp -= other;
+		return temp;
 	}
 }
