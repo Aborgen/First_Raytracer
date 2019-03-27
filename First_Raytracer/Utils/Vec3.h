@@ -2,19 +2,14 @@
 #define VEC3_H
 #pragma once
 
-#include "Coordinates.h"
+#include "Vector.h"
 
 namespace Utils
 {
-	class Vec3 : public Coordinates
+	class Vec3 : public Vector
 	{
 	public:
-		using Coordinates::Coordinates;
-		int length();
-		bool operator==(const Vec3 &other);
-		bool operator!=(const Vec3 &other);
-		bool operator+(const Vec3 &other);
-		bool operator-(const Vec3 &other);
+		Vec3(float x, float y, float z);
 	}
 }
 

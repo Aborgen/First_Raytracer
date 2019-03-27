@@ -4,6 +4,13 @@
 
 namespace Utils
 {
+	Vec3::Vec3(float x, float y, float z)
+	{
+		this->x = x;
+		this->y = y;
+		this->z = z;
+	}
+
 	int Vec3::length()
 	{
 		return sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
