@@ -2,7 +2,7 @@
 
 #include "../Vec3.h"
 
-SCENARIO("Basic operations between two vectors")
+SCENARIO("Basic operations between two vectors in R^3")
 {
 	using namespace Utils;
 	SECTION("Addition")
