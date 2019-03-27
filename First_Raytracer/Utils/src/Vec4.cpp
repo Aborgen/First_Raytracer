@@ -1,8 +1,10 @@
+#include <cmath>
+
 #include "../Vec4.h"
 
 namespace Utils
 {
-	Vec4::Vec4(float x, float y, float z, float w)
+	Vec4::Vec4(float x, float y, float z, float w) : Vector(x, y, z, w)
 	{
 		this->x = x;
 		this->y = y;
@@ -10,57 +12,65 @@ namespace Utils
 		this->w = w;
 	}
 
-	Vec4::getW()
+	float Vec4::getW()
 	{
 		return w;
 	}
 
-	Vec4::setW(float w)
+	void Vec4::setW(float w)
 	{
 		this->w = w;
 	}
 
-	int Vec4::length()
+	double Vec4::length()
 	{
 		return sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2) + pow(this->z, 2));
 	}
 
-	Vec4::operator==(const Vec4 &other)
+	bool Vec4::operator==(const Vec4 &other)
 	{
 		return (
-			this->x == other->getX() &&
-			this->y == other->getY() &&
-			this->z == other->getZ() &&
-			this->w == other->getW() &&
-			);
+			x == other.x &&
+			y == other.y &&
+			z == other.z &&
+			w == other.w
+		);
 	}
 
-	Vec4::operator!=(const Vec4 &other)
+	bool Vec4::operator!=(const Vec4 &other)
 	{
 		return !operator==(other);
 	}
 
-	Vec4::operator+(const Vec4 &other)
+	Vec4& Vec4::operator+=(const Vec4 &other)
 	{
-		Vec4 sum(
-			this->x + other->getX(),
-			this->y + other->getY(),
-			this->z + other->getZ(),
-			this->w + other->getW()
-		);
-
-		return sum;
+		x += other.x;
+		y += other.y;
+		z += other.z;
+		w += other.w;
+		return *this;
 	}
 
-	Vec4::operator-(const Vec4 &other)
+	Vec4 Vec4::operator+(const Vec4 &other)
 	{
-		Vec4 difference(
-			this->x - other->getX(),
-			this->y - other->getY(),
-			this->z - other->getZ(),
-			this->w - other->getW()
-		);
+		Vec4 temp(*this);
+		temp += other;
+		return temp;
+	}
 
-		return difference;
+	Vec4& Vec4::operator-=(const Vec4 &other)
+	{
+		x -= other.x;
+		y -= other.y;
+		z -= other.z;
+		w -= other.w;
+		return *this;
+	}
+
+	Vec4 Vec4::operator-(const Vec4 &other)
+	{
+		Vec4 temp(*this);
+		temp -= other;
+		return temp;
 	}
 }
