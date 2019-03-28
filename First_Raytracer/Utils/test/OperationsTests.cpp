@@ -31,15 +31,15 @@ SCENARIO("When vectors given are acceptable (in R^3)")
 	SECTION("Normalization of a vector")
 	{
 		Vec3 vector(2.0f, 4.0f, 6.0f);
-		double expectedLength = 1;
+		Approx expected(1.0f);
 		Vec3 result = Operations::normalize(vector);
-		REQUIRE(expectedLength == result.length());
+		REQUIRE(expected == result.length());
 	}
 
 	SECTION("Convert from degrees to radians")
 	{
 		float degrees = 60.0f;
-		float expected = 1.0472f;
+		Approx expected(1.0472f);
 		float result = Operations::toRadians(degrees);
 		REQUIRE(expected == result);
 	}
