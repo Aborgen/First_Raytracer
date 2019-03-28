@@ -24,7 +24,7 @@ namespace Utils
 
 	double Vec4::length()
 	{
-		return sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2) + pow(this->z, 2));
+		return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2) + pow(w, 2));
 	}
 
 	bool Vec4::operator==(const Vec4 &other)
