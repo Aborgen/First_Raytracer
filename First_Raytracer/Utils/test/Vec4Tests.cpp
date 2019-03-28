@@ -54,4 +54,11 @@ SCENARIO("Basic operations between two vectors in R^4")
 		bool objectInequality = first != second;
 		REQUIRE(objectInequality);
 	}
+
+	SECTION("Length")
+	{
+		Vec4 vector(2.0f, 4.0f, 6.0f, 8.0f);
+		Approx expected(10.9545f);
+		REQUIRE(expected == vector.length());
+	}
 }

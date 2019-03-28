@@ -52,4 +52,11 @@ SCENARIO("Basic operations between two vectors in R^3")
 		bool objectInequality = first != second;
 		REQUIRE(objectInequality);
 	}
+
+	SECTION("Length")
+	{
+		Vec3 vector(2.0f, 4.0f, 6.0f);
+		Approx expected(7.4833f);
+		REQUIRE(expected == vector.length());
+	}
 }
