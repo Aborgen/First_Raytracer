@@ -45,6 +45,29 @@ SCENARIO("When vectors given are acceptable (in R^3)")
 	}
 }
 
+SCENARIO("When vectors given are acceptable (in R^4)")
+{
+	using namespace Utils;
+
+	SECTION("Dot product between two vectors")
+	{
+		Vec4 first(1.0f, 2.0f, 3.0f, 4.0f);
+		Vec4 second(5.0f, 6.0f, 7.0f, 8.0f);
+
+		int expected = 70;
+		float result = Operations::dot(first, second);
+		REQUIRE(expected == result);
+	}
+
+	SECTION("Normalization of a vector")
+	{
+		Vec4 vector(2.0f, 4.0f, 6.0f, 8.0f);
+		Approx expected(1.0f);
+		Vec4 result = Operations::normalize(vector);
+		REQUIRE(expected == result.length());
+	}
+}
+
 SCENARIO("Operations on a 3x3 matrix")
 {
 	using namespace Utils;
@@ -63,6 +86,31 @@ SCENARIO("Operations on a 3x3 matrix")
 		);
 
 		Mat3 result = Operations::transpose(matrix);
+		bool objectEquality = expected == result;
+		REQUIRE(objectEquality);
+	}
+}
+
+SCENARIO("Operations on a 4x4 matrix")
+{
+	using namespace Utils;
+	SECTION("Transposition")
+	{
+		Mat4 matrix(
+			5.0f, 4.0f, 3.0f, 2.0f,
+			6.0f, 3.0f, 2.0f, 1.0f,
+			7.0f, 2.0f, 1.0f, 0.0f,
+			8.0f, 1.0f, 0.0f, -1.0f
+		);
+
+		Mat4 expected(
+			5.0f, 6.0f, 7.0f,  8.0f,
+			4.0f, 3.0f, 2.0f,  1.0f,
+			3.0f, 2.0f, 1.0f,  0.0f,
+			2.0f, 1.0f, 0.0f, -1.0f
+		);
+
+		Mat4 result = Operations::transpose(matrix);
 		bool objectEquality = expected == result;
 		REQUIRE(objectEquality);
 	}
