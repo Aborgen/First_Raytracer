@@ -175,6 +175,7 @@
     <ClInclude Include="Configuration\src\UserInput.h" />
     <ClInclude Include="include\catch.hpp" />
     <ClInclude Include="Utils\Mat3.h" />
+    <ClInclude Include="Utils\Mat4.h" />
     <ClInclude Include="Utils\Matrix.h" />
     <ClInclude Include="Utils\Operations.h" />
     <ClInclude Include="Utils\Vec3.h" />
@@ -199,10 +200,12 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Utils\src\Mat3.cpp" />
+    <ClCompile Include="Utils\src\Mat4.cpp" />
     <ClCompile Include="Utils\src\Operations.cpp" />
     <ClCompile Include="Utils\src\Vec3.cpp" />
     <ClCompile Include="Utils\src\Vec4.cpp" />
     <ClCompile Include="Utils\test\Mat3Tests.cpp" />
+    <ClCompile Include="Utils\test\Mat4Tests.cpp" />
     <ClCompile Include="Utils\test\OperationsTests.cpp" />
     <ClCompile Include="Utils\test\Vec3Tests.cpp" />
     <ClCompile Include="Utils\test\Vec4Tests.cpp" />
