@@ -44,3 +44,26 @@ SCENARIO("When vectors given are acceptable (in R^3)")
 		REQUIRE(expected == result);
 	}
 }
+
+SCENARIO("Operations on a 3x3 matrix")
+{
+	using namespace Utils;
+	SECTION("Transposition")
+	{
+		Mat3 matrix(
+			5.0f, 4.0f, 3.0f,
+			6.0f, 3.0f, 2.0f,
+			7.0f, 2.0f, 1.0f
+		);
+
+		Mat3 expected(
+			5.0f, 6.0f, 7.0f,
+			4.0f, 3.0f, 2.0f,
+			3.0f, 2.0f, 1.0f
+		);
+
+		Mat3 result = Operations::transpose(matrix);
+		bool objectEquality = expected == result;
+		REQUIRE(objectEquality);
+	}
+}

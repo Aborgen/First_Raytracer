@@ -54,4 +54,25 @@ namespace Utils
 		float halfCircle = (float) (M_PI / 180);
 		return degrees * halfCircle;
 	}
+
+	Mat3 Operations::transpose(Mat3 matrix)
+	{
+		float ra0 = matrix[0][0];
+		float ra1 = matrix[1][0];
+		float ra2 = matrix[2][0];
+
+		float rb0 = matrix[0][1];
+		float rb1 = matrix[1][1];
+		float rb2 = matrix[2][1];
+
+		float rc0 = matrix[0][2];
+		float rc1 = matrix[1][2];
+		float rc2 = matrix[2][2];
+
+		return Mat3(
+			ra0, ra1, ra2,
+			rb0, rb1, rb2,
+			rc0, rc1, rc2
+		);
+	}
 }
