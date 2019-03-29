@@ -2,6 +2,7 @@
 #define CAMERA_H
 #pragma once
 
+#include "../Utils/Mat4.h"
 #include "../Utils/Vec3.h"
 
 namespace Visual
@@ -16,8 +17,9 @@ namespace Visual
 		Utils::Vec3 eye;
 		Utils::Vec3 center;
 		Utils::Vec3 up;
+		Utils::Mat4 coordinateFrame;
 		float fovy;
-		initCoordinateFrame();
+		void initCoordinateFrame();
 	};
 }
 

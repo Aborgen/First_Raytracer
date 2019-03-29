@@ -18,14 +18,11 @@ namespace Visual
 		Vec3 w = Operations::normalize(eye - center);
 		Vec3 u = Operations::normalize(Operations::cross(up, w));
 		Vec3 v = Operations::cross(w, u);
-		//mat4 transformationMatrix(
-		//	u.x,  u.y,  u.z,  -glm::dot(u, eye),
-		//	v.x,  v.y,  v.z,  -glm::dot(v, eye),
-		//	w.x,  w.y,  w.z,  -glm::dot(w, eye),
-		//	0.0f, 0.0f, 0.0f, 1.0f
-		//);
-
-		//transformationMatrix = glm::transpose(transformationMatrix);
-		//return transformationMatrix;
+		coordinateFrame(
+			u.getX(), u.getY(), u.getZ(), -Operations::dot(u, eye),
+			v.getX(), v.getY(), v.getZ(), -Operations::dot(v, eye),
+			w.getX(), w.getY(), w.getZ(), -Operations::dot(w, eye),
+			0.0f, 0.0f, 0.0f, 1.0f
+		);
 	}
 }
