@@ -5,7 +5,6 @@
 #include <array>
 
 #include "Matrix.h"
-#include "Vec3.h"
 
 namespace Utils
 {

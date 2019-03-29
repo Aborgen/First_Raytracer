@@ -1,5 +1,6 @@
 #include "../Mat3.h"
 #include "../Operations.h"
+#include "../Vec3.h"
 
 namespace Utils
 {
