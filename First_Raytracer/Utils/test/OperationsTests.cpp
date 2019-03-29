@@ -23,7 +23,7 @@ SCENARIO("When vectors given are acceptable (in R^3)")
 		Vec3 first(1.0f, 2.0f, 3.0f);
 		Vec3 second(4.0f, 5.0f, 6.0f);
 
-		int expected = 32;
+		Approx expected(32);
 		float result = Operations::dot(first, second);
 		REQUIRE(expected == result);
 	}
@@ -54,7 +54,7 @@ SCENARIO("When vectors given are acceptable (in R^4)")
 		Vec4 first(1.0f, 2.0f, 3.0f, 4.0f);
 		Vec4 second(5.0f, 6.0f, 7.0f, 8.0f);
 
-		int expected = 70;
+		Approx expected(70);
 		float result = Operations::dot(first, second);
 		REQUIRE(expected == result);
 	}
