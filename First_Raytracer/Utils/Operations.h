@@ -20,6 +20,7 @@ namespace Utils
 		static float toRadians(float degrees);
 		static Mat3 transpose(Mat3 matrix);
 		static Mat4 transpose(Mat4 matrix);
+		static Mat3 outerProduct(Vec3 &one, Vec3 &two);
 
 	private:
 		Operations() {}

@@ -26,10 +26,10 @@ namespace Utils
 	float Operations::dot(Vec3 &one, Vec3 &two)
 	{
 		float sumOfProducts = (
-			(one.getX() * two.getX()) + 
-			(one.getY() * two.getY()) + 
+			(one.getX() * two.getX()) +
+			(one.getY() * two.getY()) +
 			(one.getZ() * two.getZ())
-		);
+			);
 
 		return sumOfProducts;
 	}
@@ -37,11 +37,11 @@ namespace Utils
 	float Operations::dot(Vec4 &one, Vec4 &two)
 	{
 		float sumOfProducts = (
-			(one.getX() * two.getX()) + 
-			(one.getY() * two.getY()) + 
+			(one.getX() * two.getX()) +
+			(one.getY() * two.getY()) +
 			(one.getZ() * two.getZ()) +
 			(one.getW() * two.getW())
-		);
+			);
 
 		return sumOfProducts;
 	}
@@ -54,7 +54,7 @@ namespace Utils
 			throw std::exception("A vector with a length of 0 cannot be normalized");
 		}
 
-		float normX = (float) (vector.getX() / length);
+		float normX = (float)(vector.getX() / length);
 		float normY = (float)(vector.getY() / length);
 		float normZ = (float)(vector.getZ() / length);
 		return Vec3(normX, normY, normZ);
@@ -68,7 +68,7 @@ namespace Utils
 			throw std::exception("A vector with a length of 0 cannot be normalized");
 		}
 
-		float normX = (float) (vector.getX() / length);
+		float normX = (float)(vector.getX() / length);
 		float normY = (float)(vector.getY() / length);
 		float normZ = (float)(vector.getZ() / length);
 		float normW = (float)(vector.getW() / length);
@@ -77,7 +77,7 @@ namespace Utils
 
 	float Operations::toRadians(float degrees)
 	{
-		float halfCircle = (float) (M_PI / 180);
+		float halfCircle = (float)(M_PI / 180);
 		return degrees * halfCircle;
 	}
 
@@ -130,6 +130,21 @@ namespace Utils
 			rc0, rc1, rc2, rc3,
 			rd0, rd1, rd2, rd3
 
+		);
+	}
+
+	Mat3 Operations::outerProduct(Vec3 &one, Vec3 &two)
+	{
+		float xScalar = one.getX();
+		float yScalar = one.getY();
+		float zScalar = one.getZ();
+		Vec3 rowOne = two * xScalar;
+		Vec3 rowTwo = two * yScalar;
+		Vec3 rowThree = two * zScalar;
+		return Mat3(
+			rowOne.getX(),   rowOne.getY(),   rowOne.getZ(),
+			rowTwo.getX(),   rowTwo.getY(),   rowTwo.getZ(),
+			rowThree.getX(), rowThree.getY(), rowThree.getZ()
 		);
 	}
 }
