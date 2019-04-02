@@ -37,6 +37,22 @@ SCENARIO("Basic operations between two vectors in R^3")
 		);
 	}
 
+	SECTION("Multiplication")
+	{
+		Vec3 expected(8.14f, 0.0f, -8.954);
+
+		Vec3 vector(2.0f, 0.0f, -2.2f);
+		float scalar = 4.07f;
+		Vec3 result = scalar * vector;
+		REQUIRE(
+			(
+				Approx(expected.getX()) == result.getX() &&
+				Approx(expected.getY()) == result.getY() &&
+				Approx(expected.getZ()) == result.getZ()
+			)
+		);
+	}
+
 	SECTION("Equality")
 	{
 		Vec3 first(1.5f, 1.0f, 2.0f);

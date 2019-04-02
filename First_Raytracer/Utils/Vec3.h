@@ -17,7 +17,11 @@ namespace Utils
 		Vec3 operator+(const Vec3 &other);
 		Vec3& operator-=(const Vec3 &other);
 		Vec3 operator-(const Vec3 &other);
+		Vec3& operator*=(float scalar);
+		Vec3 operator*(float scalar) const;
 	};
+
+	Vec3 operator*(float scalar, const Vec3 &vector);
 }
 
 #endif // !VEC3_H

@@ -22,7 +22,7 @@ namespace Utils
 			x == other.x &&
 			y == other.y &&
 			z == other.z
-		);
+			);
 	}
 
 	bool Vec3::operator!=(const Vec3 &other)
@@ -37,7 +37,7 @@ namespace Utils
 		z += other.z;
 		return *this;
 	}
-	
+
 	Vec3 Vec3::operator+(const Vec3 &other)
 	{
 		Vec3 temp(*this);
@@ -58,5 +58,25 @@ namespace Utils
 		Vec3 temp(*this);
 		temp -= other;
 		return temp;
+	}
+
+	Vec3& Vec3::operator*=(float scalar)
+	{
+		this->x *= scalar;
+		this->y *= scalar;
+		this->z *= scalar;
+		return *this;
+	}
+
+	Vec3 Vec3::operator*(float scalar) const
+	{
+		Vec3 temp(*this);
+		temp *= scalar;
+		return temp;
+	}
+
+	Vec3 operator*(float scalar, const Vec3 &vector)
+	{
+		return vector * scalar;
 	}
 }
