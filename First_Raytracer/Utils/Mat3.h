@@ -25,12 +25,17 @@ namespace Utils
 		Mat3 operator-(const Mat3 &other);
 		Mat3& operator*=(const Mat3 &other);
 		Mat3 operator*(const Mat3 &other);
+		Mat3& operator*=(float scalar);
+		Mat3 operator*(float scalar) const;
 		std::array<float, 3>& operator[](int idx);
 		std::array<float, 3> operator[](int idx) const;
 
 	private:
 		std::array<std::array<float, 3>, 3> data;
 	};
+
+	Mat3 operator*(float scalar, const Mat3 &matrix);
 }
+
 
 #endif // !MAT3_H

@@ -128,6 +128,30 @@ namespace Utils
 		return temp;
 	}
 
+	Mat3& Mat3::operator*=(float scalar)
+	{
+		data[0][0] *= scalar;
+		data[0][1] *= scalar;
+		data[0][2] *= scalar;
+
+		data[1][0] *= scalar;
+		data[1][1] *= scalar;
+		data[1][2] *= scalar;
+
+		data[2][0] *= scalar;
+		data[2][1] *= scalar;
+		data[2][2] *= scalar;
+
+		return *this;
+	}
+
+	Mat3 Mat3::operator*(float scalar) const
+	{
+		Mat3 temp(*this);
+		temp *= scalar;
+		return temp;
+	}
+
 	std::array<float, 3>& Mat3::operator[](int idx)
 	{
 		if (idx >= data.size())
@@ -146,5 +170,10 @@ namespace Utils
 		}
 
 		return data[idx];
+	}
+
+	Mat3 operator*(float scalar, const Mat3 &matrix)
+	{
+		return matrix * scalar;
 	}
 }

@@ -82,7 +82,7 @@ SCENARIO("Basic operations between two 3x3 matrices")
 		);
 	}
 
-	SECTION("Multiplication")
+	SECTION("Multiplication between two matrices")
 	{
 		Mat3 first(
 			2.0f, 0.0f, 0.0f,
@@ -104,6 +104,40 @@ SCENARIO("Basic operations between two 3x3 matrices")
 
 		Mat3 result = first * second;
 
+		REQUIRE(
+			(
+				Approx(expected[0][0]) == result[0][0] &&
+				Approx(expected[0][1]) == result[0][1] &&
+				Approx(expected[0][2]) == result[0][2] &&
+
+				Approx(expected[1][0]) == result[1][0] &&
+				Approx(expected[1][1]) == result[1][1] &&
+				Approx(expected[1][2]) == result[1][2] &&
+
+				Approx(expected[2][0]) == result[2][0] &&
+				Approx(expected[2][1]) == result[2][1] &&
+				Approx(expected[2][2]) == result[2][2]
+			)
+		);
+	}
+
+	SECTION("Multiplication with a scalar")
+	{
+		Mat3 matrix(
+			1.0f, 0.0f, 25.0f,
+			0.4f, 1.0f, 2.0f,
+			0.0f, -1.0f, 1.0f
+		);
+
+		float scalar = 3.14;
+
+		Mat3 expected(
+			3.14f, 0.0f, 78.5f,
+			1.256, 3.14f, 6.28f,
+			0.0f, -3.14f, 3.14f
+		);
+
+		Mat3 result = scalar * matrix;
 		REQUIRE(
 			(
 				Approx(expected[0][0]) == result[0][0] &&
