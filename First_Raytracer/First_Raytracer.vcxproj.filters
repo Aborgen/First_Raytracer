@@ -45,6 +45,9 @@
     <ClInclude Include="Utils\Mat4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Transformations\Transformations.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -90,6 +93,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Utils\test\Mat4Tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Transformations\src\Transformations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Transformations\test\TransformationsTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
