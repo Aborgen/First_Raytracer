@@ -5,7 +5,7 @@
 #include "../Utils/Mat4.h"
 #include "../Utils/Vec3.h"
 
-namespace Visual
+namespace Processing
 {
 	class Camera
 	{
