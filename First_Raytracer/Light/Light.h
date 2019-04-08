@@ -2,8 +2,8 @@
 #define LIGHT_H
 #pragma once
 
-#include "../../Utils/ColorTriad.h"
-#include "../../Utils/Vec3.h"
+#include "../Utils/ColorTriad.h"
+#include "../Utils/Vec3.h"
 
 namespace Processing
 {
