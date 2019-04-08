@@ -2,7 +2,7 @@
 #define MATERIALPROPS_H
 #pragma once
 
-#include "../../Utils/ColorTriad.h"
+#include "../Utils/ColorTriad.h"
 
 namespace Processing
 {
