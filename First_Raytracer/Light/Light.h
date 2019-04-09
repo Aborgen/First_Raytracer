@@ -10,10 +10,10 @@ namespace Processing
 	class Light
 	{
 	public:
-		virtual Light(float x, float y, float z, float r, float g, float b) {};
+		Light(float x, float y, float z, float r, float g, float b) {};
 		virtual ~Light() {};
 		virtual Utils::ColorTriad getColor() = 0;
-		virtual void setColor() = 0;
+		virtual void setColor(float x, float y, float z) = 0;
 
 	protected:
 		Utils::ColorTriad color;
