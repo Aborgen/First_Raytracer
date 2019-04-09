@@ -50,8 +50,10 @@ namespace IO
 		ValidCommands commandMapping(std::string str);
 		std::optional<float> stringToFloat(std::string str);
 		bool validateFilename(std::string filename);
-		void parseColor(const std::vector<std::string>& args, float & r, float & g, float & b);
-		void parseLight(const std::vector<std::string>& args, float & x, float & y, float & z, float & r, float & g, float & b);
+		void rightMultiply(const Utils::Mat4 &M, std::stack<Utils::Mat4>& transformStack);
+		void parseColor(const std::vector<std::string>& args, float &r, float &g, float &b);
+		void parseLight(const std::vector<std::string>& args, float &x, float &y, float &z, float &r, float &g, float &b);
+		void parseVector(const std::vector<std::string>& args, float &x, float &y, float &z);
 		bool hasBeenParsed = false;
 		int lineNumber = 0;
 		bool inTransaction = false;

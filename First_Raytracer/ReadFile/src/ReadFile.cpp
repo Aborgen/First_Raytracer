@@ -9,6 +9,7 @@
 #include "../Light/DirectionalLight.h"
 #include "../Light/PointLight.h"
 #include "../ReadFile.h"
+#include "../Utils/Mat4.h"
 
 namespace IO
 {
@@ -42,6 +43,7 @@ namespace IO
 	bool ReadFile::parse()
 	{
 		using namespace Processing;
+		using namespace Utils;
 		std::string line;
 		std::ifstream file(filename);
 		if (!file.is_open()) {
@@ -116,13 +118,47 @@ namespace IO
 					break;
 				}
 				case ValidCommands::POP_TRANSFORM:
+					// This is usually called after transforming an object relative to the camera position.
+					// Will "reset" the transformation stack to the original camera position, ready to transform the next object.
+					instructions.popTransform();
 					break;
 				case ValidCommands::PUSH_TRANSFORM:
+					// Add a copy of the top transformation matrix to the stack, which will be manipulated in some way.
+					instructions.copyTransform();
 					break;
 				case ValidCommands::ROTATE:
+				{
+					float x = 0.0f, float y = 0.0f, float z = 0.0f, float degrees = 0.0f;
+					parseVector(args, x, y, z);
+					if (args.size() == 4) {
+						std::optional<float> optDegrees = stringToFloat(args[3]);
+						if (optDegrees.has_value()) {
+							degrees = optDegrees.value();
+						}
+					}
+
+					Vec3 axis(x, y, z);
+					Mat3 matrix = Transformations::rotate(degrees, axis);
+					Mat4 rotationMatrix(
+						matrix[0][0], matrix[0][1], matrix[0][2], 0.0f,
+						matrix[1][0], matrix[1][1], matrix[1][2], 0.0f,
+						matrix[2][0], matrix[2][1], matrix[2][2], 0.0f,
+						0.0f, 0.0f, 0.0f, 1.0f
+					);
+
+					std::stack<Mat4> &transformStack = instructions.getTransforms();
+					rightMultiply(rotationMatrix, transformStack);
 					break;
+				}
 				case ValidCommands::SCALE:
+				{
+					float x = 0.0f, float y = 0.0f, float z = 0.0f;
+					parseVector(args, x, y, z);
+					Mat4 scaleMatrix = Transformations::scale(x, y, z);
+					std::stack<Mat4> &transformStack = instructions.getTransforms();
+					rightMultiply(scaleMatrix, transformStack);
 					break;
+				}
 				case ValidCommands::SHININESS:
 				{
 					std::optional<float> optIntensity = stringToFloat(args[0]);
@@ -148,7 +184,14 @@ namespace IO
 				case ValidCommands::SPHERE:
 					break;
 				case ValidCommands::TRANSLATE:
+				{
+					float x = 0.0f, float y = 0.0f, float z = 0.0f;
+					parseVector(args, x, y, z);
+					Mat4 translationMatrix = Transformations::translate(x, y, z);
+					std::stack<Mat4> &transformStack = instructions.getTransforms();
+					rightMultiply(translationMatrix, transformStack);
 					break;
+				}
 				case ValidCommands::TRIANGLE:
 					break;
 				case ValidCommands::TRIANGLE_NORMAL:
@@ -189,11 +232,34 @@ namespace IO
 			b = optB.value();
 		}
 	}
+	
+	void ReadFile::parseColor(const std::vector<std::string> &args, float &r, float &g, float &b)
+	{
+		if (args.size() < 3) {
+			std::string message = "Line must be a command followed by 3 arguments (" + filename + " line " + std::to_string(lineNumber) + ")";
+			throw new std::exception(message.c_str());
+		}
+
+		std::optional<float> optR = stringToFloat(args[0]);
+		std::optional<float> optG = stringToFloat(args[1]);
+		std::optional<float> optB = stringToFloat(args[2]);
+		if (optR.has_value()) {
+			r = optR.value();
+		}
+
+		if (optG.has_value()) {
+			g = optG.value();
+		}
+
+		if (optB.has_value()) {
+			b = optB.value();
+		}
+	}
 
 	void ReadFile::parseLight(const std::vector<std::string> &args,
 							  float &x, float &y, float &z, float &r, float &g, float &b)
 	{
-		if (args.size() != 6) {
+		if (args.size() < 6) {
 			std::string message = "Line is incorrectly formatted (" + filename + " line " + std::to_string(lineNumber) + ")";;
 			throw new std::exception(message.c_str());
 		}
@@ -230,6 +296,11 @@ namespace IO
 		}
 	}
 
+	void ReadFile::parseVector(const std::vector<std::string> &args, float &x, float &y, float &z)
+	{
+		parseColor(args, x, y, z);
+	}
+
 	Processing::InstructionList ReadFile::generateInstructions()
 	{
 		return Processing::InstructionList();
@@ -252,6 +323,12 @@ namespace IO
 	{
 		std::regex pattern("[A-Za-z0-9_- ]+.test");
 		return std::regex_match(str, pattern);
+	}
+
+	void ReadFile::rightMultiply(const Utils::Mat4 &M, std::stack<Utils::Mat4> &transformStack)
+	{
+		Utils::Mat4 &T = transformStack.top();
+		T = T * M;
 	}
 
 	ReadFile::ValidCommands ReadFile::commandMapping(std::string str)
