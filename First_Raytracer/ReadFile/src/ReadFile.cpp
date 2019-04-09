@@ -4,7 +4,7 @@
 #include <sstream>
 #include <vector>
 
-#include "ConfigList.h"
+#include "InstructionList.h"
 #include "../../Transformations/Transformations.h"
 #include "../ReadFile.h"
 
@@ -39,13 +39,14 @@ namespace IO
 
 	bool ReadFile::parse()
 	{
+		using namespace Processing;
 		std::string line;
 		std::ifstream file(filename);
 		if (!file.is_open()) {
 			std::cout << "File with name of" << filename << "cannot be opened or does not exist";
 		}
 
-		ConfigList configList();
+		InstructionList instructions = InstructionList();
 		while (std::getline(file, line)) {
 			bool hasSpace = std::find_if(line.begin(), line.end(), ::isspace) != line.end();
 			// Skips the line if it is empty or if it is a comment.
@@ -65,10 +66,22 @@ namespace IO
 				case ValidCommands::CAMERA:
 					break;
 				case ValidCommands::DIFFUSE:
+					float r = 0.0f, g = 0.0f, b = 0.0f;
+					parseColor(args, r, g, b);
+
+					MaterialProps newProps = instructions.popMaterialProps();
+					newProps.setDiffuse(r, g, b);
+					instructions.pushMaterialProps(newProps);
 					break;
 				case ValidCommands::DIRECTIONAL_LIGHT:
 					break;
 				case ValidCommands::EMISSION:
+					float r = 0.0f, g = 0.0f, b = 0.0f;
+					parseColor(args, r, g, b);
+
+					MaterialProps newProps = instructions.popMaterialProps();
+					newProps.setEmission(r, g, b);
+					instructions.pushMaterialProps(newProps);
 					break;
 				case ValidCommands::MAX_DEPTH:
 					break;
@@ -89,10 +102,22 @@ namespace IO
 				case ValidCommands::SCALE:
 					break;
 				case ValidCommands::SHININESS:
+					std::optional<float> optIntensity = stringToFloat(args[0]);
+					float intensity = optIntensity.has_value() ? optIntensity.value() : 0.0f;
+
+					MaterialProps newProps = instructions.popMaterialProps();
+					newProps.setShininess(intensity);
+					instructions.pushMaterialProps(newProps);
 					break;
 				case ValidCommands::SIZE:
 					break;
 				case ValidCommands::SPECULAR:
+					float r = 0.0f, g = 0.0f, b = 0.0f;
+					parseColor(args, r, g, b);
+
+					MaterialProps newProps = instructions.popMaterialProps();
+					newProps.setSpecular(r, g, b);
+					instructions.pushMaterialProps(newProps);
 					break;
 				case ValidCommands::SPHERE:
 					break;
@@ -116,9 +141,31 @@ namespace IO
 		return true;
 	}
 
-	ConfigList ReadFile::generateConfigList()
+	void ReadFile::parseColor(const std::vector<std::string> &args, float &r, float &g, float &b)
 	{
-		return ConfigList();
+		if (args.size() != 3) {
+			throw new std::exception("parseColor currently only works for rgb");
+		}
+
+		std::optional<float> optR = stringToFloat(args[0]);
+		std::optional<float> optG = stringToFloat(args[1]);
+		std::optional<float> optB = stringToFloat(args[2]);
+		if (optR.has_value()) {
+			r = optR.value();
+		}
+
+		if (optG.has_value()) {
+			g = optG.value();
+		}
+
+		if (optB.has_value()) {
+			b = optB.value();
+		}
+	}
+
+	Processing::InstructionList ReadFile::generateInstructions()
+	{
+		return Processing::InstructionList();
 	}
 
 	std::optional<float> ReadFile::stringToFloat(std::string str)

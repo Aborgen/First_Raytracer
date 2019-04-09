@@ -5,7 +5,7 @@
 #include <optional>
 #include <string>
 
-#include "ConfigList.h"
+#include "InstructionList.h"
 
 namespace IO
 {
@@ -14,7 +14,7 @@ namespace IO
 	public:
 		ReadFile(std::string filename);
 		bool parse();
-		ConfigList generateConfigList();
+		Processing::InstructionList generateInstructions();
 
 	private:
 		std::string filename;
@@ -50,7 +50,9 @@ namespace IO
 		ValidCommands commandMapping(std::string str);
 		std::optional<float> stringToFloat(std::string str);
 		bool validateFilename(std::string filename);
+		void parseColor(const std::vector<std::string>& args, float & r, float & g, float & b);
 		bool hasBeenParsed = false;
+		bool inTransaction = false;
 	};
 }
 
