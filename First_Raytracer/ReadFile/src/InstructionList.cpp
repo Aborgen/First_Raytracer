@@ -1,6 +1,6 @@
 #include "InstructionList.h"
 
-namespace IO
+namespace Processing
 {
 	std::stack<MaterialProps> InstructionList::getMaterialProps()
 	{
@@ -19,6 +19,21 @@ namespace IO
 
 	MaterialProps InstructionList::popMaterialProps()
 	{
-		return materialPropStack.pop();
+		return materialPropStack.top();
+	}
+
+	std::stack<LightPtr> InstructionList::getLights()
+	{
+		return lightStack;
+	}
+
+	void InstructionList::pushLight(const Light &light)
+	{
+		lightStack.push(std::make_shared<Light>(light));
+	}
+
+	LightPtr InstructionList::popLight()
+	{
+		return lightStack.top();
 	}
 }
