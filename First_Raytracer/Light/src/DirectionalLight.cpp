@@ -1,8 +1,8 @@
-#include "DirectionalLight.h"
+#include "../DirectionalLight.h"
 
 namespace Processing
 {
-	DirectionalLight::DirectionalLight(float x, float y, float z, float r, float g, float b)
+	DirectionalLight::DirectionalLight(float x, float y, float z, float r, float g, float b) : Light(x, y, z, r, g, b)
 	{
 		setDirection(x, y, z);
 		setColor(r, g, b);
