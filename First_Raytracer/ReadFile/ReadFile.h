@@ -51,7 +51,9 @@ namespace IO
 		std::optional<float> stringToFloat(std::string str);
 		bool validateFilename(std::string filename);
 		void parseColor(const std::vector<std::string>& args, float & r, float & g, float & b);
+		void parseLight(const std::vector<std::string>& args, float & x, float & y, float & z, float & r, float & g, float & b);
 		bool hasBeenParsed = false;
+		int lineNumber = 0;
 		bool inTransaction = false;
 	};
 }

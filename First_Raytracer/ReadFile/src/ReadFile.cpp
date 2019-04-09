@@ -6,6 +6,8 @@
 
 #include "InstructionList.h"
 #include "../../Transformations/Transformations.h"
+#include "../Light/DirectionalLight.h"
+#include "../Light/PointLight.h"
 #include "../ReadFile.h"
 
 namespace IO
@@ -20,7 +22,7 @@ namespace IO
 		this->filename = filename;
 	}
 
-	std::vector<std::string> lineSplit(std::string &line, std::string &command)
+	std::vector<std::string> lineSplit(const std::string &line, std::string &command)
 	{
 		std::stringstream ss(line);
 		std::vector<std::string> args;
@@ -48,6 +50,7 @@ namespace IO
 
 		InstructionList instructions = InstructionList();
 		while (std::getline(file, line)) {
+			lineNumber++;
 			bool hasSpace = std::find_if(line.begin(), line.end(), ::isspace) != line.end();
 			// Skips the line if it is empty or if it is a comment.
 			if (hasSpace || (line[0] == '#')) {
@@ -55,8 +58,7 @@ namespace IO
 			}
 
 			std::string command = "";
-			std::vector<std::string> args;
-			lineSplit(line, command);
+			std::vector<std::string> args = lineSplit(line, command);
 			ValidCommands enumCommand = commandMapping(command);
 			switch (enumCommand) {
 				case ValidCommands::AMBIENT:
@@ -66,6 +68,7 @@ namespace IO
 				case ValidCommands::CAMERA:
 					break;
 				case ValidCommands::DIFFUSE:
+				{
 					float r = 0.0f, g = 0.0f, b = 0.0f;
 					parseColor(args, r, g, b);
 
@@ -73,9 +76,19 @@ namespace IO
 					newProps.setDiffuse(r, g, b);
 					instructions.pushMaterialProps(newProps);
 					break;
+				}
 				case ValidCommands::DIRECTIONAL_LIGHT:
+				{
+					float x = 0.0f, y = 0.0f, z = 0.0f,
+						  r = 0.0f, g = 0.0f, b = 0.0f;
+					parseLight(args, x, y, z, r, g, b);
+
+					DirectionalLight light(x, y, z, r, g, b);
+					instructions.pushLight(light);
 					break;
+				}
 				case ValidCommands::EMISSION:
+				{
 					float r = 0.0f, g = 0.0f, b = 0.0f;
 					parseColor(args, r, g, b);
 
@@ -83,6 +96,7 @@ namespace IO
 					newProps.setEmission(r, g, b);
 					instructions.pushMaterialProps(newProps);
 					break;
+				}
 				case ValidCommands::MAX_DEPTH:
 					break;
 				case ValidCommands::MAX_VERTEX_NORMALS:
@@ -92,7 +106,15 @@ namespace IO
 				case ValidCommands::OUTPUT:
 					break;
 				case ValidCommands::POINT_LIGHT:
+				{
+					float x = 0.0f, y = 0.0f, z = 0.0f,
+						  r = 0.0f, g = 0.0f, b = 0.0f;
+					parseLight(args, x, y, z, r, g, b);
+
+					PointLight light(x, y, z, r, g, b);
+					instructions.pushLight(light);
 					break;
+				}
 				case ValidCommands::POP_TRANSFORM:
 					break;
 				case ValidCommands::PUSH_TRANSFORM:
@@ -102,6 +124,7 @@ namespace IO
 				case ValidCommands::SCALE:
 					break;
 				case ValidCommands::SHININESS:
+				{
 					std::optional<float> optIntensity = stringToFloat(args[0]);
 					float intensity = optIntensity.has_value() ? optIntensity.value() : 0.0f;
 
@@ -109,9 +132,11 @@ namespace IO
 					newProps.setShininess(intensity);
 					instructions.pushMaterialProps(newProps);
 					break;
+				}
 				case ValidCommands::SIZE:
 					break;
 				case ValidCommands::SPECULAR:
+				{
 					float r = 0.0f, g = 0.0f, b = 0.0f;
 					parseColor(args, r, g, b);
 
@@ -119,6 +144,7 @@ namespace IO
 					newProps.setSpecular(r, g, b);
 					instructions.pushMaterialProps(newProps);
 					break;
+				}
 				case ValidCommands::SPHERE:
 					break;
 				case ValidCommands::TRANSLATE:
@@ -144,12 +170,53 @@ namespace IO
 	void ReadFile::parseColor(const std::vector<std::string> &args, float &r, float &g, float &b)
 	{
 		if (args.size() != 3) {
-			throw new std::exception("parseColor currently only works for rgb");
+			std::string message = "parseColor currently only works for rgb (" + filename + " line " + std::to_string(lineNumber) + ")";
+			throw new std::exception(message.c_str());
 		}
 
 		std::optional<float> optR = stringToFloat(args[0]);
 		std::optional<float> optG = stringToFloat(args[1]);
 		std::optional<float> optB = stringToFloat(args[2]);
+		if (optR.has_value()) {
+			r = optR.value();
+		}
+
+		if (optG.has_value()) {
+			g = optG.value();
+		}
+
+		if (optB.has_value()) {
+			b = optB.value();
+		}
+	}
+
+	void ReadFile::parseLight(const std::vector<std::string> &args,
+							  float &x, float &y, float &z, float &r, float &g, float &b)
+	{
+		if (args.size() != 6) {
+			std::string message = "Line is incorrectly formatted (" + filename + " line " + std::to_string(lineNumber) + ")";;
+			throw new std::exception(message.c_str());
+		}
+
+		std::optional<float> optX = stringToFloat(args[0]);
+		std::optional<float> optY = stringToFloat(args[1]);
+		std::optional<float> optZ = stringToFloat(args[2]);
+
+		std::optional<float> optR = stringToFloat(args[3]);
+		std::optional<float> optG = stringToFloat(args[4]);
+		std::optional<float> optB = stringToFloat(args[5]);
+		if (optX.has_value()) {
+			x = optX.value();
+		}
+
+		if (optY.has_value()) {
+			y = optY.value();
+		}
+
+		if (optZ.has_value()) {
+			z = optZ.value();
+		}
+
 		if (optR.has_value()) {
 			r = optR.value();
 		}
