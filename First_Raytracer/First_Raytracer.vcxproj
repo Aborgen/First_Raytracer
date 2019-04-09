@@ -174,8 +174,13 @@
     <ClInclude Include="Configuration\src\ConfigList.h" />
     <ClInclude Include="Configuration\src\UserInput.h" />
     <ClInclude Include="include\catch.hpp" />
+    <ClInclude Include="Light\DirectionalLight.h" />
+    <ClInclude Include="Light\Light.h" />
+    <ClInclude Include="Light\PointLight.h" />
     <ClInclude Include="ReadFile\ReadFile.h" />
+    <ClInclude Include="ReadFile\src\InstructionList.h" />
     <ClInclude Include="Transformations\Transformations.h" />
+    <ClInclude Include="Utils\ColorTriad.h" />
     <ClInclude Include="Utils\Mat3.h" />
     <ClInclude Include="Utils\Mat4.h" />
     <ClInclude Include="Utils\Matrix.h" />
@@ -192,10 +197,13 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Light\src\DirectionalLight.cpp" />
+    <ClCompile Include="Light\src\PointLight.cpp" />
     <ClCompile Include="main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="ReadFile\src\InstructionList.cpp" />
     <ClCompile Include="ReadFile\src\ReadFile.cpp" />
     <ClCompile Include="testInit.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'">false</ExcludedFromBuild>
@@ -204,6 +212,7 @@
     </ClCompile>
     <ClCompile Include="Transformations\src\Transformations.cpp" />
     <ClCompile Include="Transformations\test\TransformationsTests.cpp" />
+    <ClCompile Include="Utils\src\ColorTriad.cpp" />
     <ClCompile Include="Utils\src\Mat3.cpp" />
     <ClCompile Include="Utils\src\Mat4.cpp" />
     <ClCompile Include="Utils\src\Operations.cpp" />
