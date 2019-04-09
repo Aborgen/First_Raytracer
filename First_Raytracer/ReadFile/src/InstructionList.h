@@ -5,8 +5,9 @@
 #include <memory>
 #include <stack>
 
-#include "../MaterialProps/MaterialProps.h"
 #include "../Light/Light.h"
+#include "../MaterialProps/MaterialProps.h"
+#include "../Utils/Mat4.h"
 
 namespace Processing
 {
@@ -25,9 +26,17 @@ namespace Processing
 		void pushLight(const Light &light);
 		LightPtr popLight();
 
+		std::stack<Utils::Mat4>& getTransforms();
+		void pushTransform(const Utils::Mat4 &transformMatrix);
+		Utils::Mat4 popTransform();
+		void copyTransform();
+
+
+
 	private:
-		std::stack<MaterialProps> materialPropStack;
 		std::stack<LightPtr> lightStack;
+		std::stack<MaterialProps> materialPropStack;
+		std::stack<Utils::Mat4> transformStack;
 	};
 }
 

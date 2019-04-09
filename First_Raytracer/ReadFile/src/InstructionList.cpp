@@ -19,7 +19,9 @@ namespace Processing
 
 	MaterialProps InstructionList::popMaterialProps()
 	{
-		return materialPropStack.top();
+		MaterialProps materialProps = materialPropStack.top();
+		materialPropStack.pop();
+		return materialProps;
 	}
 
 	std::stack<LightPtr> InstructionList::getLights()
@@ -34,6 +36,30 @@ namespace Processing
 
 	LightPtr InstructionList::popLight()
 	{
-		return lightStack.top();
+		LightPtr light = lightStack.top();
+		lightStack.pop();
+		return light;
+	}
+
+	std::stack<Utils::Mat4>& InstructionList::getTransforms()
+	{
+		return transformStack;
+	}
+
+	void InstructionList::pushTransform(const Utils::Mat4 &transformMatrix)
+	{
+		transformStack.push(transformMatrix);
+	}
+
+	Utils::Mat4 InstructionList::popTransform()
+	{
+		Utils::Mat4 transformMatrix = transformStack.top();
+		transformStack.pop();
+		return transformMatrix;
+	}
+
+	void InstructionList::copyTransform()
+	{
+		transformStack.push(transformStack.top());
 	}
 }
