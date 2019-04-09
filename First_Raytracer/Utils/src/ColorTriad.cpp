@@ -2,6 +2,13 @@
 
 namespace Utils
 {
+	ColorTriad::ColorTriad(float r, float g, float b)
+	{
+		this->r = r;
+		this->b = b;
+		this->g = g;
+	}
+
 	float ColorTriad::getR()
 	{
 		return r;
