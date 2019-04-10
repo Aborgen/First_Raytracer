@@ -121,6 +121,7 @@ namespace IO
 				case ValidCommands::MAX_VERTICES:
 					break;
 				case ValidCommands::OUTPUT:
+					instructions.setOutputFilename(args[0]);
 					break;
 				case ValidCommands::POINT_LIGHT:
 				{

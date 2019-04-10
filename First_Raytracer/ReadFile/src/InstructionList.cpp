@@ -79,4 +79,14 @@ namespace Processing
 		attenuationStack.pop();
 		return attenuation;
 	}
+
+	std::string InstructionList::getOutputFilename()
+	{
+		return outputFilename;
+	}
+
+	void InstructionList::setOutputFilename(std::string outputFilename)
+	{
+		this->outputFilename = outputFilename;
+	}
 }

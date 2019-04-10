@@ -35,6 +35,9 @@ namespace Processing
 		void pushAttenuation(const Attenuation &attenuationStack);
 		Attenuation popAttenuation();
 
+		std::string getOutputFilename();
+		void setOutputFilename(std::string outputFilename);
+
 
 
 	private:
@@ -42,6 +45,7 @@ namespace Processing
 		std::stack<LightPtr> lightStack;
 		std::stack<MaterialProps> materialPropStack;
 		std::stack<Utils::Mat4> transformStack;
+		std::string outputFilename = "raytrace";
 	};
 }
 
