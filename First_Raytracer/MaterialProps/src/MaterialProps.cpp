@@ -2,6 +2,18 @@
 
 namespace Processing
 {
+	Utils::ColorTriad MaterialProps::getAmbient()
+	{
+		return ambient;
+	}
+
+	void MaterialProps::setAmbient(float r, float g, float b)
+	{
+		Utils::ColorTriad ambient(r, g, b);
+		this->ambient = ambient;
+
+	}
+	
 	Utils::ColorTriad MaterialProps::getEmission()
 	{
 		return emission;

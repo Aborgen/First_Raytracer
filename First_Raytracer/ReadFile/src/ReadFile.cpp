@@ -64,7 +64,15 @@ namespace IO
 			ValidCommands enumCommand = commandMapping(command);
 			switch (enumCommand) {
 				case ValidCommands::AMBIENT:
+				{
+					float r = 0.0f, g = 0.0f, b = 0.0f;
+					parseColor(args, r, g, b);
+
+					MaterialProps newProps = instructions.popMaterialProps();
+					newProps.setAmbient(r, g, b);
+					instructions.pushMaterialProps(newProps);
 					break;
+				}
 				case ValidCommands::ATTENUATION:
 				{
 					float constant = 0.0f, linear = 0.0f, quadratic = 0.0f;

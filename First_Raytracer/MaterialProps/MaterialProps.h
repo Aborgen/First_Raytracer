@@ -9,6 +9,8 @@ namespace Processing
 	class MaterialProps
 	{
 	public:
+		Utils::ColorTriad getAmbient();
+		void setAmbient(float r, float g, float b);
 		Utils::ColorTriad getEmission();
 		void setEmission(float r, float g, float b);
 		Utils::ColorTriad getDiffuse();
@@ -19,6 +21,7 @@ namespace Processing
 		void setShininess(float intensity);
 
 	private:
+		Utils::ColorTriad ambient = Utils::ColorTriad(0, 0, 0);
 		Utils::ColorTriad emission = Utils::ColorTriad(0, 0, 0);
 		Utils::ColorTriad diffuse = Utils::ColorTriad(0, 0, 0);
 		Utils::ColorTriad specular = Utils::ColorTriad(0, 0, 0);
