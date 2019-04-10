@@ -66,7 +66,14 @@ namespace IO
 				case ValidCommands::AMBIENT:
 					break;
 				case ValidCommands::ATTENUATION:
+				{
+					float constant = 0.0f, linear = 0.0f, quadratic = 0.0f;
+					parseVector(args, constant, linear, quadratic);
+
+					Attenuation attenuation(constant, linear, quadratic);
+					instructions.pushAttenuation(attenuation);
 					break;
+				}
 				case ValidCommands::CAMERA:
 					break;
 				case ValidCommands::DIFFUSE:

@@ -31,9 +31,14 @@ namespace Processing
 		Utils::Mat4 popTransform();
 		void copyTransform();
 
+		std::stack<Attenuation> getAttenuationStack();
+		void pushAttenuation(const Attenuation &attenuationStack);
+		Attenuation popAttenuation();
+
 
 
 	private:
+		std::stack<Attenuation> attenuationStack;
 		std::stack<LightPtr> lightStack;
 		std::stack<MaterialProps> materialPropStack;
 		std::stack<Utils::Mat4> transformStack;

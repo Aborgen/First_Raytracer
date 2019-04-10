@@ -62,4 +62,21 @@ namespace Processing
 	{
 		transformStack.push(transformStack.top());
 	}
+
+	std::stack<Attenuation> InstructionList::getAttenuationStack()
+	{
+		return attenuationStack;
+	}
+
+	void InstructionList::pushAttenuation(const Attenuation &attenuation)
+	{
+		attenuationStack.push(attenuation);
+	}
+
+	Attenuation InstructionList::popAttenuation()
+	{
+		Attenuation attenuation = attenuationStack.top();
+		attenuationStack.pop();
+		return attenuation;
+	}
 }
