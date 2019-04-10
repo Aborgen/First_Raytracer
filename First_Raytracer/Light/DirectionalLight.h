@@ -10,13 +10,8 @@ namespace Processing
 	{
 	public:
 		DirectionalLight(float x, float y, float z, float r, float g, float b);
-		Utils::ColorTriad getColor();
-		void setColor(float r, float g, float b);
 		Utils::Vec3 getDirection();
 		void setDirection(float x, float y, float z);
-
-	private:
-
 	};
 }
 

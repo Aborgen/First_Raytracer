@@ -10,13 +10,8 @@ namespace Processing
 	{
 	public:
 		PointLight(float x, float y, float z, float r, float g, float b);
-		Utils::ColorTriad getColor();
-		void setColor(float r, float g, float b);
 		Utils::Vec3 getLocation();
 		void setLocation(float x, float y, float z);
-
-	private:
-
 	};
 }
 
