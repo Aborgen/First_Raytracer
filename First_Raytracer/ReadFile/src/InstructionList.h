@@ -8,6 +8,7 @@
 #include "../Light/Light.h"
 #include "../MaterialProps/MaterialProps.h"
 #include "../Utils/Mat4.h"
+#include "../Camera/Camera.h"
 
 namespace Processing
 {
@@ -38,6 +39,9 @@ namespace Processing
 		std::string getOutputFilename();
 		void setOutputFilename(std::string outputFilename);
 
+		Camera getCamera();
+		void setCamera(Camera camera);
+
 
 
 	private:
@@ -46,6 +50,7 @@ namespace Processing
 		std::stack<MaterialProps> materialPropStack;
 		std::stack<Utils::Mat4> transformStack;
 		std::string outputFilename = "raytrace";
+		Camera camera;
 	};
 }
 

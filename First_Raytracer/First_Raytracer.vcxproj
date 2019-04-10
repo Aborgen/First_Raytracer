@@ -171,6 +171,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Configuration\src\ConfigList.h" />
     <ClInclude Include="Configuration\src\UserInput.h" />
     <ClInclude Include="include\catch.hpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="Utils\Vector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera\src\Camera.cpp" />
     <ClCompile Include="Configuration\src\ConfigList.cpp" />
     <ClCompile Include="Configuration\src\UserInput.cpp" />
     <ClCompile Include="Configuration\test\UserInputTests.cpp">

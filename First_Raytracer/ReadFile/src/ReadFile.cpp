@@ -10,6 +10,7 @@
 #include "../Light/PointLight.h"
 #include "../ReadFile.h"
 #include "../Utils/Mat4.h"
+#include "../Utils/Operations.h"
 
 namespace IO
 {
@@ -83,7 +84,34 @@ namespace IO
 					break;
 				}
 				case ValidCommands::CAMERA:
+				{
+					float eyeX = 0.0f, eyeY = 0.0f, eyeZ = 0.0f;
+					float centerX = 0.0f, centerY = 0.0f, centerZ = 0.0f;
+					float upX = 0.0f, upY = 0.0f, upZ = 0.0f;
+					float fovy = 0.0f;
+					// If the line doesn't have the required number of arguments, just use the defaults.
+					if (args.size() >= 10)
+					{
+						std::vector<std::string> eyeArgs(args.begin(), args.end() + 2);
+						std::vector<std::string> centerArgs(args.begin() + 2, args.end() + 4);
+						std::vector<std::string> upArgs(args.begin() + 4, args.end() + 6);
+						parseVector(eyeArgs, eyeX, eyeY, eyeZ);
+						parseVector(centerArgs, centerX, centerY, centerZ);
+						parseVector(upArgs, upX, upY, upZ);
+
+						std::optional<float> optFovy = stringToFloat(args[9]);
+						if (optFovy.has_value()) {
+							fovy = optFovy.value();
+						}
+					}
+
+					Vec3 eye(eyeX, eyeY, eyeZ);
+					Vec3 center(centerX, centerY, centerZ);
+					Vec3 up(upX, upY, upZ);
+					Camera camera(eye, center, up, fovy);
+					instructions.setCamera(camera);
 					break;
+				}
 				case ValidCommands::DIFFUSE:
 				{
 					float r = 0.0f, g = 0.0f, b = 0.0f;

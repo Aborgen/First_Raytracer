@@ -89,4 +89,14 @@ namespace Processing
 	{
 		this->outputFilename = outputFilename;
 	}
+
+	Camera InstructionList::getCamera()
+	{
+		return camera;
+	}
+
+	void InstructionList::setCamera(Camera camera)
+	{
+		this->camera = camera;
+	}
 }

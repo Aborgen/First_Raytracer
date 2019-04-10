@@ -20,6 +20,7 @@ namespace Processing
 		Utils::Mat4 coordinateFrame;
 		float fovy;
 		void initCoordinateFrame();
+		Utils::Vec3 setUpVector(const Utils::Vec3 &up);
 	};
 }
 
