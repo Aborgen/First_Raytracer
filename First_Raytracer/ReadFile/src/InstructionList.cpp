@@ -90,6 +90,17 @@ namespace Processing
 		this->outputFilename = outputFilename;
 	}
 
+	std::pair<int, int> InstructionList::getResolution()
+	{
+		return resolution;
+	}
+
+	void InstructionList::setResolution(float width, float height)
+	{
+		std::pair<int, int> resolution(width, height);
+		this->resolution = resolution;
+	}
+
 	Camera InstructionList::getCamera()
 	{
 		return camera;

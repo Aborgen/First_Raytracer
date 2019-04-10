@@ -214,7 +214,21 @@ namespace IO
 					break;
 				}
 				case ValidCommands::SIZE:
+				{
+					float width = 160.0f, height = 120.0f;
+					std::optional<float> optWidth = stringToFloat(args[0]);
+					std::optional<float> optHeight = stringToFloat(args[1]);
+					if (optWidth.has_value()) {
+						width = optWidth.value();
+					}
+
+					if (optHeight.has_value()) {
+						height = optHeight.value();
+					}
+
+					instructions.setResolution(width, height);
 					break;
+				}
 				case ValidCommands::SPECULAR:
 				{
 					float r = 0.0f, g = 0.0f, b = 0.0f;
