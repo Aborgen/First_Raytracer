@@ -95,7 +95,7 @@ namespace Processing
 		return resolution;
 	}
 
-	void InstructionList::setResolution(float width, float height)
+	void InstructionList::setResolution(int width, int height)
 	{
 		std::pair<int, int> resolution(width, height);
 		this->resolution = resolution;

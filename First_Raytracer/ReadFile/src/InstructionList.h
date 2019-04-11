@@ -40,7 +40,7 @@ namespace Processing
 		void setOutputFilename(std::string outputFilename);
 
 		std::pair<int, int> getResolution();
-		void setResolution(float width, float height);
+		void setResolution(int width, int height);
 
 		Camera getCamera();
 		void setCamera(Camera camera);
@@ -53,7 +53,7 @@ namespace Processing
 		std::stack<MaterialProps> materialPropStack;
 		std::stack<Utils::Mat4> transformStack;
 		std::string outputFilename = "raytrace";
-		std::pair<int, int> resolution = std::pair<int, int>(160.0f, 120.0f); // 160x120
+		std::pair<int, int> resolution = std::pair<int, int>(160, 120); // 160x120
 		Camera camera;
 	};
 }
