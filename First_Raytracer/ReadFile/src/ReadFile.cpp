@@ -18,7 +18,7 @@ namespace IO
 	{
 		if (!validateFilename(filename))
 		{
-			throw new std::exception("Filename must have an exception of .test");
+			throw new std::exception("Filename must have a file extension of .test");
 		}
 
 		this->filename = filename;
