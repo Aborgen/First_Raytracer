@@ -6,17 +6,30 @@ namespace Processing
 {
 	bool Sampler::hasSample()
 	{
-		// summthin'
-		return true;
+		return !isDone;
 	}
 
-	std::optional<Sample> Sampler::getSample()
+	Sample Sampler::getSample()
 	{
-		if (lastSampleGiven)
+		if (isDone)
 		{
-			return std::nullopt;
+			throw new std::exception("There are no more sample to be taken. Use hasSample to protect against this.");
 		}
 
-		return Sample(0.0f, 0.0f);
+		Sample newSample = Sample(currentColumn, currentRow);
+		if (currentColumn == columns) {
+			if (currentRow == rows) {
+				isDone = true;
+			}
+			else {
+				currentColumn = 0;
+				currentRow++;
+			}
+		}
+		else {
+			currentColumn++;
+		}
+
+		return newSample;
 	}
 }

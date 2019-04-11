@@ -2,8 +2,6 @@
 #define SAMPLER_H
 #pragma once
 
-#include <optional>
-
 #include "src/Sample.h"
 
 namespace Processing
@@ -11,12 +9,16 @@ namespace Processing
 	class Sampler
 	{
 	public:
-		Sampler();
+		Sampler(int columns, int rows) : columns(columns), rows(rows) {};
 		bool hasSample();
-		std::optional<Sample> Sampler::getSample();
+		Sample getSample();
 
 	private:
-		bool lastSampleGiven = false;
+		const int rows;
+		const int columns;
+		int currentRow = 0;
+		int currentColumn = 0;
+		bool isDone = false;
 	};
 }
 

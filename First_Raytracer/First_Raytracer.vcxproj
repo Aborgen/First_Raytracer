@@ -180,6 +180,8 @@
     <ClInclude Include="Light\PointLight.h" />
     <ClInclude Include="ReadFile\ReadFile.h" />
     <ClInclude Include="ReadFile\src\InstructionList.h" />
+    <ClInclude Include="Sampler\Sampler.h" />
+    <ClInclude Include="Sampler\src\Sample.h" />
     <ClInclude Include="Transformations\Transformations.h" />
     <ClInclude Include="Utils\ColorTriad.h" />
     <ClInclude Include="Utils\Mat3.h" />
@@ -207,6 +209,8 @@
     </ClCompile>
     <ClCompile Include="ReadFile\src\InstructionList.cpp" />
     <ClCompile Include="ReadFile\src\ReadFile.cpp" />
+    <ClCompile Include="Sampler\src\Sample.cpp" />
+    <ClCompile Include="Sampler\src\Sampler.cpp" />
     <ClCompile Include="testInit.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>

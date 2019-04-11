@@ -7,15 +7,13 @@ namespace Processing
 	class Sample
 	{
 	public:
-		Sample(float x, float y);
+		Sample(float x, float y) : x(x), y(y) {};
 		float getX();
-		void setX(float x);
 		float getY();
-		void setY(float y);
 
 	private:
-		float x;
-		float y;
+		const float x;
+		const float y;
 	};
 }
 
