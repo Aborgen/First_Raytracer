@@ -11,6 +11,7 @@ namespace Utils
 	class Mat4 : public Matrix<Mat4, std::array<float, 4>>
 	{
 	public:
+		Mat4() {};
 		Mat4(
 			float ra0, float ra1, float ra2, float ra3,
 			float rb0, float rb1, float rb2, float rb3,

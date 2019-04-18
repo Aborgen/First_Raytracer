@@ -8,6 +8,7 @@ namespace Utils
 	class Matrix
 	{
 	public:
+		Matrix() {};
 		Matrix(
 			float ra0, float ra1, float ra2,
 			float rb0, float rb1, float rb2,

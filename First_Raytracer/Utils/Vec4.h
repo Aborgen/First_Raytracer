@@ -9,6 +9,7 @@ namespace Utils
 	class Vec4 : public Vector<Vec4>
 	{
 	public:
+		Vec4() {};
 		Vec4(float x, float y, float z, float w);
 		float getW();
 		void setW(float w);

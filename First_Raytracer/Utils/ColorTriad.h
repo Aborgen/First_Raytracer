@@ -7,6 +7,7 @@ namespace Utils
 	class ColorTriad
 	{
 	public:
+		ColorTriad() {};
 		ColorTriad(float r, float g, float b);
 		float getR();
 		void setR(float r);

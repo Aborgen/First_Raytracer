@@ -7,6 +7,7 @@ namespace Processing
 	class Attenuation
 	{
 	public:
+		Attenuation() {};
 		Attenuation(float constant, float linear, float quadratic);
 		float getConstant();
 		void setConstant(float constant);

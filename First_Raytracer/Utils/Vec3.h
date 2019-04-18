@@ -9,6 +9,7 @@ namespace Utils
 	class Vec3 : public Vector<Vec3>
 	{
 	public:
+		Vec3() {};
 		Vec3(float x, float y, float z);
 		double length();
 		bool operator==(const Vec3 &other);

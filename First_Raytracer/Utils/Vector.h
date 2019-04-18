@@ -8,6 +8,7 @@ namespace Utils
 	class Vector
 	{
 	public:
+		Vector() {};
 		Vector(float x, float y, float z) {};
 		Vector(float x, float y, float z, float w) {};
 		virtual double length() = 0;
