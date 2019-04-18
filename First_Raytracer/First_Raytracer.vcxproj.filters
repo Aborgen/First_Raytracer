@@ -75,6 +75,15 @@
     <ClInclude Include="Sampler\src\Sample.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Ray\Ray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Raytracer\RayCapable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Light\src\Attenuation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -150,6 +159,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Sampler\src\Sample.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ray\src\Ray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Light\src\Attenuation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

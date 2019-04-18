@@ -178,6 +178,9 @@
     <ClInclude Include="Light\DirectionalLight.h" />
     <ClInclude Include="Light\Light.h" />
     <ClInclude Include="Light\PointLight.h" />
+    <ClInclude Include="Light\src\Attenuation.h" />
+    <ClInclude Include="Raytracer\RayCapable.h" />
+    <ClInclude Include="Ray\Ray.h" />
     <ClInclude Include="ReadFile\ReadFile.h" />
     <ClInclude Include="ReadFile\src\InstructionList.h" />
     <ClInclude Include="Sampler\Sampler.h" />
@@ -201,12 +204,14 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Light\src\Attenuation.cpp" />
     <ClCompile Include="Light\src\DirectionalLight.cpp" />
     <ClCompile Include="Light\src\PointLight.cpp" />
     <ClCompile Include="main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Ray\src\Ray.cpp" />
     <ClCompile Include="ReadFile\src\InstructionList.cpp" />
     <ClCompile Include="ReadFile\src\ReadFile.cpp" />
     <ClCompile Include="Sampler\src\Sample.cpp" />
