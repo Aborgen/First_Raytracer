@@ -62,3 +62,41 @@ SCENARIO("Basic operations between two vectors in R^4")
 		REQUIRE(expected == vector.length());
 	}
 }
+
+SCENARIO("Interactions between a vector in R^4 and a scalar")
+{
+	using namespace Utils;
+	SECTION("Multiplication (float)")
+	{
+		Vec4 expected(10.0f, 5.0f, 0.0f, 5.0f);
+
+		Vec4 first(2.0f, 1.0f, 0.0f, 1.0f);
+		float scalar = 5.0f;
+		Vec4 result = first * scalar;
+		REQUIRE(
+			(
+				expected.getX() == result.getX() &&
+				expected.getY() == result.getY() &&
+				expected.getZ() == result.getZ() &&
+				expected.getW() == result.getW()
+			)
+		);
+	}	
+	
+	SECTION("Multiplication (int)")
+	{
+		Vec4 expected(10.0f, 5.0f, 0.0f, 5.0f);
+
+		Vec4 first(2.0f, 1.0f, 0.0f, 1.0f);
+		int scalar = 5;
+		Vec4 result = first * scalar;
+		REQUIRE(
+			(
+				expected.getX() == result.getX() &&
+				expected.getY() == result.getY() &&
+				expected.getZ() == result.getZ() &&
+				expected.getW() == result.getW()
+			)
+		);
+	}
+}

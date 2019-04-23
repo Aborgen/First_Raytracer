@@ -73,4 +73,36 @@ namespace Utils
 		temp -= other;
 		return temp;
 	}
+
+	Vec4& Vec4::operator*=(float scalar)
+	{
+		x *= scalar;
+		y *= scalar;
+		z *= scalar;
+		w *= scalar;
+		return *this;
+	}
+
+	Vec4 Vec4::operator*(float scalar)
+	{
+		Vec4 temp(*this);
+		temp *= scalar;
+		return temp;
+	}
+
+	Vec4& Vec4::operator*=(int scalar)
+	{
+		x *= scalar;
+		y *= scalar;
+		z *= scalar;
+		w *= scalar;
+		return *this;
+	}
+
+	Vec4 Vec4::operator*(int scalar)
+	{
+		Vec4 temp(*this);
+		temp *= scalar;
+		return temp;
+	}
 }

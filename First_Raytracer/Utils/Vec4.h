@@ -20,6 +20,10 @@ namespace Utils
 		Vec4 operator+(const Vec4 &other);
 		Vec4& operator-=(const Vec4 &other);
 		Vec4 operator-(const Vec4 &other);
+		Vec4& operator*=(float scalar);
+		Vec4 operator*(float scalar);
+		Vec4& operator*=(int scalar);
+		Vec4 operator*(int scalar);
 
 	private:
 		float w;
