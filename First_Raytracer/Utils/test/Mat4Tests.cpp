@@ -1,6 +1,7 @@
 #include "catch.hpp"
 
 #include "../Mat4.h"
+#include "../Vec4.h";
 
 SCENARIO("Basic operations between two 4x4 matrices")
 {
@@ -192,5 +193,28 @@ SCENARIO("Basic operations between two 4x4 matrices")
 
 		bool objectInequality = first != second;
 		REQUIRE(objectInequality);
+	}
+}
+
+SCENARIO("Basic operations between a 4x4 matrix and a vector in R^4")
+{
+	using namespace Utils;
+
+	SECTION("Multiplication")
+	{
+		Vec4 expected(-1.0f, 0.0f, 0.0f, 8.0f);
+
+		Mat4 matrix(
+			1.0f, 0.0f, 0.0f, 1.0f,
+			0.0f, 1.0f, 2.0f, 1.0f,
+			0.0f, 0.0f, 1.0f, 1.0f,
+			0.0f, -1.0f, 0.0f, 1.0f
+		);
+
+		Vec4 vector(-1.0f, 1.25f, 0.0f, 2.0f);
+		Vec4 result = matrix * vector;
+
+		bool objectEquality = expected == result;
+		REQUIRE(objectEquality);
 	}
 }

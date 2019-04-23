@@ -163,6 +163,17 @@ namespace Utils
 		return temp;
 	}
 
+	Vec4 Mat4::operator*(Vec4 &vector)
+	{
+		Vec4 column1 = Vec4(data[0][0], data[1][0], data[2][0], data[3][0]) * vector.getX();
+		Vec4 column2 = Vec4(data[0][1], data[1][1], data[2][1], data[3][1]) * vector.getY();
+		Vec4 column3 = Vec4(data[0][2], data[1][2], data[2][2], data[3][2]) * vector.getZ();
+		Vec4 column4 = Vec4(data[0][3], data[1][3], data[2][3], data[3][3]) * vector.getW();
+
+		Vec4 newVector = column1 + column2 + column3 + column4;
+		return newVector;
+	}
+
 	std::array<float, 4>& Mat4::operator[](int idx)
 	{
 		if (idx >= data.size())
