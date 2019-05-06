@@ -147,4 +147,16 @@ namespace Utils
 			rowThree.getX(), rowThree.getY(), rowThree.getZ()
 		);
 	}
+
+	Vec3 Operations::vectorTransform(Mat4 &matrix, Vec3 &vector, bool includeTranslation = false)
+	{
+		float homogenousCoordinate = 0.0f;
+		if (includeTranslation) {
+			homogenousCoordinate = 1.0f;
+		}
+
+		Vec4 augmentedVector(vector.getX(), vector.getY(), vector.getZ(), homogenousCoordinate);
+		Vec4 transformedVector = matrix * augmentedVector;
+		return Vec3(transformedVector.getX(), transformedVector.getY(), transformedVector.getZ());
+	}
 }

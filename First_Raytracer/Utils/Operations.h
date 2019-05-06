@@ -21,6 +21,7 @@ namespace Utils
 		static Mat3 transpose(Mat3 matrix);
 		static Mat4 transpose(Mat4 matrix);
 		static Mat3 outerProduct(Vec3 &one, Vec3 &two);
+		static Vec3 vectorTransform(Mat4 &matrix, Vec3 &vector, bool includeTranslation = false);
 
 	private:
 		Operations() {}
