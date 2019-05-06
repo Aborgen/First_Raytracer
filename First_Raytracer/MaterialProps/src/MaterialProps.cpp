@@ -1,4 +1,4 @@
-#include "MaterialProps.h"
+#include "../MaterialProps.h"
 
 namespace Processing
 {

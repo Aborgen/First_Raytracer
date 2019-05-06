@@ -70,9 +70,8 @@ namespace IO
 					float r = 0.0f, g = 0.0f, b = 0.0f;
 					parseColor(args, r, g, b);
 
-					MaterialProps newProps = instructions.popMaterialProps();
-					newProps.setAmbient(r, g, b);
-					instructions.pushMaterialProps(newProps);
+					MaterialProps material = instructions.topMaterialProps();
+					material.setAmbient(r, g, b);
 					break;
 				}
 				case ValidCommands::ATTENUATION:
@@ -118,9 +117,8 @@ namespace IO
 					float r = 0.0f, g = 0.0f, b = 0.0f;
 					parseColor(args, r, g, b);
 
-					MaterialProps newProps = instructions.popMaterialProps();
-					newProps.setDiffuse(r, g, b);
-					instructions.pushMaterialProps(newProps);
+					MaterialProps material = instructions.topMaterialProps();
+					material.setDiffuse(r, g, b);
 					break;
 				}
 				case ValidCommands::DIRECTIONAL_LIGHT:
@@ -138,9 +136,8 @@ namespace IO
 					float r = 0.0f, g = 0.0f, b = 0.0f;
 					parseColor(args, r, g, b);
 
-					MaterialProps newProps = instructions.popMaterialProps();
-					newProps.setEmission(r, g, b);
-					instructions.pushMaterialProps(newProps);
+					MaterialProps material = instructions.topMaterialProps();
+					material.setEmission(r, g, b);
 					break;
 				}
 				case ValidCommands::MAX_DEPTH:
@@ -209,9 +206,8 @@ namespace IO
 					std::optional<float> optIntensity = stringToFloat(args[0]);
 					float intensity = optIntensity.has_value() ? optIntensity.value() : 0.0f;
 
-					MaterialProps newProps = instructions.popMaterialProps();
-					newProps.setShininess(intensity);
-					instructions.pushMaterialProps(newProps);
+					MaterialProps material = instructions.topMaterialProps();
+					material.setShininess(intensity);
 					break;
 				}
 				case ValidCommands::SIZE:
@@ -235,9 +231,8 @@ namespace IO
 					float r = 0.0f, g = 0.0f, b = 0.0f;
 					parseColor(args, r, g, b);
 
-					MaterialProps newProps = instructions.popMaterialProps();
-					newProps.setSpecular(r, g, b);
-					instructions.pushMaterialProps(newProps);
+					MaterialProps material = instructions.topMaterialProps();
+					material.setSpecular(r, g, b);
 					break;
 				}
 				case ValidCommands::SPHERE:
