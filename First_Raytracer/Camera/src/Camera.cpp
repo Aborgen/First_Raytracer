@@ -3,12 +3,13 @@
 
 namespace Processing
 {
-	Camera::Camera(Utils::Vec3 eye, Utils::Vec3 center, Utils::Vec3 up, float fovy)
+	Camera::Camera(Utils::Vec3 eye, Utils::Vec3 center, Utils::Vec3 up, float fovy, IO::Screen screen)
 	{
 		this->position = eye;
 		this->center = center;
 		this->fovy = fovy;
-		up = setUpVector(up);
+		this->up = setUpVector(up);
+		this->screen = screen;
 		initCoordinateFrame();
 	}
 
@@ -19,7 +20,7 @@ namespace Processing
 		Vec3 w = Operations::normalize(delta);
 		Vec3 u = Operations::cross(up, w);
 		Vec3 normU = Operations::normalize(u);
-		Vec3 v = Operations::cross(w, u);
+		Vec3 v = Operations::cross(w, normU);
 		coordinateFrame = Mat4(
 			normU.getX(), normU.getY(), normU.getZ(), -Operations::dot(normU, position),
 			v.getX(),     v.getY(),     v.getZ(),     -Operations::dot(v, position),
@@ -35,5 +36,33 @@ namespace Processing
 		Vec3 x = Operations::cross(up, z);
 		Vec3 y = Operations::cross(z, x);
 		return Operations::normalize(y);
+	}
+
+	Ray Camera::castRay(float rasterX, float rasterY)
+	{
+		using namespace Utils;
+		Vec3 direction = generateDirection(rasterX, rasterY);
+		return Ray(position, direction);
+	}
+
+	Utils::Vec3 Camera::generateDirection(float rasterX, float rasterY)
+	{
+		using namespace Utils;
+		// Normalized device coordinates
+		float normX = (rasterX + offset) / screen.getWidth();
+		float normY = (rasterY + offset) / screen.getHeight();
+		// Screen coordinates
+		float alpha = Operations::toRadians(fovy);
+		float fovScaling = tan(alpha / 2);
+		float screenX = screen.getAspect() * (2 * normX - 1) * fovScaling;
+		float screenY = 1 - (2 * normY) * fovScaling;
+		// Camera space
+		Vec3 cameraSpace(screenX, screenY, -1.0f);
+		// Direction, taking into account transformations applied to the camera
+		Vec3 translatedCameraSpace = Operations::vectorTransform(coordinateFrame, cameraSpace, true);
+		Vec3 origin = Operations::vectorTransform(coordinateFrame, position, true);
+		Vec3 direction = translatedCameraSpace - origin;
+
+		return Operations::normalize(direction);
 	}
 }
