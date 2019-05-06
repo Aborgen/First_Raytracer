@@ -12,7 +12,7 @@ namespace Processing
 	class Scene
 	{
 	public:
-		Scene(Camera camera, Film film, Raytracer raytracer, Sampler sampler);
+		Scene(Camera &camera, Film &film, Raytracer &raytracer, Sampler &sampler);
 		void render();
 
 	private:
@@ -20,6 +20,7 @@ namespace Processing
 		Film film;
 		Raytracer raytracer;
 		Sampler sampler;
+	};
 }
 
 #endif // !SCENE_H

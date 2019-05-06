@@ -2,7 +2,7 @@
 
 namespace Processing
 {
-	Scene::Scene(Camera camera, Film film, Raytracer raytracer, Sampler sampler)
+	Scene::Scene(Camera &camera, Film &film, Raytracer &raytracer, Sampler &sampler)
 	{
 		this->camera = camera;
 		this->film = film;
@@ -12,8 +12,10 @@ namespace Processing
 
 	void Scene::render()
 	{
-		while (true)
-		{
+		using namespace Utils;
+		while (sampler.hasSample()) {
+			Sample sample = sampler.getSample();
+			Ray ray = camera.castRay(sample.getX(), sample.getY());
 			return;
 		}
 	}
