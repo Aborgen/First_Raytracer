@@ -1,0 +1,39 @@
+#include "../Shape.h"
+
+namespace Geometry
+{
+	Processing::MaterialProps Shape::getMaterial()
+	{
+		return material;
+	}
+
+	void Shape::setMaterial(Processing::MaterialProps material)
+	{
+		this->material = material;
+	}
+
+	void Shape::setAmbient(float r, float g, float b)
+	{
+		material.setAmbient(r, g, b);
+	}
+
+	void Shape::setEmission(float r, float g, float b)
+	{
+		material.setEmission(r, g, b);
+	}
+
+	void Shape::setDiffuse(float r, float g, float b)
+	{
+		material.setDiffuse(r, g, b);
+	}
+
+	void Shape::setSpecular(float r, float g, float b)
+	{
+		material.setSpecular(r, g, b);
+	}
+
+	void Shape::setShinniness(float intensity)
+	{
+		material.setShininess(intensity);
+	}
+}
