@@ -5,26 +5,33 @@
 #include <memory>
 #include <stack>
 
+#include "../Camera/Camera.h"
+#include "../Geometry/Sphere.h";
 #include "../Light/Light.h"
 #include "../MaterialProps/MaterialProps.h"
+#include "../Screen/Screen.h"
 #include "../Utils/Mat4.h"
-#include "../Camera/Camera.h"
 
-namespace Processing
+namespace IO
 {
-	typedef std::shared_ptr<Light> LightPtr;
+	typedef std::shared_ptr<Geometry::Sphere> SpherePtr;
+	typedef std::shared_ptr<Processing::Light> LightPtr;
 	class InstructionList
 	{
 	public:
-		InstructionList();
-		~InstructionList();
-		std::stack<MaterialProps> getMaterialProps();
-		void setMaterialProps(std::stack<MaterialProps> materialPropStack);
-		void pushMaterialProps(MaterialProps materialProps);
-		MaterialProps popMaterialProps();
+		InstructionList() {};
+		std::stack<Processing::MaterialProps> getMaterialProps();
+		void setMaterialProps(std::stack<Processing::MaterialProps> materialPropStack);
+		void pushMaterialProps(Processing::MaterialProps materialProps);
+		Processing::MaterialProps topMaterialProps();
+		Processing::MaterialProps popMaterialProps();
+
+		std::stack<SpherePtr> getSpheres();
+		void pushSphere(const Geometry::Sphere &sphere);
+		SpherePtr popSphere();
 
 		std::stack<LightPtr> getLights();
-		void pushLight(const Light &light);
+		void pushLight(const Processing::Light &light);
 		LightPtr popLight();
 
 		std::stack<Utils::Mat4>& getTransforms();
@@ -32,29 +39,30 @@ namespace Processing
 		Utils::Mat4 popTransform();
 		void copyTransform();
 
-		std::stack<Attenuation> getAttenuationStack();
-		void pushAttenuation(const Attenuation &attenuationStack);
-		Attenuation popAttenuation();
+		std::stack<Processing::Attenuation> getAttenuationStack();
+		void pushAttenuation(const Processing::Attenuation &attenuationStack);
+		Processing::Attenuation popAttenuation();
 
 		std::string getOutputFilename();
 		void setOutputFilename(std::string outputFilename);
 
-		std::pair<int, int> getResolution();
+		Screen getResolution();
 		void setResolution(int width, int height);
 
-		Camera getCamera();
-		void setCamera(Camera camera);
+		Processing::Camera getCamera();
+		void setCamera(Processing::Camera camera);
 
 
 
 	private:
-		std::stack<Attenuation> attenuationStack;
+		std::stack<Processing::Attenuation> attenuationStack;
+		std::stack<SpherePtr> sphereStack;
 		std::stack<LightPtr> lightStack;
-		std::stack<MaterialProps> materialPropStack;
+		std::stack<Processing::MaterialProps> materialPropStack;
 		std::stack<Utils::Mat4> transformStack;
 		std::string outputFilename = "raytrace";
-		std::pair<int, int> resolution = std::pair<int, int>(160, 120); // 160x120
-		Camera camera;
+		Screen resolution = Screen(160, 120); // 160x120
+		Processing::Camera camera;
 	};
 }
 

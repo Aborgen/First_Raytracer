@@ -14,7 +14,6 @@ namespace IO
 	public:
 		ReadFile(std::string filename);
 		bool parse();
-		Processing::InstructionList generateInstructions();
 
 	private:
 		std::string filename;
@@ -54,6 +53,7 @@ namespace IO
 		void parseColor(const std::vector<std::string>& args, float &r, float &g, float &b);
 		void parseLight(const std::vector<std::string>& args, float &x, float &y, float &z, float &r, float &g, float &b);
 		void parseVector(const std::vector<std::string>& args, float &x, float &y, float &z);
+		void parseSphere(const std::vector<std::string>& args, float &x, float &y, float &z, float& radius);
 		bool hasBeenParsed = false;
 		int lineNumber = 0;
 		bool inTransaction = false;

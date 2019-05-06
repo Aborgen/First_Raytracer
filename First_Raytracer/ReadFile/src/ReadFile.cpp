@@ -43,6 +43,7 @@ namespace IO
 
 	bool ReadFile::parse()
 	{
+		using namespace Geometry;
 		using namespace Processing;
 		using namespace Utils;
 		std::string line;
@@ -108,7 +109,7 @@ namespace IO
 					Vec3 eye(eyeX, eyeY, eyeZ);
 					Vec3 center(centerX, centerY, centerZ);
 					Vec3 up(upX, upY, upZ);
-					Camera camera(eye, center, up, fovy);
+					Camera camera(eye, center, up, fovy, instructions.getResolution());
 					instructions.setCamera(camera);
 					break;
 				}
@@ -240,7 +241,15 @@ namespace IO
 					break;
 				}
 				case ValidCommands::SPHERE:
+				{
+					float x = 0.0f, float y = 0.0f, float z = 0.0f, float radius = 0.0f;
+					parseSphere(args, x, y, z, radius);
+					Vec3 center(x, y, z);
+					MaterialProps material = instructions.topMaterialProps();
+					Sphere sphere(center, radius, material);
+					instructions.pushSphere(sphere);
 					break;
+				}
 				case ValidCommands::TRANSLATE:
 				{
 					float x = 0.0f, float y = 0.0f, float z = 0.0f;
@@ -266,29 +275,6 @@ namespace IO
 		}
 
 		return true;
-	}
-
-	void ReadFile::parseColor(const std::vector<std::string> &args, float &r, float &g, float &b)
-	{
-		if (args.size() != 3) {
-			std::string message = "parseColor currently only works for rgb (" + filename + " line " + std::to_string(lineNumber) + ")";
-			throw new std::exception(message.c_str());
-		}
-
-		std::optional<float> optR = stringToFloat(args[0]);
-		std::optional<float> optG = stringToFloat(args[1]);
-		std::optional<float> optB = stringToFloat(args[2]);
-		if (optR.has_value()) {
-			r = optR.value();
-		}
-
-		if (optG.has_value()) {
-			g = optG.value();
-		}
-
-		if (optB.has_value()) {
-			b = optB.value();
-		}
 	}
 	
 	void ReadFile::parseColor(const std::vector<std::string> &args, float &r, float &g, float &b)
@@ -359,9 +345,32 @@ namespace IO
 		parseColor(args, x, y, z);
 	}
 
-	Processing::InstructionList ReadFile::generateInstructions()
+	void ReadFile::parseSphere(const std::vector<std::string>& args, float &x, float &y, float &z, float& radius)
 	{
-		return Processing::InstructionList();
+		if (args.size() < 4) {
+			std::string message = "Line must be a command followed by 4 arguments (" + filename + " line " + std::to_string(lineNumber) + ")";
+			throw new std::exception(message.c_str());
+		}
+
+		std::optional<float> optX = stringToFloat(args[0]);
+		std::optional<float> optY = stringToFloat(args[1]);
+		std::optional<float> optZ = stringToFloat(args[2]);
+		std::optional<float> optRadius = stringToFloat(args[3]);
+		if (optX.has_value()) {
+			x = optX.value();
+		}
+
+		if (optY.has_value()) {
+			y = optY.value();
+		}
+
+		if (optZ.has_value()) {
+			z = optZ.value();
+		}
+
+		if (optRadius.has_value()) {
+			radius = optRadius.value();
+		}
 	}
 
 	std::optional<float> ReadFile::stringToFloat(std::string str)

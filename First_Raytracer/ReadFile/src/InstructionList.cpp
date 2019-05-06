@@ -1,27 +1,53 @@
 #include "InstructionList.h"
 
-namespace Processing
+namespace IO
 {
-	std::stack<MaterialProps> InstructionList::getMaterialProps()
+	std::stack<Processing::MaterialProps> InstructionList::getMaterialProps()
 	{
 		return materialPropStack;
 	}
 
-	void InstructionList::setMaterialProps(std::stack<MaterialProps> materialPropStack)
+	void InstructionList::setMaterialProps(std::stack<Processing::MaterialProps> materialPropStack)
 	{
 		this->materialPropStack = materialPropStack;
 	}
 
-	void InstructionList::pushMaterialProps(MaterialProps materialProps)
+	void InstructionList::pushMaterialProps(Processing::MaterialProps materialProps)
 	{
 		materialPropStack.push(materialProps);
 	}
 
-	MaterialProps InstructionList::popMaterialProps()
+	Processing::MaterialProps InstructionList::popMaterialProps()
 	{
+		using namespace Processing;
 		MaterialProps materialProps = materialPropStack.top();
 		materialPropStack.pop();
 		return materialProps;
+	}
+
+	Processing::MaterialProps InstructionList::topMaterialProps()
+	{
+		using namespace Processing;
+		MaterialProps materialProps = materialPropStack.top();
+		return materialProps;
+	}
+
+	std::stack<SpherePtr> InstructionList::getSpheres()
+	{
+		return sphereStack;
+	}
+
+	void InstructionList::pushSphere(const Geometry::Sphere &sphere)
+	{
+		using namespace Geometry;
+		sphereStack.push(std::make_shared<Sphere>(sphere));
+	}
+
+	SpherePtr InstructionList::popSphere()
+	{
+		SpherePtr sphere = sphereStack.top();
+		sphereStack.pop();
+		return sphere;
 	}
 
 	std::stack<LightPtr> InstructionList::getLights()
@@ -29,8 +55,9 @@ namespace Processing
 		return lightStack;
 	}
 
-	void InstructionList::pushLight(const Light &light)
+	void InstructionList::pushLight(const Processing::Light &light)
 	{
+		using namespace Processing;
 		lightStack.push(std::make_shared<Light>(light));
 	}
 
@@ -63,18 +90,19 @@ namespace Processing
 		transformStack.push(transformStack.top());
 	}
 
-	std::stack<Attenuation> InstructionList::getAttenuationStack()
+	std::stack<Processing::Attenuation> InstructionList::getAttenuationStack()
 	{
 		return attenuationStack;
 	}
 
-	void InstructionList::pushAttenuation(const Attenuation &attenuation)
+	void InstructionList::pushAttenuation(const Processing::Attenuation &attenuation)
 	{
 		attenuationStack.push(attenuation);
 	}
 
-	Attenuation InstructionList::popAttenuation()
+	Processing::Attenuation InstructionList::popAttenuation()
 	{
+		using namespace Processing;
 		Attenuation attenuation = attenuationStack.top();
 		attenuationStack.pop();
 		return attenuation;
@@ -90,23 +118,23 @@ namespace Processing
 		this->outputFilename = outputFilename;
 	}
 
-	std::pair<int, int> InstructionList::getResolution()
+	Screen InstructionList::getResolution()
 	{
 		return resolution;
 	}
 
 	void InstructionList::setResolution(int width, int height)
 	{
-		std::pair<int, int> resolution(width, height);
+		Screen resolution(width, height);
 		this->resolution = resolution;
 	}
 
-	Camera InstructionList::getCamera()
+	Processing::Camera InstructionList::getCamera()
 	{
 		return camera;
 	}
 
-	void InstructionList::setCamera(Camera camera)
+	void InstructionList::setCamera(Processing::Camera camera)
 	{
 		this->camera = camera;
 	}
