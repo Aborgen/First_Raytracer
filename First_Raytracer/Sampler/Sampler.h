@@ -9,13 +9,14 @@ namespace Processing
 	class Sampler
 	{
 	public:
-		Sampler(int columns, int rows) : columns(columns), rows(rows) {};
+		Sampler() {}
+		Sampler(int columns, int rows);
 		bool hasSample();
 		Sample getSample();
 
 	private:
-		const int rows;
-		const int columns;
+		int rows;
+		int columns;
 		int currentRow = 0;
 		int currentColumn = 0;
 		bool isDone = false;

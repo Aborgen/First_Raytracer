@@ -4,6 +4,12 @@
 
 namespace Processing
 {
+	Sampler::Sampler(int columns, int rows)
+	{
+		this->columns = columns;
+		this->rows = rows;
+	}
+
 	bool Sampler::hasSample()
 	{
 		return !isDone;
