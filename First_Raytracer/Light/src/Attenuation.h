@@ -9,6 +9,7 @@ namespace Processing
 	public:
 		Attenuation() {};
 		Attenuation(float constant, float linear, float quadratic);
+		void setAttenuation(float constant, float linear, float quadratic);
 		float getConstant();
 		void setConstant(float constant);
 		float getLinear();

@@ -20,9 +20,6 @@ namespace IO
 	{
 	public:
 		InstructionList() {};
-		Processing::MaterialProps& getMaterialProps();
-		void setMaterialProps(const Processing::MaterialProps &material);
-
 		std::deque<ShapePtr> getShapes();
 		void pushShape(const Geometry::Shape &shape);
 
@@ -33,10 +30,6 @@ namespace IO
 		void pushTransform(const Utils::Mat4 &transformMatrix);
 		Utils::Mat4 popTransform();
 		void copyTransform();
-
-		std::stack<Processing::Attenuation> getAttenuationStack();
-		void pushAttenuation(const Processing::Attenuation &attenuationStack);
-		Processing::Attenuation popAttenuation();
 
 		std::string getOutputFilename();
 		void setOutputFilename(std::string outputFilename);
@@ -52,10 +45,8 @@ namespace IO
 
 
 	private:
-		std::stack<Processing::Attenuation> attenuationStack;
 		std::deque<ShapePtr> shapeStack;
 		std::deque<LightPtr> lightStack;
-		Processing::MaterialProps material;
 		std::stack<Utils::Mat4> transformStack;
 		std::string outputFilename = "raytrace";
 		Screen resolution = Screen(160, 120); // 160x120

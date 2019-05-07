@@ -9,6 +9,13 @@ namespace Processing
 		this->quadratic = quadratic;
 	}
 
+	void Attenuation::setAttenuation(float constant, float linear, float quadratic)
+	{
+		setConstant(constant);
+		setLinear(linear);
+		setQuadratic(quadratic);
+	}
+
 	float Attenuation::getConstant()
 	{
 		return constant;

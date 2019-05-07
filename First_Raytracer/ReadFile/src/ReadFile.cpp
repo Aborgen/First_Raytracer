@@ -51,12 +51,14 @@ namespace IO
 		using namespace Utils;
 		std::string line;
 		std::ifstream file(filename);
-		std::deque<Vec3> vertices;
 		if (!file.is_open()) {
 			std::cout << "File with name of" << filename << "cannot be opened or does not exist";
 		}
 
 		InstructionList instructions = InstructionList();
+		std::deque<Vec3> vertices;
+		MaterialProps material;
+		Attenuation attenuation;
 		while (std::getline(file, line)) {
 			lineNumber++;
 			bool hasSpace = std::find_if(line.begin(), line.end(), ::isspace) != line.end();
@@ -73,8 +75,6 @@ namespace IO
 				{
 					float r = 0.0f, g = 0.0f, b = 0.0f;
 					parseColor(args, r, g, b);
-
-					MaterialProps &material = instructions.getMaterialProps();
 					material.setAmbient(r, g, b);
 					break;
 				}
@@ -82,9 +82,7 @@ namespace IO
 				{
 					float constant = 0.0f, linear = 0.0f, quadratic = 0.0f;
 					parseVector(args, constant, linear, quadratic);
-
-					Attenuation attenuation(constant, linear, quadratic);
-					instructions.pushAttenuation(attenuation);
+					attenuation.setAttenuation(constant, linear, quadratic);
 					break;
 				}
 				case ValidCommands::CAMERA:
@@ -120,8 +118,6 @@ namespace IO
 				{
 					float r = 0.0f, g = 0.0f, b = 0.0f;
 					parseColor(args, r, g, b);
-
-					MaterialProps &material = instructions.getMaterialProps();
 					material.setDiffuse(r, g, b);
 					break;
 				}
@@ -139,8 +135,6 @@ namespace IO
 				{
 					float r = 0.0f, g = 0.0f, b = 0.0f;
 					parseColor(args, r, g, b);
-
-					MaterialProps &material = instructions.getMaterialProps();
 					material.setEmission(r, g, b);
 					break;
 				}
@@ -216,8 +210,6 @@ namespace IO
 				{
 					std::optional<float> optIntensity = stringToFloat(args[0]);
 					float intensity = optIntensity.has_value() ? optIntensity.value() : 0.0f;
-
-					MaterialProps &material = instructions.getMaterialProps();
 					material.setShininess(intensity);
 					break;
 				}
@@ -241,8 +233,6 @@ namespace IO
 				{
 					float r = 0.0f, g = 0.0f, b = 0.0f;
 					parseColor(args, r, g, b);
-
-					MaterialProps &material = instructions.getMaterialProps();
 					material.setSpecular(r, g, b);
 					break;
 				}
@@ -251,7 +241,6 @@ namespace IO
 					float x = 0.0f, float y = 0.0f, float z = 0.0f, float radius = 0.0f;
 					parseSphere(args, x, y, z, radius);
 					Vec3 center(x, y, z);
-					MaterialProps &material = instructions.getMaterialProps();
 					Sphere sphere(center, radius, material);
 					instructions.pushShape(sphere);
 					break;
@@ -272,7 +261,7 @@ namespace IO
 					Vec3 v0 = vertices[a];
 					Vec3 v1 = vertices[b];
 					Vec3 v2 = vertices[c];
-					Triangle triangle(v0, v1, v2);
+					Triangle triangle(v0, v1, v2, material);
 					instructions.pushShape(triangle);
 					break;
 				}

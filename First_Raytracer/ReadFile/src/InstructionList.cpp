@@ -2,16 +2,6 @@
 
 namespace IO
 {
-	Processing::MaterialProps& InstructionList::getMaterialProps()
-	{
-		return material;
-	}
-
-	void InstructionList::setMaterialProps(const Processing::MaterialProps &material)
-	{
-		this->material = material;
-	}
-
 	std::deque<ShapePtr> InstructionList::getShapes()
 	{
 		return shapeStack;
@@ -54,24 +44,6 @@ namespace IO
 	void InstructionList::copyTransform()
 	{
 		transformStack.push(transformStack.top());
-	}
-
-	std::stack<Processing::Attenuation> InstructionList::getAttenuationStack()
-	{
-		return attenuationStack;
-	}
-
-	void InstructionList::pushAttenuation(const Processing::Attenuation &attenuation)
-	{
-		attenuationStack.push(attenuation);
-	}
-
-	Processing::Attenuation InstructionList::popAttenuation()
-	{
-		using namespace Processing;
-		Attenuation attenuation = attenuationStack.top();
-		attenuationStack.pop();
-		return attenuation;
 	}
 
 	std::string InstructionList::getOutputFilename()

@@ -5,7 +5,7 @@
 
 namespace Geometry
 {
-	Triangle::Triangle(Utils::Vec3 a, Utils::Vec3 b, Utils::Vec3 c) : Shape(Type::TRIANGLE)
+	Triangle::Triangle(Utils::Vec3 &a, Utils::Vec3 &b, Utils::Vec3 &c, const Processing::MaterialProps &material) : Shape(Type::TRIANGLE)
 	{
 		if (a == b || a == c || b == c)
 		{
@@ -15,6 +15,7 @@ namespace Geometry
 		this->a = a;
 		this->b = b;
 		this->c = c;
+		this->material = material;
 	}
 
 	Utils::Vec3 Triangle::getA()

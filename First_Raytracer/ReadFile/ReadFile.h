@@ -13,7 +13,7 @@ namespace IO
 	{
 	public:
 		ReadFile(std::string filename);
-		bool parse();
+		InstructionList parse();
 
 	private:
 		std::string filename;
