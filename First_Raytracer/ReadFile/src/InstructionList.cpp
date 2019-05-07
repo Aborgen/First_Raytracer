@@ -2,34 +2,14 @@
 
 namespace IO
 {
-	std::stack<Processing::MaterialProps> InstructionList::getMaterialProps()
+	Processing::MaterialProps& InstructionList::getMaterialProps()
 	{
-		return materialPropStack;
+		return material;
 	}
 
-	void InstructionList::setMaterialProps(std::stack<Processing::MaterialProps> materialPropStack)
+	void InstructionList::setMaterialProps(const Processing::MaterialProps &material)
 	{
-		this->materialPropStack = materialPropStack;
-	}
-
-	void InstructionList::pushMaterialProps(Processing::MaterialProps materialProps)
-	{
-		materialPropStack.push(materialProps);
-	}
-
-	Processing::MaterialProps InstructionList::popMaterialProps()
-	{
-		using namespace Processing;
-		MaterialProps materialProps = materialPropStack.top();
-		materialPropStack.pop();
-		return materialProps;
-	}
-
-	Processing::MaterialProps InstructionList::topMaterialProps()
-	{
-		using namespace Processing;
-		MaterialProps materialProps = materialPropStack.top();
-		return materialProps;
+		this->material = material;
 	}
 
 	std::stack<SpherePtr> InstructionList::getSpheres()

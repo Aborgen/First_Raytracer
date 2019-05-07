@@ -70,7 +70,7 @@ namespace IO
 					float r = 0.0f, g = 0.0f, b = 0.0f;
 					parseColor(args, r, g, b);
 
-					MaterialProps material = instructions.topMaterialProps();
+					MaterialProps &material = instructions.getMaterialProps();
 					material.setAmbient(r, g, b);
 					break;
 				}
@@ -117,7 +117,7 @@ namespace IO
 					float r = 0.0f, g = 0.0f, b = 0.0f;
 					parseColor(args, r, g, b);
 
-					MaterialProps material = instructions.topMaterialProps();
+					MaterialProps &material = instructions.getMaterialProps();
 					material.setDiffuse(r, g, b);
 					break;
 				}
@@ -136,7 +136,7 @@ namespace IO
 					float r = 0.0f, g = 0.0f, b = 0.0f;
 					parseColor(args, r, g, b);
 
-					MaterialProps material = instructions.topMaterialProps();
+					MaterialProps &material = instructions.getMaterialProps();
 					material.setEmission(r, g, b);
 					break;
 				}
@@ -206,7 +206,7 @@ namespace IO
 					std::optional<float> optIntensity = stringToFloat(args[0]);
 					float intensity = optIntensity.has_value() ? optIntensity.value() : 0.0f;
 
-					MaterialProps material = instructions.topMaterialProps();
+					MaterialProps &material = instructions.getMaterialProps();
 					material.setShininess(intensity);
 					break;
 				}
@@ -231,7 +231,7 @@ namespace IO
 					float r = 0.0f, g = 0.0f, b = 0.0f;
 					parseColor(args, r, g, b);
 
-					MaterialProps material = instructions.topMaterialProps();
+					MaterialProps &material = instructions.getMaterialProps();
 					material.setSpecular(r, g, b);
 					break;
 				}
@@ -240,7 +240,7 @@ namespace IO
 					float x = 0.0f, float y = 0.0f, float z = 0.0f, float radius = 0.0f;
 					parseSphere(args, x, y, z, radius);
 					Vec3 center(x, y, z);
-					MaterialProps material = instructions.topMaterialProps();
+					MaterialProps &material = instructions.getMaterialProps();
 					Sphere sphere(center, radius, material);
 					instructions.pushSphere(sphere);
 					break;

@@ -20,11 +20,8 @@ namespace IO
 	{
 	public:
 		InstructionList() {};
-		std::stack<Processing::MaterialProps> getMaterialProps();
-		void setMaterialProps(std::stack<Processing::MaterialProps> materialPropStack);
-		void pushMaterialProps(Processing::MaterialProps materialProps);
-		Processing::MaterialProps topMaterialProps();
-		Processing::MaterialProps popMaterialProps();
+		Processing::MaterialProps& getMaterialProps();
+		void setMaterialProps(const Processing::MaterialProps &material);
 
 		std::stack<SpherePtr> getSpheres();
 		void pushSphere(const Geometry::Sphere &sphere);
@@ -58,7 +55,7 @@ namespace IO
 		std::stack<Processing::Attenuation> attenuationStack;
 		std::stack<SpherePtr> sphereStack;
 		std::stack<LightPtr> lightStack;
-		std::stack<Processing::MaterialProps> materialPropStack;
+		Processing::MaterialProps material;
 		std::stack<Utils::Mat4> transformStack;
 		std::string outputFilename = "raytrace";
 		Screen resolution = Screen(160, 120); // 160x120
