@@ -11,11 +11,11 @@
 #include "../MaterialProps/MaterialProps.h"
 #include "../Screen/Screen.h"
 #include "../Utils/Mat4.h"
+#include "../Types/LightPtr.h"
+#include "../Types/ShapePtr.h"
 
 namespace IO
 {
-	typedef std::shared_ptr<Geometry::Shape> ShapePtr;
-	typedef std::shared_ptr<Processing::Light> LightPtr;
 	class InstructionList
 	{
 	public:
