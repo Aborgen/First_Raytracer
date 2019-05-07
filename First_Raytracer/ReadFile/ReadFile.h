@@ -54,6 +54,7 @@ namespace IO
 		void parseLight(const std::vector<std::string>& args, float &x, float &y, float &z, float &r, float &g, float &b);
 		void parseVector(const std::vector<std::string>& args, float &x, float &y, float &z);
 		void parseSphere(const std::vector<std::string>& args, float &x, float &y, float &z, float& radius);
+		void parseTriangle(const std::vector<std::string>& args, int &a, int &b, int &c);
 		bool hasBeenParsed = false;
 		int lineNumber = 0;
 		bool inTransaction = false;

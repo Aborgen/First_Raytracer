@@ -12,25 +12,18 @@ namespace IO
 		this->material = material;
 	}
 
-	std::stack<SpherePtr> InstructionList::getSpheres()
+	std::deque<ShapePtr> InstructionList::getShapes()
 	{
-		return sphereStack;
+		return shapeStack;
 	}
 
-	void InstructionList::pushSphere(const Geometry::Sphere &sphere)
+	void InstructionList::pushShape(const Geometry::Shape &shape)
 	{
 		using namespace Geometry;
-		sphereStack.push(std::make_shared<Sphere>(sphere));
+		shapeStack.push_front(std::make_shared<Shape>(shape));
 	}
 
-	SpherePtr InstructionList::popSphere()
-	{
-		SpherePtr sphere = sphereStack.top();
-		sphereStack.pop();
-		return sphere;
-	}
-
-	std::stack<LightPtr> InstructionList::getLights()
+	std::deque<LightPtr> InstructionList::getLights()
 	{
 		return lightStack;
 	}
@@ -38,14 +31,7 @@ namespace IO
 	void InstructionList::pushLight(const Processing::Light &light)
 	{
 		using namespace Processing;
-		lightStack.push(std::make_shared<Light>(light));
-	}
-
-	LightPtr InstructionList::popLight()
-	{
-		LightPtr light = lightStack.top();
-		lightStack.pop();
-		return light;
+		lightStack.push_front(std::make_shared<Light>(light));
 	}
 
 	std::stack<Utils::Mat4>& InstructionList::getTransforms()

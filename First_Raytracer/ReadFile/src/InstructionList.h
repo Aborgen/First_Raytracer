@@ -6,7 +6,7 @@
 #include <stack>
 
 #include "../Camera/Camera.h"
-#include "../Geometry/Sphere.h";
+#include "../Geometry/Shape.h";
 #include "../Light/Light.h"
 #include "../MaterialProps/MaterialProps.h"
 #include "../Screen/Screen.h"
@@ -14,7 +14,7 @@
 
 namespace IO
 {
-	typedef std::shared_ptr<Geometry::Sphere> SpherePtr;
+	typedef std::shared_ptr<Geometry::Shape> ShapePtr;
 	typedef std::shared_ptr<Processing::Light> LightPtr;
 	class InstructionList
 	{
@@ -23,13 +23,11 @@ namespace IO
 		Processing::MaterialProps& getMaterialProps();
 		void setMaterialProps(const Processing::MaterialProps &material);
 
-		std::stack<SpherePtr> getSpheres();
-		void pushSphere(const Geometry::Sphere &sphere);
-		SpherePtr popSphere();
+		std::deque<ShapePtr> getShapes();
+		void pushShape(const Geometry::Shape &shape);
 
-		std::stack<LightPtr> getLights();
+		std::deque<LightPtr> getLights();
 		void pushLight(const Processing::Light &light);
-		LightPtr popLight();
 
 		std::stack<Utils::Mat4>& getTransforms();
 		void pushTransform(const Utils::Mat4 &transformMatrix);
@@ -55,8 +53,8 @@ namespace IO
 
 	private:
 		std::stack<Processing::Attenuation> attenuationStack;
-		std::stack<SpherePtr> sphereStack;
-		std::stack<LightPtr> lightStack;
+		std::deque<ShapePtr> shapeStack;
+		std::deque<LightPtr> lightStack;
 		Processing::MaterialProps material;
 		std::stack<Utils::Mat4> transformStack;
 		std::string outputFilename = "raytrace";

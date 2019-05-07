@@ -1,3 +1,4 @@
+#include <deque>
 #include <fstream>
 #include <iostream>
 #include <regex>
@@ -11,6 +12,8 @@
 #include "../ReadFile.h"
 #include "../Utils/Mat4.h"
 #include "../Utils/Operations.h"
+#include "../Geometry/Sphere.h"
+#include "../Geometry/Triangle.h"
 
 namespace IO
 {
@@ -41,13 +44,14 @@ namespace IO
 		return args;
 	}
 
-	bool ReadFile::parse()
+	InstructionList ReadFile::parse()
 	{
 		using namespace Geometry;
 		using namespace Processing;
 		using namespace Utils;
 		std::string line;
 		std::ifstream file(filename);
+		std::deque<Vec3> vertices;
 		if (!file.is_open()) {
 			std::cout << "File with name of" << filename << "cannot be opened or does not exist";
 		}
@@ -249,7 +253,7 @@ namespace IO
 					Vec3 center(x, y, z);
 					MaterialProps &material = instructions.getMaterialProps();
 					Sphere sphere(center, radius, material);
-					instructions.pushSphere(sphere);
+					instructions.pushShape(sphere);
 					break;
 				}
 				case ValidCommands::TRANSLATE:
@@ -262,21 +266,39 @@ namespace IO
 					break;
 				}
 				case ValidCommands::TRIANGLE:
+				{
+					int a = 0, int b = 0, int c = 0;
+					parseTriangle(args, a, b, c);
+					Vec3 v0 = vertices[a];
+					Vec3 v1 = vertices[b];
+					Vec3 v2 = vertices[c];
+					Triangle triangle(v0, v1, v2);
+					instructions.pushShape(triangle);
 					break;
+				}
 				case ValidCommands::TRIANGLE_NORMAL:
+					// Unused
 					break;
 				case ValidCommands::VERTEX:
+				{
+					float x = 0.0f, float y = 0.0f, float z = 0.0f;
+					parseVector(args, x, y, z);
+					Vec3 vertex(x, y, z);
+					vertices.push_back(vertex);
 					break;
+				}
 				case ValidCommands::VERTEX_NORMAL:
+					// Unused
 					break;
 				case ValidCommands::UNKNOWN:
+					// Nothing for now. Move on to the next line.
 					break;
 				default:
 					// Default is handled in the case above.
 			}
 		}
 
-		return true;
+		return instructions;
 	}
 	
 	void ReadFile::parseColor(const std::vector<std::string> &args, float &r, float &g, float &b)
@@ -372,6 +394,29 @@ namespace IO
 
 		if (optRadius.has_value()) {
 			radius = optRadius.value();
+		}
+	}
+
+	void ReadFile::parseTriangle(const std::vector<std::string>& args, int &a, int &b, int &c)
+	{
+		if (args.size() < 3) {
+			std::string message = "Line must be a command followed by 3 arguments (" + filename + " line " + std::to_string(lineNumber) + ")";
+			throw new std::exception(message.c_str());
+		}
+
+		std::optional<float> optA = stringToFloat(args[0]);
+		std::optional<float> optB = stringToFloat(args[1]);
+		std::optional<float> optC = stringToFloat(args[2]);
+		if (optA.has_value()) {
+			a = optA.value();
+		}
+		
+		if (optB.has_value()) {
+			b = optB.value();
+		}
+		
+		if (optC.has_value()) {
+			c = optC.value();
 		}
 	}
 
