@@ -6,6 +6,9 @@
 #include <string>
 
 #include "InstructionList.h"
+#include "../Utils/Mat4.h"
+#include "../Types/LightPtr.h"
+#include "../Types/ShapePtr.h"
 
 namespace IO
 {
