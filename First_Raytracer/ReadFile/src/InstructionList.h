@@ -48,7 +48,9 @@ namespace IO
 
 		Processing::Camera getCamera();
 		void setCamera(Processing::Camera camera);
-
+		
+		int getMaxDepth();
+		void setMaxDepth(int maxDepth);
 
 
 	private:
@@ -59,6 +61,7 @@ namespace IO
 		std::stack<Utils::Mat4> transformStack;
 		std::string outputFilename = "raytrace";
 		Screen resolution = Screen(160, 120); // 160x120
+		int maxDepth = 5;
 		Processing::Camera camera;
 	};
 }

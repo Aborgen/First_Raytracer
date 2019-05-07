@@ -141,10 +141,17 @@ namespace IO
 					break;
 				}
 				case ValidCommands::MAX_DEPTH:
+				{
+					std::optional<float> optDepth = stringToFloat(args[0]);
+					float depth = optDepth.has_value() ? optDepth.value() : 5.0f;
+					instructions.setMaxDepth(depth);
 					break;
+				}
 				case ValidCommands::MAX_VERTEX_NORMALS:
+					// Unused
 					break;
 				case ValidCommands::MAX_VERTICES:
+					// Unused
 					break;
 				case ValidCommands::OUTPUT:
 					instructions.setOutputFilename(args[0]);

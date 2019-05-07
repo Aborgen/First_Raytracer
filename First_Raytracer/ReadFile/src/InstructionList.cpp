@@ -118,4 +118,12 @@ namespace IO
 	{
 		this->camera = camera;
 	}
+	int InstructionList::getMaxDepth()
+	{
+		return maxDepth;
+	}
+	void InstructionList::setMaxDepth(int maxDepth)
+	{
+		this->maxDepth = maxDepth;
+	}
 }
