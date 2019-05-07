@@ -20,10 +20,10 @@ namespace IO
 	{
 	public:
 		InstructionList() {};
-		std::deque<ShapePtr> getShapes();
+		ShapeDeque getShapes();
 		void pushShape(const Geometry::Shape &shape);
 
-		std::deque<LightPtr> getLights();
+		LightDeque getLights();
 		void pushLight(const Processing::Light &light);
 
 		std::stack<Utils::Mat4>& getTransforms();
@@ -45,8 +45,8 @@ namespace IO
 
 
 	private:
-		std::deque<ShapePtr> shapeStack;
-		std::deque<LightPtr> lightStack;
+		ShapeDeque shapeStack;
+		LightDeque lightStack;
 		std::stack<Utils::Mat4> transformStack;
 		std::string outputFilename = "raytrace";
 		Screen resolution = Screen(160, 120); // 160x120
