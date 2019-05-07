@@ -12,7 +12,7 @@ namespace Processing
 	class Scene
 	{
 	public:
-		Scene(Camera &camera, Film &film, Raytracer &raytracer, Sampler &sampler);
+		Scene(const Camera &camera, const Film &film, const Raytracer &raytracer, const Sampler &sampler);
 		void render();
 
 	private:

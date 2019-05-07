@@ -2,7 +2,7 @@
 
 namespace Processing
 {
-	Scene::Scene(Camera &camera, Film &film, Raytracer &raytracer, Sampler &sampler)
+	Scene::Scene(const Camera &camera, const Film &film, const Raytracer &raytracer, const Sampler &sampler)
 	{
 		this->camera = camera;
 		this->film = film;
