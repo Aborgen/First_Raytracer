@@ -17,9 +17,12 @@ namespace Utils
 		void setB(float b);
 
 	private:
-		float r;
-		float g;
-		float b;
+		float MIN{ 0.0f };
+		float MAX{ 1.0f };
+		float normalize(float value);
+		float r{ MIN };
+		float g{ MIN };
+		float b{ MIN };
 	};
 }
 

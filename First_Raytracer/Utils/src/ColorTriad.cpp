@@ -4,9 +4,9 @@ namespace Utils
 {
 	ColorTriad::ColorTriad(float r, float g, float b)
 	{
-		this->r = r;
-		this->b = b;
-		this->g = g;
+		setR(r);
+		setG(g);
+		setB(b);
 	}
 
 	float ColorTriad::getR()
@@ -16,7 +16,7 @@ namespace Utils
 
 	void ColorTriad::setR(float r)
 	{
-		this->r = r;
+		this->r = normalize(r);
 	}
 
 	float ColorTriad::getG()
@@ -26,7 +26,7 @@ namespace Utils
 
 	void ColorTriad::setG(float g)
 	{
-		this->g = g;
+		this->g = normalize(g);
 	}
 
 	float ColorTriad::getB()
@@ -36,6 +36,11 @@ namespace Utils
 
 	void ColorTriad::setB(float b)
 	{
-		this->b = b;
+		this->b = normalize(b);
+	}
+
+	float ColorTriad::normalize(float value)
+	{
+		return value - MIN / MAX - MIN;
 	}
 }
