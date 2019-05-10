@@ -1,4 +1,8 @@
 #include "InstructionList.h"
+#include "../Light/DirectionalLight.h"
+#include "../Light/PointLight.h"
+#include "../Geometry/Sphere.h"
+#include "../Geometry/Triangle.h"
 
 namespace IO
 {
@@ -7,22 +11,26 @@ namespace IO
 		return shapeStack;
 	}
 
-	void InstructionList::pushShape(const Geometry::Shape &shape)
+	template <typename SHAPE_T>
+	void InstructionList::pushShape(const SHAPE_T &shape)
 	{
-		using namespace Geometry;
-		shapeStack.push_front(std::make_shared<Shape>(shape));
+		shapeStack.push_front(std::make_shared<SHAPE_T>(shape));
 	}
+	template void InstructionList::pushShape(const Geometry::Sphere &shape);
+	template void InstructionList::pushShape(const Geometry::Triangle &shape);
 
 	std::deque<LightPtr> InstructionList::getLights()
 	{
 		return lightStack;
 	}
 
-	void InstructionList::pushLight(const Processing::Light &light)
+	template <typename LIGHT_T>
+	void InstructionList::pushLight(const LIGHT_T &light)
 	{
-		using namespace Processing;
-		lightStack.push_front(std::make_shared<Light>(light));
+		lightStack.push_front(std::make_shared<LIGHT_T>(light));
 	}
+	template void InstructionList::pushLight<Processing::DirectionalLight>(const Processing::DirectionalLight &light);
+	template void InstructionList::pushLight<Processing::PointLight>(const Processing::PointLight &light);
 
 	std::stack<Utils::Mat4>& InstructionList::getTransforms()
 	{

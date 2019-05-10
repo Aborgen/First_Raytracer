@@ -12,7 +12,7 @@ namespace Utils
 		this->w = w;
 	}
 
-	float Vec4::getW()
+	float Vec4::getW() const
 	{
 		return w;
 	}

@@ -6,7 +6,7 @@
 #include <stack>
 
 #include "../Camera/Camera.h"
-#include "../Geometry/Shape.h";
+#include "../Geometry/Shape.h"
 #include "../Light/Light.h"
 #include "../MaterialProps/MaterialProps.h"
 #include "../Screen/Screen.h"
@@ -21,10 +21,12 @@ namespace IO
 	public:
 		InstructionList() {};
 		ShapeDeque getShapes();
-		void pushShape(const Geometry::Shape &shape);
+		template <class S>
+		void pushShape(const S &shape);
 
 		LightDeque getLights();
-		void pushLight(const Processing::Light &light);
+		template <typename LIGHT_T>
+		void pushLight(const LIGHT_T &light);
 
 		std::stack<Utils::Mat4>& getTransforms();
 		void pushTransform(const Utils::Mat4 &transformMatrix);

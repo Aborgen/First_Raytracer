@@ -148,7 +148,7 @@ namespace Utils
 		);
 	}
 
-	Vec3 Operations::vectorTransform(Mat4 &matrix, Vec3 &vector, bool includeTranslation = false)
+	Vec3 Operations::vectorTransform(Mat4 &matrix, Vec3 &vector, bool includeTranslation)
 	{
 		float homogenousCoordinate = 0.0f;
 		if (includeTranslation) {

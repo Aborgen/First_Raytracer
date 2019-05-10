@@ -2,12 +2,12 @@
 
 namespace Processing
 {
-	float Sample::getX()
+	int Sample::getX()
 	{
 		return x;
 	}
 
-	float Sample::getY()
+	int Sample::getY()
 	{
 		return y;
 	}

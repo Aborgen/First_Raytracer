@@ -2,7 +2,7 @@
 #define LIGHT_H
 #pragma once
 
-#include "src/Attenuation.h";
+#include "src/Attenuation.h"
 #include "../Utils/ColorTriad.h"
 #include "../Utils/Vec3.h"
 

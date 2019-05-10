@@ -7,8 +7,6 @@
 
 #include "InstructionList.h"
 #include "../Utils/Mat4.h"
-#include "../Types/LightPtr.h"
-#include "../Types/ShapePtr.h"
 
 namespace IO
 {
@@ -51,6 +49,7 @@ namespace IO
 
 		ValidCommands commandMapping(std::string str);
 		std::optional<float> stringToFloat(std::string str);
+		std::vector<std::string> lineSplit(const std::string &line, std::string &command);
 		bool validateFilename(std::string filename);
 		void rightMultiply(const Utils::Mat4 &M, std::stack<Utils::Mat4>& transformStack);
 		void parseColor(const std::vector<std::string>& args, float &r, float &g, float &b);

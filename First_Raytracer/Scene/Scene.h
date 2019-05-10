@@ -6,24 +6,20 @@
 #include "../Film/Film.h"
 #include "../Raytracer/Raytracer.h"
 #include "../Sampler/Sampler.h"
-#include "../Types/LightPtr.h"
-#include "../Types/ShapePtr.h"
 
 namespace Processing
 {
 	class Scene
 	{
 	public:
-		Scene(const Camera &camera, const Film &film, const Raytracer &raytracer, const Sampler &sampler, const ShapeDeque &shapes, const LightDeque &lights);
+		Scene(const Camera &camera, const IO::Film &film, const Raytracer &raytracer, const Sampler &sampler);
 		void render();
 
 	private:
 		Camera camera;
-		Film film;
+		IO::Film film;
 		Raytracer raytracer;
 		Sampler sampler;
-		ShapeDeque shapes;
-		LightDeque lights;
 	};
 }
 

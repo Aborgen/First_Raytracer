@@ -11,7 +11,7 @@ namespace Geometry
 		this->transformation = transformation;
 	}
 
-	std::optional<float> Sphere::intersect(Processing::Ray &ray)
+	std::optional<float> Sphere::intersect(const Processing::Ray &ray)
 	{
 		using namespace Utils;
 		Vec3 origin = ray.getOrigin();
@@ -40,11 +40,11 @@ namespace Geometry
 		float root;
 		// There is one real root
 		if (discriminant == 0) {
-			root = -0.5 * b / a;
+			root = (float) -0.5 * b / a;
 		}
 		else {
-			float sign = b > 0 ? 1 : -1;
-			float quadratic = -0.5 * (b + sign * sqrt(discriminant));
+			float sign = b > 0 ? 1.0f : -1.0f;
+			float quadratic = (float)(-0.5 * (b + sign * sqrt(discriminant)));
 			float root1 = quadratic / a;
 			float root2 = c / quadratic;
 			root = root1 < root2 ? root1 : root2;

@@ -174,10 +174,12 @@
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Configuration\src\ConfigList.h" />
     <ClInclude Include="Configuration\src\UserInput.h" />
+    <ClInclude Include="Film\Film.h" />
     <ClInclude Include="Geometry\Shape.h" />
     <ClInclude Include="Geometry\Sphere.h" />
     <ClInclude Include="Geometry\Triangle.h" />
     <ClInclude Include="include\catch.hpp" />
+    <ClInclude Include="include\lodepng.h" />
     <ClInclude Include="Light\DirectionalLight.h" />
     <ClInclude Include="Light\Light.h" />
     <ClInclude Include="Light\PointLight.h" />
@@ -192,6 +194,8 @@
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Screen\Screen.h" />
     <ClInclude Include="Transformations\Transformations.h" />
+    <ClInclude Include="Types\LightPtr.h" />
+    <ClInclude Include="Types\ShapePtr.h" />
     <ClInclude Include="Utils\ColorTriad.h" />
     <ClInclude Include="Utils\Mat3.h" />
     <ClInclude Include="Utils\Mat4.h" />
@@ -210,9 +214,11 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Film\src\Film.cpp" />
     <ClCompile Include="Geometry\src\Shape.cpp" />
     <ClCompile Include="Geometry\src\Sphere.cpp" />
     <ClCompile Include="Geometry\src\Triangle.cpp" />
+    <ClCompile Include="include\lodepng.cpp" />
     <ClCompile Include="Light\src\Attenuation.cpp" />
     <ClCompile Include="Light\src\DirectionalLight.cpp" />
     <ClCompile Include="Light\src\Light.cpp" />
@@ -222,7 +228,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="MaterialProps\src\MaterialProps.cpp" />
-    <ClCompile Include="Raytracer\src\RayCapable.cpp" />
+    <ClCompile Include="Raytracer\src\Raytracer.cpp" />
     <ClCompile Include="Ray\src\Ray.cpp" />
     <ClCompile Include="ReadFile\src\InstructionList.cpp" />
     <ClCompile Include="ReadFile\src\ReadFile.cpp" />

@@ -11,7 +11,7 @@ namespace Utils
 	public:
 		Vec4() {};
 		Vec4(float x, float y, float z, float w);
-		float getW();
+		float getW() const;
 		void setW(float w);
 		double length();
 		bool operator==(const Vec4 &other);

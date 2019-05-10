@@ -5,11 +5,11 @@
 #include <sstream>
 #include <vector>
 
+#include "../ReadFile.h"
 #include "InstructionList.h"
 #include "../../Transformations/Transformations.h"
 #include "../Light/DirectionalLight.h"
 #include "../Light/PointLight.h"
-#include "../ReadFile.h"
 #include "../Utils/Mat4.h"
 #include "../Utils/Operations.h"
 #include "../Geometry/Sphere.h"
@@ -27,7 +27,7 @@ namespace IO
 		this->filename = filename;
 	}
 
-	std::vector<std::string> lineSplit(const std::string &line, std::string &command)
+	std::vector<std::string> ReadFile::lineSplit(const std::string &line, std::string &command)
 	{
 		std::stringstream ss(line);
 		std::vector<std::string> args;
@@ -128,7 +128,7 @@ namespace IO
 					parseLight(args, x, y, z, r, g, b);
 
 					DirectionalLight light(x, y, z, r, g, b);
-					instructions.pushLight(light);
+					instructions.pushLight<DirectionalLight>(light);
 					break;
 				}
 				case ValidCommands::EMISSION:
@@ -141,7 +141,7 @@ namespace IO
 				case ValidCommands::MAX_DEPTH:
 				{
 					std::optional<float> optDepth = stringToFloat(args[0]);
-					float depth = optDepth.has_value() ? optDepth.value() : 5.0f;
+					int depth = (int) optDepth.has_value() ? optDepth.value() : 5;
 					instructions.setMaxDepth(depth);
 					break;
 				}
@@ -161,7 +161,7 @@ namespace IO
 					parseLight(args, x, y, z, r, g, b);
 
 					PointLight light(x, y, z, r, g, b);
-					instructions.pushLight(light);
+					instructions.pushLight<PointLight>(light);
 					break;
 				}
 				case ValidCommands::POP_TRANSFORM:
@@ -175,7 +175,7 @@ namespace IO
 					break;
 				case ValidCommands::ROTATE:
 				{
-					float x = 0.0f, float y = 0.0f, float z = 0.0f, float degrees = 0.0f;
+					float x = 0.0f, y = 0.0f, z = 0.0f, degrees = 0.0f;
 					parseVector(args, x, y, z);
 					if (args.size() == 4) {
 						std::optional<float> optDegrees = stringToFloat(args[3]);
@@ -199,7 +199,7 @@ namespace IO
 				}
 				case ValidCommands::SCALE:
 				{
-					float x = 0.0f, float y = 0.0f, float z = 0.0f;
+					float x = 0.0f, y = 0.0f, z = 0.0f;
 					parseVector(args, x, y, z);
 					Mat4 scaleMatrix = Transformations::scale(x, y, z);
 					std::stack<Mat4> &transformStack = instructions.getTransforms();
@@ -219,11 +219,11 @@ namespace IO
 					std::optional<float> optWidth = stringToFloat(args[0]);
 					std::optional<float> optHeight = stringToFloat(args[1]);
 					if (optWidth.has_value()) {
-						width = optWidth.value();
+						width = (int) optWidth.value();
 					}
 
 					if (optHeight.has_value()) {
-						height = optHeight.value();
+						height = (int) optHeight.value();
 					}
 
 					instructions.setResolution(width, height);
@@ -238,16 +238,16 @@ namespace IO
 				}
 				case ValidCommands::SPHERE:
 				{
-					float x = 0.0f, float y = 0.0f, float z = 0.0f, float radius = 0.0f;
+					float x = 0.0f, y = 0.0f, z = 0.0f, radius = 0.0f;
 					parseSphere(args, x, y, z, radius);
 					Vec3 center(x, y, z);
 					Sphere sphere(center, radius, material);
-					instructions.pushShape(sphere);
+					instructions.pushShape<Sphere>(sphere);
 					break;
 				}
 				case ValidCommands::TRANSLATE:
 				{
-					float x = 0.0f, float y = 0.0f, float z = 0.0f;
+					float x = 0.0f, y = 0.0f, z = 0.0f;
 					parseVector(args, x, y, z);
 					Mat4 translationMatrix = Transformations::translate(x, y, z);
 					std::stack<Mat4> &transformStack = instructions.getTransforms();
@@ -256,13 +256,13 @@ namespace IO
 				}
 				case ValidCommands::TRIANGLE:
 				{
-					int a = 0, int b = 0, int c = 0;
+					int a = 0, b = 0, c = 0;
 					parseTriangle(args, a, b, c);
 					Vec3 v0 = vertices[a];
 					Vec3 v1 = vertices[b];
 					Vec3 v2 = vertices[c];
 					Triangle triangle(v0, v1, v2, material);
-					instructions.pushShape(triangle);
+					instructions.pushShape<Triangle>(triangle);
 					break;
 				}
 				case ValidCommands::TRIANGLE_NORMAL:
@@ -270,7 +270,7 @@ namespace IO
 					break;
 				case ValidCommands::VERTEX:
 				{
-					float x = 0.0f, float y = 0.0f, float z = 0.0f;
+					float x = 0.0f, y = 0.0f, z = 0.0f;
 					parseVector(args, x, y, z);
 					Vec3 vertex(x, y, z);
 					vertices.push_back(vertex);
@@ -284,6 +284,7 @@ namespace IO
 					break;
 				default:
 					// Default is handled in the case above.
+					break;
 			}
 		}
 
@@ -397,15 +398,15 @@ namespace IO
 		std::optional<float> optB = stringToFloat(args[1]);
 		std::optional<float> optC = stringToFloat(args[2]);
 		if (optA.has_value()) {
-			a = optA.value();
+			a = (int) optA.value();
 		}
 		
 		if (optB.has_value()) {
-			b = optB.value();
+			b = (int) optB.value();
 		}
 		
 		if (optC.has_value()) {
-			c = optC.value();
+			c = (int) optC.value();
 		}
 	}
 

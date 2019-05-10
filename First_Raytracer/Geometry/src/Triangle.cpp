@@ -57,7 +57,7 @@ namespace Geometry
 		return normal;
 	}
 
-	std::optional<float> Triangle::intersect(Processing::Ray &ray)
+	std::optional<float> Triangle::intersect(const Processing::Ray &ray)
 	{
 		using namespace Utils;
 		Vec3 direction = ray.getDirection();

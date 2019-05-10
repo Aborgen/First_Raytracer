@@ -13,7 +13,7 @@ namespace Geometry
 	public:
 		Sphere() : Shape(Type::SPHERE) {}
 		Sphere(const Utils::Vec3 &center, float radius, const Processing::MaterialProps &material);
-		std::optional<float> intersect(Processing::Ray &ray);
+		std::optional<float> intersect(const Processing::Ray &ray);
 
 	private:
 		Utils::Vec3 center;

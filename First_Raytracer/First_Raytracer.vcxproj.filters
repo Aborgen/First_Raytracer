@@ -102,6 +102,18 @@
     <ClInclude Include="MaterialProps\MaterialProps.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\lodepng.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Film\Film.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\LightPtr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\ShapePtr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -185,9 +197,6 @@
     <ClCompile Include="Light\src\Attenuation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Raytracer\src\RayCapable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Screen\src\Screen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -207,6 +216,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MaterialProps\src\MaterialProps.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\lodepng.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Film\src\Film.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Raytracer\src\Raytracer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

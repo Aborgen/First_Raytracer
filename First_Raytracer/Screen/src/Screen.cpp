@@ -1,4 +1,4 @@
-#include "../Screen.h";
+#include "../Screen.h"
 
 namespace IO
 {
@@ -20,6 +20,6 @@ namespace IO
 
 	float Screen::getAspect()
 	{
-		return width / height;
+		return width / (float) height;
 	}
 }

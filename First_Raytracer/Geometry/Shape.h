@@ -19,7 +19,7 @@ namespace Geometry
 			TRIANGLE
 		};
 
-		virtual std::optional<float> intersect(Processing::Ray &ray) = 0;
+		virtual std::optional<float> intersect(const Processing::Ray &ray) = 0;
 		Processing::MaterialProps getMaterial();
 		void setMaterial(Processing::MaterialProps material);
 		void setAmbient(float r, float g, float b);
@@ -34,7 +34,7 @@ namespace Geometry
 		Processing::MaterialProps material;
 		Utils::Mat4 transformation;
 		const Type type;
-	}
+	};
 }
 
 #endif // !SHAPE_H

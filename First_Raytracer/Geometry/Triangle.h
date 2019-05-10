@@ -20,7 +20,7 @@ namespace Geometry
 		Utils::Vec3 getEdge1();
 		Utils::Vec3 getEdge2();
 		Utils::Vec3 getNormal();
-		std::optional<float> intersect(Processing::Ray &ray);
+		std::optional<float> intersect(const Processing::Ray &ray);
 
 	private:
 		Utils::Vec3 a;

@@ -1,9 +1,9 @@
 #ifndef TRANSFORMATION_H
 #pragma once
 
-#include "../Utils/Mat3.h";
-#include "../Utils/Mat4.h";
-#include "../Utils/Vec3.h";
+#include "../Utils/Mat3.h"
+#include "../Utils/Mat4.h"
+#include "../Utils/Vec3.h"
 
 namespace Processing
 {

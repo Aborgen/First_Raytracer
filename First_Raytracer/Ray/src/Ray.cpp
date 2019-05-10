@@ -8,7 +8,7 @@ namespace Processing
 		this->origin = origin;
 	}
 
-	Utils::Vec3 Ray::getDirection()
+	Utils::Vec3 Ray::getDirection() const
 	{
 		return direction;
 	}
@@ -19,7 +19,7 @@ namespace Processing
 		this->direction = direction;
 	}
 
-	Utils::Vec3 Ray::getOrigin()
+	Utils::Vec3 Ray::getOrigin() const
 	{
 		return origin;
 	}

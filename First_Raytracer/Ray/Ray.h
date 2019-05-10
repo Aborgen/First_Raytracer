@@ -10,9 +10,9 @@ namespace Processing
 	public:
 		Ray() {};
 		Ray(Utils::Vec3 direction, Utils::Vec3 origin);
-		Utils::Vec3 getDirection();
+		Utils::Vec3 getDirection() const;
 		void setDirection(float x, float y, float z);
-		Utils::Vec3 getOrigin();
+		Utils::Vec3 getOrigin() const;
 		void setOrigin(float x, float y, float z);
 
 	private:

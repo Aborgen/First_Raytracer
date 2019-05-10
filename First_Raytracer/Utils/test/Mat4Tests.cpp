@@ -1,7 +1,7 @@
 #include "catch.hpp"
 
 #include "../Mat4.h"
-#include "../Vec4.h";
+#include "../Vec4.h"
 
 SCENARIO("Basic operations between two 4x4 matrices")
 {
