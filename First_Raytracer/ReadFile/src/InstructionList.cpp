@@ -6,18 +6,6 @@
 
 namespace IO
 {
-	InstructionList::InstructionList()
-	{
-		Utils::Mat4 identity(
-			1.0f, 0.0f, 0.0f, 0.0f,
-			0.0f, 1.0f, 0.0f, 0.0f,
-			0.0f, 0.0f, 1.0f, 0.0f,
-			0.0f, 0.0f, 0.0f, 1.0f
-		);
-
-		transformStack.push(identity);
-	}
-
 	std::deque<ShapePtr> InstructionList::getShapes()
 	{
 		return shapeStack;
@@ -43,28 +31,6 @@ namespace IO
 	}
 	template void InstructionList::pushLight<Processing::DirectionalLight>(const Processing::DirectionalLight &light);
 	template void InstructionList::pushLight<Processing::PointLight>(const Processing::PointLight &light);
-
-	std::stack<Utils::Mat4>& InstructionList::getTransforms()
-	{
-		return transformStack;
-	}
-
-	void InstructionList::pushTransform(const Utils::Mat4 &transformMatrix)
-	{
-		transformStack.push(transformMatrix);
-	}
-
-	Utils::Mat4 InstructionList::popTransform()
-	{
-		Utils::Mat4 transformMatrix = transformStack.top();
-		transformStack.pop();
-		return transformMatrix;
-	}
-
-	void InstructionList::copyTransform()
-	{
-		transformStack.push(transformStack.top());
-	}
 
 	std::string InstructionList::getOutputFilename()
 	{

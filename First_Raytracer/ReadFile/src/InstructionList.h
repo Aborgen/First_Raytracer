@@ -19,7 +19,7 @@ namespace IO
 	class InstructionList
 	{
 	public:
-		InstructionList();
+		InstructionList() {};
 		ShapeDeque getShapes();
 		template <class SHAPE_T>
 		void pushShape(const SHAPE_T &shape);
@@ -27,11 +27,6 @@ namespace IO
 		LightDeque getLights();
 		template <typename LIGHT_T>
 		void pushLight(const LIGHT_T &light);
-
-		std::stack<Utils::Mat4>& getTransforms();
-		void pushTransform(const Utils::Mat4 &transformMatrix);
-		Utils::Mat4 popTransform();
-		void copyTransform();
 
 		std::string getOutputFilename();
 		void setOutputFilename(std::string outputFilename);
@@ -49,7 +44,6 @@ namespace IO
 	private:
 		ShapeDeque shapeStack;
 		LightDeque lightStack;
-		std::stack<Utils::Mat4> transformStack;
 		std::string outputFilename = "raytrace";
 		Screen resolution = Screen(160, 120); // 160x120
 		int maxDepth = 5;
