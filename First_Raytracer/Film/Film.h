@@ -16,7 +16,7 @@ namespace IO
 		Film() {};
 		Film(int width, int height);
 		void commit(const Utils::ColorTriad &color);
-		void writeImage(std::string filename = "rayTracer.png");
+		bool writeImage(std::string filename = "rayTracer.png");
 
 	private:
 		int width;

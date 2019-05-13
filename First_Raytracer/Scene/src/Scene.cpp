@@ -13,14 +13,16 @@ namespace Processing
 		this->sampler = sampler;
 	}
 
-	void Scene::render()
+	bool Scene::render()
 	{
 		using namespace Utils;
 		while (sampler.hasSample()) {
 			Sample sample = sampler.getSample();
 			Ray ray = camera.castRay(sample.getX(), sample.getY());
 			ColorTriad color = raytracer.trace(ray);
-			return;
+			film.commit(color);
 		}
+
+		return film.writeImage();
 	}
 }

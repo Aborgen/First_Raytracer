@@ -21,7 +21,7 @@ namespace IO
 	{
 		if (!validateFilename(filename))
 		{
-			throw new std::exception("Filename must have a file extension of .test");
+			throw new std::exception("Filename must have a file extension of test or txt");
 		}
 
 		this->filename = filename;
@@ -32,7 +32,7 @@ namespace IO
 		std::stringstream ss(line);
 		std::vector<std::string> args;
 		std::string fragment;
-		while (std::getline(ss, fragment)) {
+		while (std::getline(ss, fragment, ' ')) {
 			if (command == "") {
 				command = fragment;
 				continue;
@@ -50,9 +50,10 @@ namespace IO
 		using namespace Processing;
 		using namespace Utils;
 		std::string line;
-		std::ifstream file(filename);
+		std::ifstream file("scenes\\"+filename);
 		if (!file.is_open()) {
-			std::cout << "File with name of" << filename << "cannot be opened or does not exist";
+			std::cout << "File with name of " << filename << " cannot be opened or does not exist\n";
+			return InstructionList();
 		}
 
 		InstructionList instructions = InstructionList();
@@ -61,9 +62,9 @@ namespace IO
 		Attenuation attenuation;
 		while (std::getline(file, line)) {
 			lineNumber++;
-			bool hasSpace = std::find_if(line.begin(), line.end(), ::isspace) != line.end();
+			bool onlySpaces = line.find_first_not_of(' ') == std::string::npos;
 			// Skips the line if it is empty or if it is a comment.
-			if (hasSpace || (line[0] == '#')) {
+			if (onlySpaces || (line[0] == '#')) {
 				continue;
 			}
 
@@ -94,9 +95,9 @@ namespace IO
 					// If the line doesn't have the required number of arguments, just use the defaults.
 					if (args.size() >= 10)
 					{
-						std::vector<std::string> eyeArgs(args.begin(), args.end() + 2);
-						std::vector<std::string> centerArgs(args.begin() + 2, args.end() + 4);
-						std::vector<std::string> upArgs(args.begin() + 4, args.end() + 6);
+						std::vector<std::string> eyeArgs   { args[0], args[1], args[2] };
+						std::vector<std::string> centerArgs{ args[3], args[4], args[5] };
+						std::vector<std::string> upArgs    { args[6], args[7], args[8] };
 						parseVector(eyeArgs, eyeX, eyeY, eyeZ);
 						parseVector(centerArgs, centerX, centerY, centerZ);
 						parseVector(upArgs, upX, upY, upZ);
@@ -240,7 +241,7 @@ namespace IO
 				{
 					float x = 0.0f, y = 0.0f, z = 0.0f, radius = 0.0f;
 					parseSphere(args, x, y, z, radius);
-					Vec3 center(x, y, z);
+					Vec3 center = Vec3(x, y, z) * instructions.po;
 					Sphere sphere(center, radius, material);
 					instructions.pushShape<Sphere>(sphere);
 					break;
@@ -425,7 +426,7 @@ namespace IO
 
 	bool ReadFile::validateFilename(std::string str)
 	{
-		std::regex pattern("[A-Za-z0-9_- ]+.test");
+		std::regex pattern("[A-Za-z0-9_\-]+\.(txt|test)");
 		return std::regex_match(str, pattern);
 	}
 

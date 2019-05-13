@@ -16,11 +16,12 @@ namespace IO
 		colors.push_back(color);
 	}
 
-	void Film::writeImage(std::string filename)
+	bool Film::writeImage(std::string filename)
 	{
 		using namespace Processing;
 		using namespace Utils;
 		std::vector<unsigned char> image;
+		image.resize(width * height * 4);
 		for (ColorTriad &color : colors) {
 			float r = color.getR();
 			float g = color.getG();
@@ -34,10 +35,11 @@ namespace IO
 		unsigned error = lodepng::encode(png, image, width, height);
 		if (error) {
 			std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
+			return false;
 		}
-		else {
-			lodepng::save_file(png, filename);
-		}
+
+		lodepng::save_file(png, filename);
+		return true;
 	}
 
 	unsigned char Film::toByte(float value)

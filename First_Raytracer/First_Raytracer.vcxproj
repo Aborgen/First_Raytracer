@@ -178,7 +178,9 @@
     <ClInclude Include="Geometry\Shape.h" />
     <ClInclude Include="Geometry\Sphere.h" />
     <ClInclude Include="Geometry\Triangle.h" />
-    <ClInclude Include="include\catch.hpp" />
+    <ClInclude Include="include\catch.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="include\lodepng.h" />
     <ClInclude Include="Light\DirectionalLight.h" />
     <ClInclude Include="Light\Light.h" />
@@ -189,6 +191,7 @@
     <ClInclude Include="Ray\Ray.h" />
     <ClInclude Include="ReadFile\ReadFile.h" />
     <ClInclude Include="ReadFile\src\InstructionList.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Sampler\Sampler.h" />
     <ClInclude Include="Sampler\src\Sample.h" />
     <ClInclude Include="Scene\Scene.h" />
@@ -242,18 +245,35 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Transformations\src\Transformations.cpp" />
-    <ClCompile Include="Transformations\test\TransformationsTests.cpp" />
+    <ClCompile Include="Transformations\test\TransformationsTests.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Utils\src\ColorTriad.cpp" />
     <ClCompile Include="Utils\src\Mat3.cpp" />
     <ClCompile Include="Utils\src\Mat4.cpp" />
     <ClCompile Include="Utils\src\Operations.cpp" />
     <ClCompile Include="Utils\src\Vec3.cpp" />
     <ClCompile Include="Utils\src\Vec4.cpp" />
-    <ClCompile Include="Utils\test\Mat3Tests.cpp" />
-    <ClCompile Include="Utils\test\Mat4Tests.cpp" />
-    <ClCompile Include="Utils\test\OperationsTests.cpp" />
-    <ClCompile Include="Utils\test\Vec3Tests.cpp" />
-    <ClCompile Include="Utils\test\Vec4Tests.cpp" />
+    <ClCompile Include="Utils\test\Mat3Tests.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Utils\test\Mat4Tests.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Utils\test\OperationsTests.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Utils\test\Vec3Tests.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Utils\test\Vec4Tests.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="scenes\foo.test">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

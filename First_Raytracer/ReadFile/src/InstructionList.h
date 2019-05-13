@@ -19,10 +19,10 @@ namespace IO
 	class InstructionList
 	{
 	public:
-		InstructionList() {};
+		InstructionList();
 		ShapeDeque getShapes();
-		template <class S>
-		void pushShape(const S &shape);
+		template <class SHAPE_T>
+		void pushShape(const SHAPE_T &shape);
 
 		LightDeque getLights();
 		template <typename LIGHT_T>

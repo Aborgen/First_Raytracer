@@ -13,7 +13,7 @@ namespace Processing
 	{
 	public:
 		Scene(const Camera &camera, const IO::Film &film, const Raytracer &raytracer, const Sampler &sampler);
-		void render();
+		bool render();
 
 	private:
 		Camera camera;
