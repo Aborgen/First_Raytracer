@@ -33,6 +33,30 @@ namespace Utils
 		row4[3] = rd3;
 	}
 
+	void Mat4::identity()
+	{
+		float *row1 = data[0].data();
+		row1[0] = 1.0f;
+		row1[1] = 0.0f;
+		row1[2] = 0.0f;
+		row1[3] = 0.0f;
+		float *row2 = data[1].data();
+		row2[0] = 0.0f;
+		row2[1] = 1.0f;
+		row2[2] = 0.0f;
+		row2[3] = 0.0f;
+		float *row3 = data[2].data();
+		row3[0] = 0.0f;
+		row3[1] = 0.0f;
+		row3[2] = 1.0f;
+		row3[3] = 0.0f;
+		float *row4 = data[3].data();
+		row4[0] = 0.0f;
+		row4[1] = 0.0f;
+		row4[2] = 0.0f;
+		row4[3] = 1.0f;
+	}
+
 	bool Mat4::operator==(const Mat4 &other)
 	{
 		for (size_t i = 0; i < 4; i++)
