@@ -2,6 +2,8 @@
 #define SCENE_H
 #pragma once
 
+#include <string>
+
 #include "../Camera/Camera.h"
 #include "../Film/Film.h"
 #include "../Raytracer/Raytracer.h"
@@ -13,7 +15,7 @@ namespace Processing
 	{
 	public:
 		Scene(const Camera &camera, const IO::Film &film, const Raytracer &raytracer, const Sampler &sampler);
-		bool render();
+		bool render(std::string filename);
 
 	private:
 		Camera camera;

@@ -13,7 +13,7 @@ namespace Processing
 		this->sampler = sampler;
 	}
 
-	bool Scene::render()
+	bool Scene::render(std::string filename)
 	{
 		using namespace Utils;
 		while (sampler.hasSample()) {
@@ -23,6 +23,6 @@ namespace Processing
 			film.commit(color);
 		}
 
-		return film.writeImage();
+		return film.writeImage(filename);
 	}
 }

@@ -420,7 +420,7 @@ namespace IO
 		char *endptr;
 		errno = 0;
 		const char *charString = str.c_str();
-		float newFloat = (float)strtol(charString, &endptr, 0);
+		float newFloat = strtof(charString, &endptr);
 		if (errno == ERANGE || *endptr != '\0' || charString == endptr) {
 			return std::nullopt;
 		}
