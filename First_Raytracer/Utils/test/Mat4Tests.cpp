@@ -202,7 +202,7 @@ SCENARIO("Basic operations between a 4x4 matrix and a vector in R^4")
 
 	SECTION("Multiplication")
 	{
-		Vec4 expected(-1.0f, 0.0f, 0.0f, 8.0f);
+		Vec4 expected(1.0f, 3.25f, 2.0f, 0.75f);
 
 		Mat4 matrix(
 			1.0f, 0.0f, 0.0f, 1.0f,
