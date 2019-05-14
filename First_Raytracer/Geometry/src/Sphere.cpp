@@ -43,7 +43,7 @@ namespace Geometry
 		}
 		else {
 			float sign = b > 0 ? 1.0f : -1.0f;
-			float quadratic = (float)(-0.5 * (b + sign * sqrt(discriminant)));
+			float quadratic = (-b + sign * sqrt(discriminant)) / 2.0f;
 			float root1 = quadratic / a;
 			float root2 = c / quadratic;
 			root = root1 < root2 ? root1 : root2;
