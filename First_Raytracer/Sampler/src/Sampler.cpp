@@ -36,6 +36,7 @@ namespace Processing
 			currentColumn++;
 		}
 
+		samples++;
 		return newSample;
 	}
 }

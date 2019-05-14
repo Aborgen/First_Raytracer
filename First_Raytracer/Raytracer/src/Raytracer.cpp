@@ -26,7 +26,6 @@ namespace Processing
 			if (intersection < closestIntersection) {
 				closestIntersection = intersection;
 				color.setR(1.0f);
-				break;
 			}
 
 			//MaterialProps material = shape->getMaterial();

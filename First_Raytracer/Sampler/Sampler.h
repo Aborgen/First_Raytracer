@@ -15,6 +15,7 @@ namespace Processing
 		Sample getSample();
 
 	private:
+		int samples{ 0 };
 		int rows;
 		int columns;
 		int currentRow = 0;

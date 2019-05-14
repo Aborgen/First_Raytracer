@@ -51,7 +51,7 @@ namespace Utils
 		double length = vector.length();
 		if (length <= 0)
 		{
-			throw std::exception("A vector with a length of 0 cannot be normalized");
+			return vector;
 		}
 
 		float normX = (float)(vector.getX() / length);

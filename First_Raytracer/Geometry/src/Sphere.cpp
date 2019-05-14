@@ -8,7 +8,6 @@ namespace Geometry
 		this->center = center;
 		this->radius = radius;
 		this->material = material;
-		this->transformation = transformation;
 	}
 
 	std::optional<float> Sphere::intersect(const Processing::Ray &ray)

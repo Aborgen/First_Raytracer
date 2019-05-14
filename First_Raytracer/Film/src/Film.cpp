@@ -21,7 +21,6 @@ namespace IO
 		using namespace Processing;
 		using namespace Utils;
 		std::vector<unsigned char> image;
-		image.resize(width * height * 4);
 		for (ColorTriad &color : colors) {
 			float r = color.getR();
 			float g = color.getG();
@@ -29,6 +28,7 @@ namespace IO
 			image.push_back(toByte(r));
 			image.push_back(toByte(g));
 			image.push_back(toByte(b));
+			image.push_back(255); // Unused alpha
 		}
 
 		std::vector<unsigned char> png;
