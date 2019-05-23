@@ -18,9 +18,9 @@ namespace Processing
 		int samples{ 0 };
 		int rows;
 		int columns;
-		int currentRow = 0;
-		int currentColumn = 0;
-		bool isDone = false;
+		int currentRow{ 1 };
+		int currentColumn{ 1 };
+		bool isDone{ false };
 	};
 }
 

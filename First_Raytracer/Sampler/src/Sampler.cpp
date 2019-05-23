@@ -22,13 +22,13 @@ namespace Processing
 			throw new std::exception("There are no more sample to be taken. Use hasSample to protect against this.");
 		}
 
-		Sample newSample = Sample(currentColumn, currentRow);
+		Sample newSample(currentColumn, currentRow);
 		if (currentColumn == columns) {
 			if (currentRow == rows) {
 				isDone = true;
 			}
 			else {
-				currentColumn = 0;
+				currentColumn = 1;
 				currentRow++;
 			}
 		}
