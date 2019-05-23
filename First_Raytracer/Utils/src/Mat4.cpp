@@ -217,4 +217,15 @@ namespace Utils
 
 		return data[idx];
 	}
+	
+	// Row multiplication
+	Vec4 operator*(const Vec4 &vector, const Mat4 &matrix)
+	{
+		Vec4 row1(matrix[0][0], matrix[0][1], matrix[0][2], matrix[0][3]);
+		Vec4 row2(matrix[1][0], matrix[1][1], matrix[1][2], matrix[1][3]);
+		Vec4 row3(matrix[2][0], matrix[2][1], matrix[2][2], matrix[2][3]);
+		Vec4 row4(matrix[3][0], matrix[3][1], matrix[3][2], matrix[3][3]);
+
+		return (row1 * vector.getX()) + (row2 * vector.getY()) + (row3 * vector.getZ()) + (row4 * vector.getW());
+	}
 }

@@ -37,6 +37,8 @@ namespace Utils
 	private:
 		std::array<std::array<float, 4>, 4> data;
 	};
+
+	Vec4 operator*(const Vec4 &vector, const Mat4 &matrix);
 }
 
 #endif // !MAT4_H

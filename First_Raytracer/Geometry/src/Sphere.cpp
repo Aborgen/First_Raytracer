@@ -39,14 +39,22 @@ namespace Geometry
 		float root;
 		// There is one real root
 		if (discriminant == 0) {
-			root = (float) -0.5 * b / a;
+			root = (-b / a) / 2.0f;
 		}
 		else {
 			float sign = b > 0 ? 1.0f : -1.0f;
-			float quadratic = (-b + sign * sqrt(discriminant)) / 2.0f;
+			float quadratic = -0.5f * b + sign * sqrt(discriminant);
 			float root1 = quadratic / a;
 			float root2 = c / quadratic;
-			root = root1 < root2 ? root1 : root2;
+			if (root1 > 0 && root1 < root2) {
+				root = root1;
+			}
+			else if (root2 > 0) {
+				root = root2;
+			}
+			else {
+				return std::nullopt;
+			}
 		}
 
 		return root;
