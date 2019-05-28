@@ -76,13 +76,13 @@ namespace Geometry
 		Vec3 triangleToOrigin = ray.getOrigin() - getA();
 		float u = invertedDeterminant * Operations::dot(triangleToOrigin, P);
 		if (u < 0 || u > 1) {
-			return false;
+			return std::nullopt;
 		}
 
 		Vec3 q = Operations::cross(triangleToOrigin, edge0);
 		float v = invertedDeterminant * Operations::dot(direction, q);
 		if (v < 0 || u + v > 1) {
-			return false;
+			return std::nullopt;
 		}
 
 		float t = invertedDeterminant * Operations::dot(edge1, q);
