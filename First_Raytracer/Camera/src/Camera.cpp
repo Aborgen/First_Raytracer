@@ -8,6 +8,7 @@ namespace Processing
 		this->position = eye;
 		this->center = center;
 		this->fovy = fovy;
+		this->fovx = 2 * atan(tan(fovy * 0.5) * screen.getAspect());
 		this->up = setUpVector(up);
 		this->screen = screen;
 		initCoordinateFrame();
@@ -48,40 +49,19 @@ namespace Processing
 	Utils::Vec3 Camera::generateDirection(float rasterX, float rasterY)
 	{
 		using namespace Utils;
-		// Normalized device coordinates
-		float normX = (rasterX + offset) / screen.getWidth();
-		float normY = (rasterY + offset) / screen.getHeight();
-		// Screen coordinates
-		float alpha = Operations::toRadians(fovy / 2);
-		float fovScaling = tan(alpha);
-		float screenX = (2 * normX - 1) * fovScaling * screen.getAspect();
-		float screenY = (1 - 2 * normY) * fovScaling;
-		// Camera space
-		Vec3 cameraSpace(screenX, screenY, -1.0f);
-		// Direction, taking into account transformations applied to the camera
-		Vec3 translatedCameraSpace = Operations::vectorTransform(coordinateFrame, cameraSpace, true);
-		Vec3 direction = translatedCameraSpace - position;
-
+		float halfWidth = screen.getWidth() / 2.0f;
+		float halfHeight = screen.getHeight() / 2.0f;
+		float alpha = tan(fovx / 2) * ((rasterX - halfWidth) / halfWidth);
+		float beta = tan(fovy / 2) * ((halfHeight - rasterY) / halfHeight);
+		// Direction is given as alpha * u + beta * v - w;
+		// u, v, and w correspond to rows 0, 1, and 2 of coordinateFrame.
+		// In other words, we want alpha of row 0, beta of row 1, and -1 of row 2.
+		// If we transpose coordinateFrame, this becomes simple matrix-column multiplication.
+		// Note: vectorTransform simply tacks on a homogenous coordinate -- changing the given Vec3 to a Vec4 --
+		// making it possible to multiply with the given Mat4.
+		Mat4 frameT = Operations::transpose(coordinateFrame);
+		Vec3 quantities(alpha, beta, -1.0f);
+		Vec3 direction = Operations::vectorTransform(frameT, quantities);
 		return Operations::normalize(direction);
 	}
-
-	//Utils::Vec3 Camera::generateDirection(float rasterX, float rasterY)
-	//{
-	//	using namespace Utils;
-	//	float halfWidth = screen.getWidth() / 2.0f;
-	//	float halfHeight = screen.getHeight() / 2.0f;
-	//	float fovx = 2 * atan(tan(fovy * 0.5) * screen.getAspect());
-	//	float alpha = tan(fovx / 2) * ((rasterX - halfWidth) / halfWidth);
-	//	float beta = tan(fovy / 2) * ((halfHeight - rasterY) / halfHeight);
-	//	// Direction is given as alpha * u + beta * v - w;
-	//	// u, v, and w correspond to rows 0, 1, and 2 of coordinateFrame.
-	//	// In other words, we want alpha of row 0, beta of row 1, and -1 of row 2.
-	//	// If we transpose coordinateFrame, this becomes simple matrix-column multiplication.
-	//	// Note: vectorTransform simply tacks on a homogenous coordinate -- changing the given Vec3 to a Vec4 --
-	//	// making it possible to multiply with the given Mat4.
-	//	Mat4 frameT = Operations::transpose(coordinateFrame);
-	//	Vec3 quantities(alpha, beta, -1.0f);
-	//	Vec3 direction = Operations::vectorTransform(frameT, quantities);
-	//	return Operations::normalize(direction);
-	//}
 }

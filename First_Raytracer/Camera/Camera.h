@@ -21,6 +21,7 @@ namespace Processing
 		Utils::Vec3 up;
 		Utils::Mat4 coordinateFrame;
 		float fovy;
+		float fovx;
 		float offset = 0.5f; // Ensures that we cast ray toward the center of each pixel
 		IO::Screen screen;
 		void initCoordinateFrame();
