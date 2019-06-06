@@ -15,6 +15,10 @@ namespace Utils
 		void setG(float g);
 		float getB();
 		void setB(float b);
+		ColorTriad& operator*=(const ColorTriad &other);
+		ColorTriad operator*(const ColorTriad &other);
+		ColorTriad& operator*=(float scalar);
+		ColorTriad operator*(float scalar);
 
 	private:
 		float MIN{ 0.0f };

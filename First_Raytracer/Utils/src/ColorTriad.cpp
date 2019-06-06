@@ -39,6 +39,36 @@ namespace Utils
 		this->b = normalize(b);
 	}
 
+	ColorTriad& ColorTriad::operator*=(const ColorTriad &other)
+	{
+		r *= other.r;
+		g *= other.g;
+		b *= other.b;
+		return *this;
+	}
+
+	ColorTriad ColorTriad::operator*(const ColorTriad &other)
+	{
+		ColorTriad temp(*this);
+		temp *= other;
+		return temp;
+	}
+
+	ColorTriad& ColorTriad::operator*=(float scalar)
+	{
+		r *= scalar;
+		g *= scalar;
+		b *= scalar;
+		return *this;
+	}
+
+	ColorTriad ColorTriad::operator*(float scalar)
+	{
+		ColorTriad temp(*this);
+		temp *= scalar;
+		return temp;
+	}
+
 	float ColorTriad::normalize(float value)
 	{
 		return value - MIN / MAX - MIN;
