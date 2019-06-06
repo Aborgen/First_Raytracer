@@ -117,6 +117,9 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Raytracer\Raytracer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -230,10 +233,5 @@
     <ClCompile Include="Raytracer\src\Raytracer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="scenes\foo.test">
-      <Filter>Source Files</Filter>
-    </None>
   </ItemGroup>
 </Project>

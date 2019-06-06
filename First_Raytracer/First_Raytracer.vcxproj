@@ -188,6 +188,7 @@
     <ClInclude Include="Light\src\Attenuation.h" />
     <ClInclude Include="MaterialProps\MaterialProps.h" />
     <ClInclude Include="Raytracer\RayCapable.h" />
+    <ClInclude Include="Raytracer\Raytracer.h" />
     <ClInclude Include="Ray\Ray.h" />
     <ClInclude Include="ReadFile\ReadFile.h" />
     <ClInclude Include="ReadFile\src\InstructionList.h" />
