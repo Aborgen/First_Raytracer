@@ -2,6 +2,8 @@
 #define SCREEN_H
 #pragma once
 
+#include "../Utils/ColorTriad.h"
+
 namespace IO
 {
 	class Screen
@@ -12,10 +14,14 @@ namespace IO
 		int getWidth();
 		int getHeight();
 		float getAspect();
+		Utils::ColorTriad getBackgroundColor() const;
+		void setBackgroundColor(float r, float g, float b);
+		void setBackgroundColor(const Utils::ColorTriad &color);
 
 	private:
 		int width;
 		int height;
+		Utils::ColorTriad backgroundColor;
 	};
 }
 
