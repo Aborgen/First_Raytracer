@@ -8,6 +8,11 @@ namespace Processing
 		this->direction = direction;
 	}
 
+	Utils::Vec3 Ray::specificPoint(float t) const
+	{
+		return origin + t * direction;
+	}
+
 	Utils::Vec3 Ray::getOrigin() const
 	{
 		return origin;
