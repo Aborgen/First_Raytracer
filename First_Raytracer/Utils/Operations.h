@@ -13,7 +13,7 @@ namespace Utils
 	{
 	public:
 		static Vec3 cross(Vec3 &one, Vec3 &two);
-		static float dot(Vec3 &one, Vec3 &two);
+		static float dot(const Vec3 &one, const Vec3 &two);
 		static float dot(Vec4 &one, Vec4 &two);
 		static Vec3 normalize(Vec3 &vector);
 		static Vec4 normalize(Vec4 &vector);
