@@ -61,7 +61,7 @@ namespace Utils
 		return *this;
 	}
 
-	Vec3 Vec3::operator-(const Vec3 &other)
+	Vec3 Vec3::operator-(const Vec3 &other) const
 	{
 		Vec3 temp(*this);
 		temp -= other;
