@@ -10,12 +10,12 @@ namespace Processing
 	public:
 		enum class Type { PRIMARY, SHADOW };
 		Ray() : type(Type::PRIMARY) {};
-		Ray(Utils::Vec3 origin, Utils::Vec3 direction, Type type);
+		Ray(Utils::Vec3 origin, Utils::Vec3 direction, Type type = Type::PRIMARY);
 		Utils::Vec3 getOrigin() const;
 		void setOrigin(float x, float y, float z);
 		Utils::Vec3 getDirection() const;
 		void setDirection(float x, float y, float z);
-		Type getType();
+		Type getType() const;
 
 	private:
 		Utils::Vec3 origin;

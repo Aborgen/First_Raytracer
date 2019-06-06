@@ -29,7 +29,7 @@ namespace Processing
 		Utils::Vec3 direction(x, y, z);
 		this->direction = direction;
 	}
-	Ray::Type Ray::getType()
+	Ray::Type Ray::getType() const
 	{
 		return type;
 	}
