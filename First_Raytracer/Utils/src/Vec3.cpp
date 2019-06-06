@@ -16,6 +16,14 @@ namespace Utils
 		return sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
 	}
 
+	Vec3& Vec3::reverse()
+	{
+		x = -x;
+		y = -y;
+		z = -z;
+		return *this;
+	}
+
 	bool Vec3::operator==(const Vec3 &other)
 	{
 		return (
