@@ -69,6 +69,21 @@ namespace Utils
 		return temp;
 	}
 
+	ColorTriad& ColorTriad::operator+=(const ColorTriad &other)
+	{
+		r += other.r;
+		g += other.g;
+		b += other.b;
+		return *this;
+	}
+
+	ColorTriad ColorTriad::operator+(const ColorTriad &other)
+	{
+		ColorTriad temp(*this);
+		temp += other;
+		return temp;
+	}
+
 	float ColorTriad::normalize(float value)
 	{
 		return value - MIN / MAX - MIN;
