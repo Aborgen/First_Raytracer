@@ -2,7 +2,7 @@
 
 namespace Processing
 {
-	Utils::ColorTriad MaterialProps::getAmbient()
+	Utils::ColorTriad MaterialProps::getAmbient() const
 	{
 		return ambient;
 	}
@@ -14,7 +14,7 @@ namespace Processing
 
 	}
 	
-	Utils::ColorTriad MaterialProps::getEmission()
+	Utils::ColorTriad MaterialProps::getEmission() const
 	{
 		return emission;
 	}
@@ -26,7 +26,7 @@ namespace Processing
 
 	}
 
-	Utils::ColorTriad MaterialProps::getDiffuse()
+	Utils::ColorTriad MaterialProps::getDiffuse() const
 	{
 		return diffuse;
 	}
@@ -37,7 +37,7 @@ namespace Processing
 		this->diffuse = diffuse;
 	}
 
-	Utils::ColorTriad MaterialProps::getSpecular()
+	Utils::ColorTriad MaterialProps::getSpecular() const
 	{
 		return specular;
 	}
@@ -48,7 +48,7 @@ namespace Processing
 		this->specular = specular;
 	}
 
-	float MaterialProps::getShininess()
+	float MaterialProps::getShininess() const
 	{
 		return shininess;
 	}

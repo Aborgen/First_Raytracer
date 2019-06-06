@@ -9,15 +9,15 @@ namespace Processing
 	class MaterialProps
 	{
 	public:
-		Utils::ColorTriad getAmbient();
+		Utils::ColorTriad getAmbient() const;
 		void setAmbient(float r, float g, float b);
-		Utils::ColorTriad getEmission();
+		Utils::ColorTriad getEmission() const;
 		void setEmission(float r, float g, float b);
-		Utils::ColorTriad getDiffuse();
+		Utils::ColorTriad getDiffuse() const;
 		void setDiffuse(float r, float g, float b);
-		Utils::ColorTriad getSpecular();
+		Utils::ColorTriad getSpecular() const;
 		void setSpecular(float r, float g, float b);
-		float getShininess();
+		float getShininess() const;
 		void setShininess(float intensity);
 
 	private:
