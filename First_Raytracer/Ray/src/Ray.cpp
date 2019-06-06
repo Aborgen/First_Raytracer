@@ -2,7 +2,7 @@
 
 namespace Processing
 {
-	Ray::Ray(Utils::Vec3 origin, Utils::Vec3 direction)
+	Ray::Ray(Utils::Vec3 origin, Utils::Vec3 direction, Type type) : type(type)
 	{
 		this->origin = origin;
 		this->direction = direction;
@@ -28,5 +28,9 @@ namespace Processing
 	{
 		Utils::Vec3 direction(x, y, z);
 		this->direction = direction;
+	}
+	Ray::Type Ray::getType()
+	{
+		return type;
 	}
 }
