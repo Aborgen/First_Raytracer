@@ -17,7 +17,7 @@ namespace Utils
 		bool operator==(const Vec4 &other);
 		bool operator!=(const Vec4 &other);
 		Vec4& operator+=(const Vec4 &other);
-		Vec4 operator+(const Vec4 &other);
+		Vec4 operator+(const Vec4 &other) const;
 		Vec4& operator-=(const Vec4 &other);
 		Vec4 operator-(const Vec4 &other);
 		Vec4& operator*=(float scalar);

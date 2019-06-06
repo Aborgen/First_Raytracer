@@ -15,7 +15,7 @@ namespace Utils
 		virtual bool operator==(const T &other) = 0;
 		virtual bool operator!=(const T &other) = 0;
 		virtual T& operator+=(const T &other) = 0;
-		virtual T operator+(const T &other) = 0;
+		virtual T operator+(const T &other) const = 0;
 		virtual T& operator-=(const T &other) = 0;
 		virtual T operator-(const T &other) = 0;
 		float getX() const { return x; }

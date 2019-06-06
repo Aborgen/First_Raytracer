@@ -51,7 +51,7 @@ namespace Utils
 		return *this;
 	}
 
-	Vec4 Vec4::operator+(const Vec4 &other)
+	Vec4 Vec4::operator+(const Vec4 &other) const
 	{
 		Vec4 temp(*this);
 		temp += other;
