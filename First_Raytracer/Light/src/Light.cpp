@@ -2,13 +2,6 @@
 
 namespace Processing
 {
-	Light::Light(float x, float y, float z, float r, float g, float b, Type type)
-	{
-		Utils::Vec3 coordinates(x, y, z);
-		Utils::ColorTriad color(r, g, b);
-		Light(coordinates, color, type);
-	}
-
 	Utils::ColorTriad Light::getColor()
 	{
 		return color;

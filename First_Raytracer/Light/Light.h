@@ -21,14 +21,13 @@ namespace Processing
 		void setCoordinates(float x, float y, float z);
 
 	protected:
-		Light(float x, float y, float z, float r, float g, float b, Type type);
-		Light(const Utils::Vec3 &coordinates, const Utils::ColorTriad &color, Type type) : coordinates(coordinates), color(color), type(type) {};
+		Light(float x, float y, float z, float r, float g, float b, Type type) : coordinates(x, y, z), color(r, g, b), type(type) {};
 
 	private:
-		Utils::ColorTriad color;
 		Utils::Vec3 coordinates;
+		Utils::ColorTriad color;
 		Attenuation attenuation;
-		Type type;
+		const Type type;
 	};
 }
 
