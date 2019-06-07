@@ -59,4 +59,11 @@ namespace Geometry
 
 		return root;
 	}
+
+	Utils::Vec3 Sphere::normalAtPoint(const Utils::Vec3 &point)
+	{
+		Utils::Vec3 normal = point - center;
+		normal = Utils::Operations::normalize(normal);
+		return normal;
+	}
 }

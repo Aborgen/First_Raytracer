@@ -88,4 +88,9 @@ namespace Geometry
 		float t = invertedDeterminant * Operations::dot(edge1, q);
 		return t;
 	}
+
+	Utils::Vec3 Triangle::normalAtPoint(const Utils::Vec3 &point)
+	{
+		return getNormal();
+	}
 }

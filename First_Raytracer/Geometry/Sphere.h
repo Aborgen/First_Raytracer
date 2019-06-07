@@ -19,6 +19,7 @@ namespace Geometry
 		Utils::Vec3 center;
 		float radius;
 		std::optional<float> findClosestRoot(float a, float b, float c);
+		Utils::Vec3 normalAtPoint(const Utils::Vec3 &point);
 	};
 }
 

@@ -20,6 +20,7 @@ namespace Geometry
 		};
 
 		virtual std::optional<float> intersect(const Processing::Ray &ray) = 0;
+		virtual Utils::Vec3 normalAtPoint(const Utils::Vec3 &point) = 0;
 		Processing::MaterialProps getMaterial();
 		void setMaterial(Processing::MaterialProps material);
 		void setAmbient(float r, float g, float b);
