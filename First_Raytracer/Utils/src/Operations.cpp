@@ -23,7 +23,7 @@ namespace Utils
 		return Vec3(i, j, k);
 	}
 
-	float Operations::dot(Vec3 &one, Vec3 &two)
+	float Operations::dot(const Vec3 &one, const Vec3 &two)
 	{
 		float sumOfProducts = (
 			(one.getX() * two.getX()) +
