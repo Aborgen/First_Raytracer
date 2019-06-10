@@ -1,6 +1,7 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <exception>
+#include <optional>
 
 #include "../Operations.h"
 
@@ -142,8 +143,8 @@ namespace Utils
 		Vec3 rowTwo = two * yScalar;
 		Vec3 rowThree = two * zScalar;
 		return Mat3(
-			rowOne.getX(),   rowOne.getY(),   rowOne.getZ(),
-			rowTwo.getX(),   rowTwo.getY(),   rowTwo.getZ(),
+			rowOne.getX(), rowOne.getY(), rowOne.getZ(),
+			rowTwo.getX(), rowTwo.getY(), rowTwo.getZ(),
 			rowThree.getX(), rowThree.getY(), rowThree.getZ()
 		);
 	}
@@ -158,5 +159,84 @@ namespace Utils
 		Vec4 augmentedVector(vector.getX(), vector.getY(), vector.getZ(), homogenousCoordinate);
 		Vec4 transformedVector = matrix * augmentedVector;
 		return Vec3(transformedVector.getX(), transformedVector.getY(), transformedVector.getZ());
+	}
+
+	std::optional<Mat4> Operations::inverse(const Mat4 &matrix)
+	{
+		Mat4 inverseMatrix;
+		inverseMatrix.identity();
+		bool inversion = gaussJordan(matrix, inverseMatrix);
+		if (!inversion) {
+			return std::nullopt;
+		}
+
+		return inverseMatrix;
+	}
+
+	bool Operations::gaussJordan(Mat4 matrix, Mat4 &inverseMatrix)
+	{
+		bool upper = upperTriangle(matrix[0], matrix, inverseMatrix);
+		bool lower = lowerTriangle(matrix[3], matrix, inverseMatrix);
+		Mat4 I;
+		I.identity();
+		return matrix == I && (upper && lower);
+	}
+
+	bool Operations::upperTriangle(std::array<float, 4> &pivotRow, Mat4 &matrix, Mat4 &inverseMatrix, size_t pivotIndex)
+	{
+		float pivotPosition = pivotRow[pivotIndex];
+		// This normalization will simplify math later
+		if (pivotPosition != 1.0f) {
+			for (size_t i = 0; i < pivotRow.size(); i++) {
+				matrix[pivotIndex][i] /= pivotPosition;
+				inverseMatrix[pivotIndex][i] /= pivotPosition;
+			}
+		}
+
+		// Exit condition
+		if (pivotIndex >= 3) {
+			return true;
+		}
+
+		for (size_t i = pivotIndex + 1; i < 4; i++) {
+			std::array<float, 4> &nextRow = matrix[i];
+			float underPivot = nextRow[pivotIndex];
+			if (underPivot == 0.0f) {
+				continue;
+			}
+
+			for (size_t j = 0; j < nextRow.size(); j++) {
+				nextRow[j] -= (underPivot * pivotRow[j]);
+				inverseMatrix[i][j] -= (underPivot * inverseMatrix[pivotIndex][j]);
+			}
+			float humph = 0;
+		}
+
+		pivotIndex++;
+		return upperTriangle(matrix[pivotIndex], matrix, inverseMatrix, pivotIndex);
+	}
+
+	bool Operations::lowerTriangle(std::array<float, 4> &pivotRow, Mat4 &matrix, Mat4 &inverseMatrix, size_t pivotIndex)
+	{
+		// Exit condition
+		if (pivotIndex == 0) {
+			return true;
+		}
+
+		for (int i = pivotIndex - 1; i >= 0; i--) {
+			std::array<float, 4> &upperRow = matrix[i];
+			float abovePivot = upperRow[pivotIndex];
+			if (abovePivot == 0.0f) {
+				continue;
+			}
+
+			for (size_t j = 0; j < upperRow.size(); j++) {
+				upperRow[j] -= (abovePivot * pivotRow[j]);
+				inverseMatrix[i][j] -= (abovePivot * inverseMatrix[pivotIndex][j]);
+			}
+		}
+
+		pivotIndex--;
+		return lowerTriangle(matrix[pivotIndex], matrix, inverseMatrix, pivotIndex);
 	}
 }

@@ -1,3 +1,5 @@
+#include <optional>
+
 #include "catch.hpp"
 
 #include "../Operations.h"
@@ -140,6 +142,28 @@ SCENARIO("Operations on a 4x4 matrix")
 
 		Mat4 result = Operations::transpose(matrix);
 		bool objectEquality = expected == result;
+		REQUIRE(objectEquality);
+	}
+
+	SECTION("Inversion")
+	{
+		Mat4 matrix(
+			1.0f, 0.0f, 0.0f, 1.0f,
+			0.0f, 2.0f, 1.0f, 2.0f,
+			2.0f, 1.0f, 0.0f, 1.0f,
+			2.0f, 0.0f, 1.0f, 4.0f
+		);
+
+		Mat4 expected(
+			-2.0f, -0.5f,  1.0f,  0.5f,
+			 1.0f,  0.5f,  0.0f, -0.5f,
+			-8.0f, -1.0f,  2.0f,  2.0f,
+			 3.0f,  0.5f, -1.0f, -0.5f
+		);
+
+		std::optional<Mat4> result = Operations::inverse(matrix);
+		REQUIRE(result.has_value());
+		bool objectEquality = expected == result.value();
 		REQUIRE(objectEquality);
 	}
 }
