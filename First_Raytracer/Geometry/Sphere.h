@@ -12,7 +12,7 @@ namespace Geometry
 	{
 	public:
 		Sphere() : Shape(Type::SPHERE) {}
-		Sphere(const Utils::Vec3 &center, float radius, const Processing::MaterialProps &material);
+		Sphere(const Utils::Vec3 &center, float radius, const Utils::Mat4 &transformation, const Processing::MaterialProps &material);
 		std::optional<float> intersect(const Processing::Ray &ray);
 
 	private:

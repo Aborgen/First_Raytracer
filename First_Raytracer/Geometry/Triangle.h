@@ -11,7 +11,7 @@ namespace Geometry
 	{
 	public:
 		Triangle() : Shape(Type::TRIANGLE) {};
-		Triangle(Utils::Vec3 &a, Utils::Vec3 &b, Utils::Vec3 &c, const Processing::MaterialProps &material);
+		Triangle(Utils::Vec3 &a, Utils::Vec3 &b, Utils::Vec3 &c, const Utils::Mat4 &transformation, const Processing::MaterialProps &material);
 		Utils::Vec3 getA();
 		Utils::Vec3 getB();
 		Utils::Vec3 getC();

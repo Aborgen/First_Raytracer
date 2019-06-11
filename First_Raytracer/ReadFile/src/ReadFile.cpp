@@ -243,8 +243,7 @@ namespace IO
 					float x = 0.0f, y = 0.0f, z = 0.0f, radius = 0.0f;
 					parseSphere(args, x, y, z, radius);
 					Vec3 center(x, y, z);
-					center = Operations::vectorTransform(transforms, center, true);
-					Sphere sphere(center, radius, material);
+					Sphere sphere(center, radius, transforms, material);
 					instructions.pushShape<Sphere>(sphere);
 					break;
 				}
@@ -260,13 +259,7 @@ namespace IO
 				{
 					int a = 0, b = 0, c = 0;
 					parseTriangle(args, a, b, c);
-					Vec3 v0 = vertices[a];
-					v0 = Operations::vectorTransform(transforms, v0, true);
-					Vec3 v1 = vertices[b];
-					v1 = Operations::vectorTransform(transforms, v1, true);
-					Vec3 v2 = vertices[c];
-					v2 = Operations::vectorTransform(transforms, v2, true);
-					Triangle triangle(v0, v1, v2, material);
+					Triangle triangle(vertices[a], vertices[b], vertices[c], transforms, material);
 					instructions.pushShape<Triangle>(triangle);
 					break;
 				}

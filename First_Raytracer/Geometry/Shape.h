@@ -6,6 +6,7 @@
 
 #include "../MaterialProps/MaterialProps.h"
 #include "../Utils/Mat4.h"
+#include "../Utils/Operations.h"
 #include "../Ray/Ray.h"
 
 namespace Geometry
@@ -31,10 +32,19 @@ namespace Geometry
 		virtual ~Shape() {}
 
 	protected:
-		Shape(Type type) : type(type) {}
-		Processing::MaterialProps material;
-		Utils::Mat4 transformation;
+		Shape(Type type) : type(type) {};
+		Shape(Type type, const Utils::Mat4 &transformation, const Processing::MaterialProps &material) : type(type), transformation(transformation), material(material)
+		{
+			std::optional<Utils::Mat4> optInverse = Utils::Operations::inverse((transformation));
+			if (optInverse.has_value()) {
+				normalTransformation = optInverse.value();
+			}
+		}
+
 		const Type type;
+		Utils::Mat4 transformation;
+		Utils::Mat4 normalTransformation;
+		Processing::MaterialProps material;
 	};
 }
 

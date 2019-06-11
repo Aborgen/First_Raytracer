@@ -3,11 +3,10 @@
 
 namespace Geometry
 {
-	Sphere::Sphere(const Utils::Vec3 &center, float radius, const Processing::MaterialProps &material) : Shape(Type::SPHERE)
+	Sphere::Sphere(const Utils::Vec3 &center, float radius, const Utils::Mat4 &transformation, const Processing::MaterialProps &material) : Shape(Type::SPHERE, transformation, material)
 	{
 		this->center = center;
 		this->radius = radius;
-		this->material = material;
 	}
 
 	std::optional<float> Sphere::intersect(const Processing::Ray &ray)
