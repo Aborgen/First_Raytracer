@@ -1,11 +1,11 @@
 #include "../Transformations.h"
 #include "../../Utils/Operations.h"
 
-namespace Processing
+namespace Utils
 {
-	Utils::Mat4 Transformations::translate(float tx, float ty, float tz)
+	Mat4 Transformations::translate(float tx, float ty, float tz)
 	{
-		Utils::Mat4 translationMatrix(
+		Mat4 translationMatrix(
 			1.0f, 0.0f, 0.0f, tx,
 			0.0f, 1.0f, 0.0f, ty,
 			0.0f, 0.0f, 1.0f, tz,
@@ -15,7 +15,7 @@ namespace Processing
 		return translationMatrix;
 	}
 
-	Utils::Mat3 Transformations::rotate(float degrees, Utils::Vec3 &axis)
+	Mat3 Transformations::rotate(float degrees, const Vec3 &axis)
 	{
 		using namespace Utils;
 		Vec3 axisOfRotation = Operations::normalize(axis);
@@ -45,9 +45,9 @@ namespace Processing
 		return rotationMatrix;
 	}
 
-	Utils::Mat4 Transformations::scale(float sx, float sy, float sz)
+	Mat4 Transformations::scale(float sx, float sy, float sz)
 	{
-		Utils::Mat4 scaleMatrix(
+		Mat4 scaleMatrix(
 			sx,   0.0f, 0.0f, 0.0f,
 			0.0f, sy,   0.0f, 0.0f,
 			0.0f, 0.0f, sz,   0.0f,
@@ -56,5 +56,4 @@ namespace Processing
 
 		return scaleMatrix;
 	}
-
 }

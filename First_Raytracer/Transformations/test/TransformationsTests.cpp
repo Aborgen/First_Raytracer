@@ -5,7 +5,6 @@
 SCENARIO("Basic transformations")
 {
 	using namespace Utils;
-	using namespace Processing;
 
 	SECTION("Translation")
 	{
