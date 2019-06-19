@@ -202,6 +202,7 @@
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Screen\Screen.h" />
     <ClInclude Include="Transformations\Transformations.h" />
+    <ClInclude Include="Transformations\TransformMatrix.h" />
     <ClInclude Include="Types\LightPtr.h" />
     <ClInclude Include="Types\ShapePtr.h" />
     <ClInclude Include="Utils\ColorTriad.h" />
@@ -253,6 +254,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Transformations\src\Transformations.cpp" />
+    <ClCompile Include="Transformations\src\TransformMatrix.cpp" />
     <ClCompile Include="Transformations\test\TransformationsTests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
