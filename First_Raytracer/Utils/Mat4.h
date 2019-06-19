@@ -30,7 +30,7 @@ namespace Utils
 		Mat4 operator-(const Mat4 &other);
 		Mat4& operator*=(const Mat4 &other);
 		Mat4 operator*(const Mat4 &other);
-		Vec4 operator*(const Vec4 &vector);
+		Vec4 operator*(const Vec4 &vector) const;
 		std::array<float, 4>& operator[](int idx);
 		std::array<float, 4> operator[](int idx) const;
 

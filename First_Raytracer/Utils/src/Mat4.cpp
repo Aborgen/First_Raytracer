@@ -187,7 +187,7 @@ namespace Utils
 		return temp;
 	}
 
-	Vec4 Mat4::operator*(const Vec4 &vector)
+	Vec4 Mat4::operator*(const Vec4 &vector) const
 	{
 		Vec4 column1 = Vec4(data[0][0], data[1][0], data[2][0], data[3][0]) * vector.getX();
 		Vec4 column2 = Vec4(data[0][1], data[1][1], data[2][1], data[3][1]) * vector.getY();
