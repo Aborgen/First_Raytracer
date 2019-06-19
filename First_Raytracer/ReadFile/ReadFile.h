@@ -51,15 +51,12 @@ namespace IO
 		std::optional<float> stringToFloat(std::string str);
 		std::vector<std::string> lineSplit(const std::string &line, std::string &command);
 		bool validateFilename(std::string filename);
-		void rightMultiply(const Utils::Mat4 &M, Utils::Mat4 &T);
 		void parseColor(const std::vector<std::string>& args, float &r, float &g, float &b);
 		void parseLight(const std::vector<std::string>& args, float &x, float &y, float &z, float &r, float &g, float &b);
 		void parseVector(const std::vector<std::string>& args, float &x, float &y, float &z);
 		void parseSphere(const std::vector<std::string>& args, float &x, float &y, float &z, float& radius);
 		void parseTriangle(const std::vector<std::string>& args, int &a, int &b, int &c);
-		bool hasBeenParsed = false;
-		int lineNumber = 0;
-		bool inTransaction = false;
+		int lineNumber{ 0 };
 	};
 }
 

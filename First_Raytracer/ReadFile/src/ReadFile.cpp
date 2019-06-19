@@ -7,11 +7,13 @@
 
 #include "../ReadFile.h"
 #include "InstructionList.h"
-#include "../../Transformations/Transformations.h"
+#include "../Transformations/TransformMatrix.h"
+#include "../Transformations/Transformations.h"
 #include "../Light/DirectionalLight.h"
 #include "../Light/PointLight.h"
 #include "../Utils/Mat4.h"
 #include "../Utils/Operations.h"
+#include "../Geometry/Icosphere.h"
 #include "../Geometry/Sphere.h"
 #include "../Geometry/Triangle.h"
 
@@ -60,11 +62,7 @@ namespace IO
 		std::deque<Vec3> vertices;
 		MaterialProps material;
 		Attenuation attenuation;
-		Mat4 transforms(
-			1.0f, 0.0f, 0.0f, 0.0f,
-			0.0f, 1.0f, 0.0f, 0.0f,
-			0.0f, 0.0f, 1.0f, 0.0f,
-			0.0f, 0.0f, 0.0f, 1.0f);
+		TransformMatrix transforms;
 		while (std::getline(file, line)) {
 			lineNumber++;
 			bool onlySpaces = line.find_first_not_of(' ') == std::string::npos;
@@ -172,7 +170,7 @@ namespace IO
 				}
 				case ValidCommands::POP_TRANSFORM:
 					// Reset the transformation matrix.
-					transforms.identity();
+					transforms.reset();
 					break;
 				case ValidCommands::PUSH_TRANSFORM:
 					// Unused
@@ -189,23 +187,14 @@ namespace IO
 					}
 
 					Vec3 axis(x, y, z);
-					Mat3 matrix = Transformations::rotate(degrees, axis);
-					Mat4 rotationMatrix(
-						matrix[0][0], matrix[0][1], matrix[0][2], 0.0f,
-						matrix[1][0], matrix[1][1], matrix[1][2], 0.0f,
-						matrix[2][0], matrix[2][1], matrix[2][2], 0.0f,
-						0.0f, 0.0f, 0.0f, 1.0f
-					);
-
-					rightMultiply(rotationMatrix, transforms);
+					transforms.addRotation(degrees, axis);
 					break;
 				}
 				case ValidCommands::SCALE:
 				{
 					float x = 0.0f, y = 0.0f, z = 0.0f;
 					parseVector(args, x, y, z);
-					Mat4 scaleMatrix = Transformations::scale(x, y, z);
-					rightMultiply(scaleMatrix, transforms);
+					transforms.addScale(x, y, z);
 					break;
 				}
 				case ValidCommands::SHININESS:
@@ -243,23 +232,29 @@ namespace IO
 					float x = 0.0f, y = 0.0f, z = 0.0f, radius = 0.0f;
 					parseSphere(args, x, y, z, radius);
 					Vec3 center(x, y, z);
-					Sphere sphere(center, radius, transforms, material);
-					instructions.pushShape<Sphere>(sphere);
+					if (transforms.getScaleType() == TransformMatrix::ScaleType::NON_UNIFORM) {
+						Icosphere sphere(center, radius, transforms.getMatrix(), material);
+						instructions.pushShape<Icosphere>(sphere);
+					}
+					else {
+						Sphere sphere(center, radius, transforms.getMatrix(), material);
+						instructions.pushShape<Sphere>(sphere);
+					}
+
 					break;
 				}
 				case ValidCommands::TRANSLATE:
 				{
 					float x = 0.0f, y = 0.0f, z = 0.0f;
 					parseVector(args, x, y, z);
-					Mat4 translationMatrix = Transformations::translate(x, y, z);
-					rightMultiply(translationMatrix, transforms);
+					transforms.addTranslation(x, y, z);
 					break;
 				}
 				case ValidCommands::TRIANGLE:
 				{
 					int a = 0, b = 0, c = 0;
 					parseTriangle(args, a, b, c);
-					Triangle triangle(vertices[a], vertices[b], vertices[c], transforms, material);
+					Triangle triangle(vertices[a], vertices[b], vertices[c], transforms.getMatrix(), material);
 					instructions.pushShape<Triangle>(triangle);
 					break;
 				}
@@ -425,11 +420,6 @@ namespace IO
 	{
 		std::regex pattern("[A-Za-z0-9_\-]+\.(txt|test)");
 		return std::regex_match(str, pattern);
-	}
-
-	void ReadFile::rightMultiply(const Utils::Mat4 &M, Utils::Mat4 &T)
-	{
-		T = T * M;
 	}
 
 	ReadFile::ValidCommands ReadFile::commandMapping(std::string str)

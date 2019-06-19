@@ -1,6 +1,7 @@
 #include "InstructionList.h"
 #include "../Light/DirectionalLight.h"
 #include "../Light/PointLight.h"
+#include "../Geometry/Icosphere.h"
 #include "../Geometry/Sphere.h"
 #include "../Geometry/Triangle.h"
 
@@ -16,6 +17,7 @@ namespace IO
 	{
 		shapeStack.push_front(std::make_shared<SHAPE_T>(shape));
 	}
+	template void InstructionList::pushShape(const Geometry::Icosphere &shape);
 	template void InstructionList::pushShape(const Geometry::Sphere &shape);
 	template void InstructionList::pushShape(const Geometry::Triangle &shape);
 
