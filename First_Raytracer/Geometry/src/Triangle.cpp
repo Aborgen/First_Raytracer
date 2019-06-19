@@ -5,7 +5,22 @@
 
 namespace Geometry
 {
+	Triangle::Triangle(Utils::Vec3 &a, Utils::Vec3 &b, Utils::Vec3 &c) : Shape(Type::TRIANGLE)
+	{
+		init(a, b, c);
+	}
+
+	Triangle::Triangle(Utils::Vec3 & a, Utils::Vec3 & b, Utils::Vec3 & c, const Utils::Mat4 & transformation) : Shape(Type::TRIANGLE, transformation)
+	{
+		init(a, b, c);
+	}
+
 	Triangle::Triangle(Utils::Vec3 &a, Utils::Vec3 &b, Utils::Vec3 &c, const Utils::Mat4 &transformation, const Processing::MaterialProps &material) : Shape(Type::TRIANGLE, transformation, material)
+	{
+		init(a, b, c);
+	}
+
+	void Triangle::init(Utils::Vec3 &a, Utils::Vec3 &b, Utils::Vec3 &c)
 	{
 		if (a == b || a == c || b == c)
 		{
