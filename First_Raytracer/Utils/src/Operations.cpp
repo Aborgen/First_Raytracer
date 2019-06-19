@@ -8,7 +8,7 @@
 
 namespace Utils
 {
-	Vec3 Operations::cross(Vec3 &one, Vec3 &two)
+	Vec3 Operations::cross(const Vec3 &one, Vec3 &two)
 	{
 		float oneX = one.getX();
 		float oneY = one.getY();
@@ -35,7 +35,7 @@ namespace Utils
 		return sumOfProducts;
 	}
 
-	float Operations::dot(Vec4 &one, Vec4 &two)
+	float Operations::dot(const Vec4 &one, Vec4 &two)
 	{
 		float sumOfProducts = (
 			(one.getX() * two.getX()) +
@@ -47,7 +47,7 @@ namespace Utils
 		return sumOfProducts;
 	}
 
-	Vec3 Operations::normalize(Vec3 &vector)
+	Vec3 Operations::normalize(const Vec3 &vector)
 	{
 		double length = vector.length();
 		if (length <= 0)
@@ -61,7 +61,7 @@ namespace Utils
 		return Vec3(normX, normY, normZ);
 	}
 
-	Vec4 Operations::normalize(Vec4 &vector)
+	Vec4 Operations::normalize(const Vec4 &vector)
 	{
 		double length = vector.length();
 		if (length <= 0)
@@ -82,7 +82,7 @@ namespace Utils
 		return degrees * halfCircle;
 	}
 
-	Mat3 Operations::transpose(Mat3 matrix)
+	Mat3 Operations::transpose(const Mat3 matrix)
 	{
 		float ra0 = matrix[0][0];
 		float ra1 = matrix[1][0];
@@ -103,7 +103,7 @@ namespace Utils
 		);
 	}
 
-	Mat4 Operations::transpose(Mat4 matrix)
+	Mat4 Operations::transpose(const Mat4 matrix)
 	{
 		float ra0 = matrix[0][0];
 		float ra1 = matrix[1][0];
@@ -134,7 +134,7 @@ namespace Utils
 		);
 	}
 
-	Mat3 Operations::outerProduct(Vec3 &one, Vec3 &two)
+	Mat3 Operations::outerProduct(const Vec3 &one, Vec3 &two)
 	{
 		float xScalar = one.getX();
 		float yScalar = one.getY();
@@ -149,7 +149,7 @@ namespace Utils
 		);
 	}
 
-	Vec3 Operations::vectorTransform(Mat4 &matrix, Vec3 &vector, bool includeTranslation)
+	Vec3 Operations::vectorTransform(const Mat4 &matrix, const Vec3 &vector, bool includeTranslation)
 	{
 		float homogenousCoordinate = 0.0f;
 		if (includeTranslation) {
