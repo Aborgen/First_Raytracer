@@ -17,7 +17,8 @@ namespace Geometry
 		enum Type
 		{
 			SPHERE,
-			TRIANGLE
+			TRIANGLE,
+			TRIANGLE_MESH
 		};
 
 		virtual std::optional<float> intersect(const Processing::Ray &ray) = 0;
@@ -33,6 +34,7 @@ namespace Geometry
 
 	protected:
 		Shape(Type type) : type(type) {};
+		Shape(Type type, const Utils::Mat4 &transformation) : type(type), transformation(transformation) {};
 		Shape(Type type, const Utils::Mat4 &transformation, const Processing::MaterialProps &material) : type(type), transformation(transformation), material(material)
 		{
 			std::optional<Utils::Mat4> optInverse = Utils::Operations::inverse((transformation));
