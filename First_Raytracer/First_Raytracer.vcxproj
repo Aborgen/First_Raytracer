@@ -171,13 +171,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AccelerationStructure\AccelerationStructure.h" />
+    <ClInclude Include="AccelerationStructure\BoundingBox.h" />
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Configuration\src\ConfigList.h" />
     <ClInclude Include="Configuration\src\UserInput.h" />
     <ClInclude Include="Film\Film.h" />
+    <ClInclude Include="Geometry\Icosphere.h" />
     <ClInclude Include="Geometry\Shape.h" />
     <ClInclude Include="Geometry\Sphere.h" />
     <ClInclude Include="Geometry\Triangle.h" />
+    <ClInclude Include="Geometry\TriangleMesh.h" />
     <ClInclude Include="include\catch.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
@@ -210,6 +214,7 @@
     <ClInclude Include="Utils\Vector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AccelerationStructure\src\BoundingBox.cpp" />
     <ClCompile Include="Camera\src\Camera.cpp" />
     <ClCompile Include="Configuration\src\ConfigList.cpp" />
     <ClCompile Include="Configuration\src\UserInput.cpp" />
@@ -219,9 +224,11 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Film\src\Film.cpp" />
+    <ClCompile Include="Geometry\src\Icosphere.cpp" />
     <ClCompile Include="Geometry\src\Shape.cpp" />
     <ClCompile Include="Geometry\src\Sphere.cpp" />
     <ClCompile Include="Geometry\src\Triangle.cpp" />
+    <ClCompile Include="Geometry\src\TriangleMesh.cpp" />
     <ClCompile Include="include\lodepng.cpp" />
     <ClCompile Include="Light\src\Attenuation.cpp" />
     <ClCompile Include="Light\src\DirectionalLight.cpp" />
