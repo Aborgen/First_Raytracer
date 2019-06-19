@@ -11,7 +11,7 @@ namespace Utils
 		this->z = z;
 	}
 
-	double Vec3::length()
+	double Vec3::length() const
 	{
 		return sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
 	}

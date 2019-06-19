@@ -11,7 +11,7 @@ namespace Utils
 	public:
 		Vec3() {};
 		Vec3(float x, float y, float z);
-		double length();
+		double length() const;
 		Vec3& reverse();
 		bool operator==(const Vec3 &other);
 		bool operator!=(const Vec3 &other);

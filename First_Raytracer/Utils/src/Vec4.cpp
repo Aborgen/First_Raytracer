@@ -22,7 +22,7 @@ namespace Utils
 		this->w = w;
 	}
 
-	double Vec4::length()
+	double Vec4::length() const
 	{
 		return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2) + pow(w, 2));
 	}

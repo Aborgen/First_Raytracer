@@ -11,7 +11,7 @@ namespace Utils
 		Vector() {};
 		Vector(float x, float y, float z) {};
 		Vector(float x, float y, float z, float w) {};
-		virtual double length() = 0;
+		virtual double length() const = 0;
 		virtual bool operator==(const T &other) = 0;
 		virtual bool operator!=(const T &other) = 0;
 		virtual T& operator+=(const T &other) = 0;

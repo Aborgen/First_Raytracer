@@ -13,7 +13,7 @@ namespace Utils
 		Vec4(float x, float y, float z, float w);
 		float getW() const;
 		void setW(float w);
-		double length();
+		double length() const;
 		bool operator==(const Vec4 &other);
 		bool operator!=(const Vec4 &other);
 		Vec4& operator+=(const Vec4 &other);
