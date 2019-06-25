@@ -22,14 +22,15 @@ namespace Geometry
 
 	void Triangle::init(Utils::Vec3 &a, Utils::Vec3 &b, Utils::Vec3 &c)
 	{
+		using Utils::Operations;
 		if (a == b || a == c || b == c)
 		{
 			throw new std::exception("A triangle is made up of three distinct vertices");
 		}
 
-		this->a = a;
-		this->b = b;
-		this->c = c;
+		this->a = Operations::vectorTransform(transformation, a);
+		this->b = Operations::vectorTransform(transformation, b);
+		this->c = Operations::vectorTransform(transformation, c);
 	}
 
 	Utils::Vec3 Triangle::getA()

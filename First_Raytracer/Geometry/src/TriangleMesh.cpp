@@ -9,12 +9,28 @@ namespace Geometry
 		return vertices.at(index);
 	}
 
+	//void TriangleMesh::pushVertex(const Utils::Vec3 &vertex)
+	//{
+	//	Utils::Vec3 transformedVertex = Utils::Operations::vectorTransform(transformation, vertex);
+	//	vertices.push_back(transformedVertex);
+	//	boundingBox.extendBoundary(transformedVertex);
+	//	vertexCount++;
+	//}
+
 	void TriangleMesh::pushVertex(const Utils::Vec3 &vertex)
 	{
-		Utils::Vec3 transformedVertex = Utils::Operations::vectorTransform(transformation, vertex, true);
-		vertices.push_back(transformedVertex);
-		boundingBox.extendBoundary(transformedVertex);
+		vertices.push_back(vertex);
+		boundingBox.extendBoundary(vertex);
 		vertexCount++;
+	}
+
+	void TriangleMesh::applyTransformation()
+	{
+		for (Utils::Vec3 &vertex : vertices) {
+			Utils::Vec3 transformedVertex = Utils::Operations::vectorTransform(transformation, vertex);
+			vertex = transformedVertex;
+			boundingBox.extendBoundary(transformedVertex);
+		}
 	}
 
 	const int TriangleMesh::getVertexIndex() const
@@ -50,8 +66,16 @@ namespace Geometry
 		}
 
 		float nearT = std::numeric_limits<float>::infinity();
+		int identicalTriangles = 0;
 		for (const TriIndex &face : faces) {
-			Geometry::Triangle triangle(vertices[face.v0], vertices[face.v1], vertices[face.v2], transformation);
+			auto o = vertices[face.v0];
+			auto u = vertices[face.v1];
+			auto j = vertices[face.v2];
+
+			if (o == u || o == j || o == u) {
+				identicalTriangles++;
+			}
+			Triangle triangle(vertices[face.v0], vertices[face.v1], vertices[face.v2]);
 			std::optional<float> optIntersection = triangle.intersect(ray);
 			// No intersection between ray and triangle.
 			if (!optIntersection.has_value()) {
@@ -78,7 +102,8 @@ namespace Geometry
 			throw new std::exception("Error: Cannot get normal of intersected triangle if no triangle has been intersected within mesh");
 		}
 
-		Geometry::Triangle triangle(vertices[intersectedFace->v0], vertices[intersectedFace->v1], vertices[intersectedFace->v2], transformation);
+		Triangle triangle(vertices[intersectedFace->v0], vertices[intersectedFace->v1], vertices[intersectedFace->v2]);
+		//return Utils::Operations::vectorTransform(normalTransformation, triangle.getNormal());
 		return triangle.getNormal();
 	}
 }

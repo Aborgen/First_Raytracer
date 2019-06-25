@@ -33,9 +33,9 @@ namespace Utils
 	{
 		Mat3 rotationMatrix = Transformations::rotate(degrees, axis);
 		matrix *= Mat4(
-			matrix[0][0], matrix[0][1], matrix[0][2], 0.0f,
-			matrix[1][0], matrix[1][1], matrix[1][2], 0.0f,
-			matrix[2][0], matrix[2][1], matrix[2][2], 0.0f,
+			rotationMatrix[0][0], rotationMatrix[0][1], rotationMatrix[0][2], 0.0f,
+			rotationMatrix[1][0], rotationMatrix[1][1], rotationMatrix[1][2], 0.0f,
+			rotationMatrix[2][0], rotationMatrix[2][1], rotationMatrix[2][2], 0.0f,
 			0.0f, 0.0f, 0.0f, 1.0f
 		);
 
@@ -54,7 +54,8 @@ namespace Utils
 	{
 		matrix.identity();
 	}
-	const Mat4 & TransformMatrix::getMatrix() const
+
+	const Mat4& TransformMatrix::getMatrix() const
 	{
 		return matrix;
 	}

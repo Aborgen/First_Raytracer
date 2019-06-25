@@ -27,7 +27,7 @@ namespace Processing
 				direction = light->getCoordinates() - point;
 			}
 
-			Ray shadowRay(point, direction, Ray::Type::SHADOW);
+			Ray shadowRay(point + normal, direction, Ray::Type::SHADOW);
 			IntersectionInfo _unused;
 			bool lightOcculded = traceClosest(shadowRay, _unused);
 			// In this case, the ray intersects a shape before reaching the light.

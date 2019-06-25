@@ -33,13 +33,13 @@ namespace Geometry
 		virtual ~Shape() {}
 
 	protected:
-		Shape(Type type) : type(type) {};
+		Shape(Type type) : type(type) { transformation.identity(); };
 		Shape(Type type, const Utils::Mat4 &transformation) : type(type), transformation(transformation) {};
 		Shape(Type type, const Utils::Mat4 &transformation, const Processing::MaterialProps &material) : type(type), transformation(transformation), material(material)
 		{
 			std::optional<Utils::Mat4> optInverse = Utils::Operations::inverse((transformation));
 			if (optInverse.has_value()) {
-				normalTransformation = optInverse.value();
+				normalTransformation = Utils::Operations::transpose(optInverse.value());
 			}
 		}
 

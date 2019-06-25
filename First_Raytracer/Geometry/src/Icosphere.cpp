@@ -9,23 +9,23 @@ namespace Geometry
 	{
 		using Utils::Operations;
 		using Utils::Vec3;
-		float middle = (1.0f + std::sqrt(5.0f)) / 2.0f;
+		float phi = (1.0f + std::sqrt(5.0f)) / 2.0f;
 		// First, the vertices of three orthagonal rectangles are constructed.
 		// Rectangle orientated along y-axis
-		pushVertex(Operations::normalize(Vec3(-1.0f,  middle, 0)));
-		pushVertex(Operations::normalize(Vec3( 1.0f,  middle, 0)));
-		pushVertex(Operations::normalize(Vec3(-1.0f, -middle, 0)));
-		pushVertex(Operations::normalize(Vec3( 1.0f, -middle, 0)));
+		pushVertex(Operations::normalize(Vec3(-1.0f,  phi, 0.0f)));
+		pushVertex(Operations::normalize(Vec3( 1.0f,  phi, 0.0f)));
+		pushVertex(Operations::normalize(Vec3(-1.0f, -phi, 0.0f)));
+		pushVertex(Operations::normalize(Vec3( 1.0f, -phi, 0.0f)));
 		// Rectangle orientated along z-axis
-		pushVertex(Operations::normalize(Vec3(0.0f, -1.0f,  middle)));
-		pushVertex(Operations::normalize(Vec3(0.0f,  1.0f,  middle)));
-		pushVertex(Operations::normalize(Vec3(0.0f, -1.0f, -middle)));
-		pushVertex(Operations::normalize(Vec3(0.0f,  1.0f, -middle)));
+		pushVertex(Operations::normalize(Vec3(0.0f, -1.0f,  phi)));
+		pushVertex(Operations::normalize(Vec3(0.0f,  1.0f,  phi)));
+		pushVertex(Operations::normalize(Vec3(0.0f, -1.0f, -phi)));
+		pushVertex(Operations::normalize(Vec3(0.0f,  1.0f, -phi)));
 		// Rectangle orientated along x-axis
-		pushVertex(Operations::normalize(Vec3( middle, 0.0f, -1.0f)));
-		pushVertex(Operations::normalize(Vec3( middle, 0.0f,  1.0f)));
-		pushVertex(Operations::normalize(Vec3(-middle, 0.0f, -1.0f)));
-		pushVertex(Operations::normalize(Vec3(-middle, 0.0f,  1.0f)));
+		pushVertex(Operations::normalize(Vec3( phi, 0.0f, -1.0f)));
+		pushVertex(Operations::normalize(Vec3( phi, 0.0f,  1.0f)));
+		pushVertex(Operations::normalize(Vec3(-phi, 0.0f, -1.0f)));
+		pushVertex(Operations::normalize(Vec3(-phi, 0.0f,  1.0f)));
 
 		// Next, the vertices of the rectangles are joined together to form a series of triangle faces.
 		// 5 faces around point 0
@@ -54,10 +54,12 @@ namespace Geometry
 		commitTriangle(9, 8, 1);
 		// The triangle faces are then broken up into smaller and smaller triangles, 
 		// dependant on what level of detail is desired.
+
 		for (int _ = 0; _ < recursionDepth(); _++) {
 			refine();
 		}
-		auto bar = getFaces();
+
+		applyTransformation();
 	}
 
 	// Each triangle is broken down into four new triangles.

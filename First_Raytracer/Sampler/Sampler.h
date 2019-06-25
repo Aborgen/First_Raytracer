@@ -9,18 +9,31 @@ namespace Processing
 	class Sampler
 	{
 	public:
+		enum class Progress
+		{
+			INIT,
+			FOURTH,
+			HALF,
+			THREE_FOURTHS,
+			FINISH,
+			NO_MILESTONE
+		};
+
 		Sampler() {}
-		Sampler(int columns, int rows);
+		Sampler(int columns, int rows) : columns(columns), rows(rows), finalSample(columns * rows) {};
 		bool hasSample();
 		Sample getSample();
+		Progress getProgress();
 
 	private:
-		int samples{ 0 };
+		Progress progress{ Progress::INIT };
 		int rows;
 		int columns;
+		int finalSample;
+		int samples{ 0 };
 		int currentRow{ 1 };
 		int currentColumn{ 1 };
-		bool isDone{ false };
+		void trackProgress();
 	};
 }
 

@@ -22,6 +22,7 @@ namespace Processing
 		IO::Film film;
 		Raytracer raytracer;
 		Sampler sampler;
+		void writeProgress();
 	};
 }
 

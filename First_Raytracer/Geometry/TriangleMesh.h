@@ -27,6 +27,7 @@ namespace Geometry
 		const int getVertexIndex() const;
 		const std::vector<TriIndex>& getFaces() const;
 		void setFaces(const std::vector<TriIndex> &faces);
+		void applyTransformation();
 
 	public:
 		TriangleMesh() : Shape(Type::TRIANGLE_MESH) {};

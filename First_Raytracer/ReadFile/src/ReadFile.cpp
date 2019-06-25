@@ -39,6 +39,9 @@ namespace IO
 				command = fragment;
 				continue;
 			}
+			if (fragment == "") {
+				continue;
+			}
 
 			args.push_back(fragment);
 		}
@@ -232,7 +235,7 @@ namespace IO
 					float x = 0.0f, y = 0.0f, z = 0.0f, radius = 0.0f;
 					parseSphere(args, x, y, z, radius);
 					Vec3 center(x, y, z);
-					if (transforms.getScaleType() == TransformMatrix::ScaleType::NON_UNIFORM) {
+					if (transforms.getScaleType() == TransformMatrix::ScaleType::NON_UNIFORM || transforms.hasRotation()) {
 						Icosphere sphere(center, radius, transforms.getMatrix(), material);
 						instructions.pushShape<Icosphere>(sphere);
 					}

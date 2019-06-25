@@ -7,6 +7,13 @@ namespace Geometry
 	{
 		this->center = center;
 		this->radius = radius;
+		transformSphere();
+	}
+
+	void Sphere::transformSphere()
+	{
+		center += Utils::Vec3(transformation[0][3], transformation[1][3], transformation[2][3]);
+		radius *= transformation[0][0];
 	}
 
 	std::optional<float> Sphere::intersect(const Processing::Ray &ray)

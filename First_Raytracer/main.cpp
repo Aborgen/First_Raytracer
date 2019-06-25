@@ -30,5 +30,6 @@ bool main(int argc, char *argv[])
 	Camera camera = instructions.getCamera();
 	Raytracer raytracer(instructions.getLights(), instructions.getShapes(), screen.getBackgroundColor());
 	Scene scene(camera, film, raytracer, sampler);
-	return scene.render(instructions.getOutputFilename());
+	bool result = scene.render(instructions.getOutputFilename());
+	return result;
 }

@@ -23,7 +23,7 @@ namespace Utils
 		static Mat3 transpose(const Mat3 matrix);
 		static Mat4 transpose(const Mat4 matrix);
 		static Mat3 outerProduct(const Vec3 &one, Vec3 &two);
-		static Vec3 vectorTransform(const Mat4 &matrix, const Vec3 &vector, bool includeTranslation = false);
+		static Vec3 vectorTransform(const Mat4 &matrix, const Vec3 &vector, bool includeTranslation = true);
 		static std::optional<Mat4> inverse(const Mat4 &matrix);
 
 	private:

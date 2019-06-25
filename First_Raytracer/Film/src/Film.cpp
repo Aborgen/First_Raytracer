@@ -47,10 +47,10 @@ namespace IO
 		if (value >= 1.0) {
 			return 255;
 		}
-		else if (value < 0) {
+		else if (value <= 0) {
 			return 0;
 		}
 
-		return (unsigned char) value * 256.0;
+		return static_cast<unsigned char>(value * 255);
 	}
 }

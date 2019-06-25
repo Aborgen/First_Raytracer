@@ -158,7 +158,12 @@ namespace Utils
 
 		Vec4 augmentedVector(vector.getX(), vector.getY(), vector.getZ(), homogenousCoordinate);
 		Vec4 transformedVector = matrix * augmentedVector;
-		return Vec3(transformedVector.getX(), transformedVector.getY(), transformedVector.getZ());
+		if (includeTranslation) {
+			float w = transformedVector.getW();
+			return Vec3(transformedVector.getX() / w, transformedVector.getY() / w, transformedVector.getZ() / w);
+		}
+
+		return Vec3(transformedVector.getX() , transformedVector.getY(), transformedVector.getZ());
 	}
 
 	std::optional<Mat4> Operations::inverse(const Mat4 &matrix)
