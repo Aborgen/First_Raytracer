@@ -6,7 +6,6 @@
 
 #include "../MaterialProps/MaterialProps.h"
 #include "../Utils/Mat4.h"
-#include "../Utils/Operations.h"
 #include "../Ray/Ray.h"
 
 namespace Geometry
@@ -23,6 +22,7 @@ namespace Geometry
 
 		virtual std::optional<float> intersect(const Processing::Ray &ray) = 0;
 		virtual Utils::Vec3 normalAtPoint(const Utils::Vec3 &point) = 0;
+		Type getType();
 		Processing::MaterialProps getMaterial();
 		void setMaterial(Processing::MaterialProps material);
 		void setAmbient(float r, float g, float b);
@@ -35,17 +35,9 @@ namespace Geometry
 	protected:
 		Shape(Type type) : type(type) { transformation.identity(); };
 		Shape(Type type, const Utils::Mat4 &transformation) : type(type), transformation(transformation) {};
-		Shape(Type type, const Utils::Mat4 &transformation, const Processing::MaterialProps &material) : type(type), transformation(transformation), material(material)
-		{
-			std::optional<Utils::Mat4> optInverse = Utils::Operations::inverse((transformation));
-			if (optInverse.has_value()) {
-				normalTransformation = Utils::Operations::transpose(optInverse.value());
-			}
-		}
-
+		Shape(Type type, const Utils::Mat4 &transformation, const Processing::MaterialProps &material) : type(type), transformation(transformation), material(material) {};
 		const Type type;
 		Utils::Mat4 transformation;
-		Utils::Mat4 normalTransformation;
 		Processing::MaterialProps material;
 	};
 }

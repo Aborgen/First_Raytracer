@@ -2,6 +2,11 @@
 
 namespace Geometry
 {
+	Shape::Type Shape::getType()
+	{
+		return type;
+	}
+
 	Processing::MaterialProps Shape::getMaterial()
 	{
 		return material;
