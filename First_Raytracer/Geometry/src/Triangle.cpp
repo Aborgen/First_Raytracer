@@ -69,7 +69,7 @@ namespace Geometry
 		Vec3 edge0 = getEdge0();
 		Vec3 edge1 = getEdge1();
 		Vec3 normal = Operations::cross(edge0, edge1);
-		return normal;
+		return Operations::normalize(normal);
 	}
 
 	std::optional<float> Triangle::intersect(const Processing::Ray &ray)
@@ -101,6 +101,10 @@ namespace Geometry
 		}
 
 		float t = invertedDeterminant * Operations::dot(edge1, q);
+		if (t < std::numeric_limits<float>::epsilon()) {
+			return std::nullopt;
+		}
+
 		return t;
 	}
 
