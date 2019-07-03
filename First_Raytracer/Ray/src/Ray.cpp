@@ -1,11 +1,13 @@
 #include "../Ray.h"
 
+#include "../Utils/Operations.h"
+
 namespace Processing
 {
 	Ray::Ray(Utils::Vec3 origin, Utils::Vec3 direction, Type type) : type(type)
 	{
 		this->origin = origin;
-		this->direction = direction;
+		setDirection(direction);
 	}
 
 	Utils::Vec3 Ray::specificPoint(float t) const
@@ -32,8 +34,14 @@ namespace Processing
 	void Ray::setDirection(float x, float y, float z)
 	{
 		Utils::Vec3 direction(x, y, z);
-		this->direction = direction;
+		setDirection(direction);
 	}
+
+	void Ray::setDirection(const Utils::Vec3 &direction)
+	{
+		this->direction = Utils::Operations::normalize(direction);
+	}
+
 	Ray::Type Ray::getType() const
 	{
 		return type;
