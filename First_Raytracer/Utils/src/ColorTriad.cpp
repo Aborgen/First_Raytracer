@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "../ColorTriad.h"
 
 namespace Utils
@@ -14,9 +16,14 @@ namespace Utils
 		return r;
 	}
 
+	unsigned char ColorTriad::getRByte()
+	{
+		return toByte(r);
+	}
+
 	void ColorTriad::setR(float r)
 	{
-		this->r = normalize(r);
+		this->r = clamp(r);
 	}
 
 	float ColorTriad::getG()
@@ -24,9 +31,14 @@ namespace Utils
 		return g;
 	}
 
+	unsigned char ColorTriad::getGByte()
+	{
+		return toByte(g);
+	}
+
 	void ColorTriad::setG(float g)
 	{
-		this->g = normalize(g);
+		this->g = clamp(g);
 	}
 
 	float ColorTriad::getB()
@@ -34,16 +46,21 @@ namespace Utils
 		return b;
 	}
 
+	unsigned char ColorTriad::getBByte()
+	{
+		return toByte(b);
+	}
+
 	void ColorTriad::setB(float b)
 	{
-		this->b = normalize(b);
+		this->b = clamp(b);
 	}
 
 	ColorTriad& ColorTriad::operator*=(const ColorTriad &other)
 	{
-		r *= other.r;
-		g *= other.g;
-		b *= other.b;
+		setR(r * other.r);
+		setG(g * other.g);
+		setB(b * other.b);
 		return *this;
 	}
 
@@ -56,9 +73,9 @@ namespace Utils
 
 	ColorTriad& ColorTriad::operator*=(float scalar)
 	{
-		r *= scalar;
-		g *= scalar;
-		b *= scalar;
+		setR(r * scalar);
+		setG(g * scalar);
+		setB(b * scalar);
 		return *this;
 	}
 
@@ -71,9 +88,9 @@ namespace Utils
 
 	ColorTriad& ColorTriad::operator+=(const ColorTriad &other)
 	{
-		r += other.r;
-		g += other.g;
-		b += other.b;
+		setR(r + other.r);
+		setG(g + other.g);
+		setB(b + other.b);
 		return *this;
 	}
 
@@ -86,6 +103,28 @@ namespace Utils
 
 	float ColorTriad::normalize(float value)
 	{
-		return value - MIN / MAX - MIN;
+		if (value <= 1.0f) {
+			return value;
+		}
+
+		return value / MAX;
+	}
+
+	float ColorTriad::clamp(float value)
+	{
+		return std::max(std::min(value, MAX), 0.0f);
+	}
+
+	unsigned char ColorTriad::toByte(float value)
+	{
+		value = normalize(value);
+		if (value >= 1.0) {
+			return 255;
+		}
+		else if (value <= 0) {
+			return 0;
+		}
+
+		return static_cast<unsigned char>(std::max(value, MIN) * 255.0f + 0.5f);
 	}
 }

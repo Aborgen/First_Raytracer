@@ -22,12 +22,19 @@ namespace IO
 		using namespace Utils;
 		std::vector<unsigned char> image;
 		for (ColorTriad &color : colors) {
-			float r = color.getR();
-			float g = color.getG();
-			float b = color.getB();
-			image.push_back(toByte(r));
-			image.push_back(toByte(g));
-			image.push_back(toByte(b));
+			//float r = color.getR();
+			//float g = color.getG();
+			//float b = color.getB();
+			//image.push_back(toByte(r));
+			//image.push_back(toByte(g));
+			//image.push_back(toByte(b));
+			//image.push_back(255); // Unused alpha
+			unsigned char r = color.getRByte();
+			unsigned char g = color.getGByte();
+			unsigned char b = color.getBByte();
+			image.push_back(r);
+			image.push_back(g);
+			image.push_back(b);
 			image.push_back(255); // Unused alpha
 		}
 
