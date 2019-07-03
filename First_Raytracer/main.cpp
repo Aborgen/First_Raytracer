@@ -28,7 +28,7 @@ bool main(int argc, char *argv[])
 	Film film(screen.getWidth(), screen.getHeight());
 
 	Camera camera = instructions.getCamera();
-	Raytracer raytracer(instructions.getLights(), instructions.getShapes(), screen.getBackgroundColor());
+	Raytracer raytracer(instructions.getLights(), instructions.getShapes(), screen.getBackgroundColor(), instructions.getMaxDepth());
 	Scene scene(camera, film, raytracer, sampler);
 	bool result = scene.render(instructions.getOutputFilename());
 	return result;
