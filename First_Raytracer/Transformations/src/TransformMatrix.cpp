@@ -52,6 +52,9 @@ namespace Utils
 
 	void TransformMatrix::reset()
 	{
+		translated = false;
+		rotated = false;
+		scaleType = ScaleType::NONE;
 		matrix.identity();
 	}
 
