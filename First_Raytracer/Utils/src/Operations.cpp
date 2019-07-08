@@ -214,7 +214,6 @@ namespace Utils
 				nextRow[j] -= (underPivot * pivotRow[j]);
 				inverseMatrix[i][j] -= (underPivot * inverseMatrix[pivotIndex][j]);
 			}
-			float humph = 0;
 		}
 
 		pivotIndex++;
