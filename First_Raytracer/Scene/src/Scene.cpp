@@ -17,6 +17,7 @@ namespace Processing
 	bool Scene::render(std::string filename)
 	{
 		using namespace Utils;
+		std::cout << "Filename: " << filename << "\n";
 		std::cout << "Beginning render\n---------\n";
 		while (sampler.hasSample()) {
 			Sample sample = sampler.getSample();
