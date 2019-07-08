@@ -40,7 +40,8 @@ namespace Processing
 				direction = light->getCoordinates() - point;
 			}
 
-			Ray shadowRay(point + normal * 2e-4f, direction, Ray::Type::SHADOW);
+			Utils::Vec3 biasedOrigin = point + normal * 2e-4f;
+			Ray shadowRay(biasedOrigin, direction, Ray::Type::SHADOW);
 			IntersectionInfo _unused;
 			bool lightOccluded = traceClosest(shadowRay, _unused);
 			// In this case, the ray intersects a shape before reaching the light.
@@ -48,9 +49,13 @@ namespace Processing
 				continue;
 			}
 
-			Utils::Vec3 half = Utils::Operations::normalize(ray.getDirection() + shadowRay.getDirection());
-			auto ref = material.getSpecular() * computeReflection(ray.getDirection(), normal, currentDepth);
-			finalColor += computeLight(shadowRay.getDirection(), normal, half, light, material, currentDepth) + ref;
+			Utils::ColorTriad reflection, specular = material.getSpecular();
+			if (specular.getR() + specular.getG() + specular.getB() > 0.0f) {
+				reflection = specular * computeReflection(ray.getDirection(), biasedOrigin, normal, currentDepth);
+			}
+
+			Utils::Vec3 half = Utils::Operations::normalize(shadowRay.getDirection() + ray.getDirection().reverse());
+			finalColor += computeLight(shadowRay.getDirection(), normal, half, light, material) + reflection;
 		}
 
 		return finalColor;
@@ -80,7 +85,7 @@ namespace Processing
 		return info.shape != nullptr;
 	}
 
-	Utils::ColorTriad Raytracer::computeLight(const Utils::Vec3 &direction, const Utils::Vec3 &normal, const Utils::Vec3 &half, const LightPtr &light, const MaterialProps &material, int currentDepth)
+	Utils::ColorTriad Raytracer::computeLight(const Utils::Vec3 &direction, const Utils::Vec3 &normal, const Utils::Vec3 &half, const LightPtr &light, const MaterialProps &material)
 	{
 		using Utils::ColorTriad, Utils::Operations;
 		ColorTriad lambert, diffuse = material.getDiffuse();
@@ -90,17 +95,16 @@ namespace Processing
 
 		ColorTriad phong, specular = material.getSpecular();
 		if (specular.getR() + specular.getG() + specular.getB() > 0.0f) {
-			auto magic = std::pow(std::max(Operations::dot(normal, half), 0.0f), material.getShininess());
 			phong = specular * light->getColor() * std::pow(std::max(Operations::dot(normal, half), 0.0f), material.getShininess());
 		}
 		
 		return lambert + phong;
 	}
 
-	Utils::ColorTriad Raytracer::computeReflection(const Utils::Vec3 &incidentDirection, const Utils::Vec3 &normal, int currentDepth)
+	Utils::ColorTriad Raytracer::computeReflection(const Utils::Vec3 &incidentDirection, const Utils::Vec3 &hitPoint, const Utils::Vec3 &normal, int currentDepth)
 	{
 		using Utils::ColorTriad, Utils::Vec3, Utils::Operations;
 		Vec3 reflectedDirection = incidentDirection - 2 * Operations::dot(normal, incidentDirection) * normal;
-		return traceRecursive(Ray(normal, reflectedDirection, Ray::Type::RECURSIVE), currentDepth + 1);
+		return traceRecursive(Ray(hitPoint, reflectedDirection, Ray::Type::RECURSIVE), currentDepth + 1);
 	}
 }

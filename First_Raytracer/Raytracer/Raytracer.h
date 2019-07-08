@@ -32,8 +32,8 @@ namespace Processing
 		Utils::ColorTriad traceRecursive(const Ray &ray, int currentDepth = 0);
 		Utils::ColorTriad backgroundColor;
 		bool traceClosest(const Ray &ray, IntersectionInfo &info);
-		Utils::ColorTriad computeLight(const Utils::Vec3 &direction, const Utils::Vec3 &normal, const Utils::Vec3 &half, const LightPtr &light, const MaterialProps &material, int currentDepth);
-		Utils::ColorTriad computeReflection(const Utils::Vec3 &incidentDirection, const Utils::Vec3 &normal, int currentDepth);
+		Utils::ColorTriad computeLight(const Utils::Vec3 &direction, const Utils::Vec3 &normal, const Utils::Vec3 &half, const LightPtr &light, const MaterialProps &material);
+		Utils::ColorTriad computeReflection(const Utils::Vec3 &incidentDirection, const Utils::Vec3 &hitPoint, const Utils::Vec3 &normal, int currentDepth);
 	};
 }
 
