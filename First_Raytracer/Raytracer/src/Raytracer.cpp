@@ -42,10 +42,10 @@ namespace Processing
 
 			Utils::Vec3 biasedOrigin = point + normal * 2e-4f;
 			Ray shadowRay(biasedOrigin, direction, Ray::Type::SHADOW);
-			IntersectionInfo _unused;
-			bool lightOccluded = traceClosest(shadowRay, _unused);
+			IntersectionInfo shadowInfo;
+			bool lightOccluded = traceClosest(shadowRay, shadowInfo);
 			// In this case, the ray intersects a shape before reaching the light.
-			if (lightOccluded) {
+			if (lightOccluded && shadowInfo.shape != info.shape) {
 				continue;
 			}
 
@@ -72,11 +72,6 @@ namespace Processing
 
 			float intersection = optIntersection.value();
 			if (intersection < info.t) {
-				// A shadow ray is only concerned if ANY shape is intersected
-				if (ray.getType() == Ray::Type::SHADOW) {
-					return true;
-				}
-
 				info.t = intersection;
 				info.shape = shape;
 			}
