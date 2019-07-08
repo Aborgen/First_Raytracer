@@ -174,8 +174,6 @@
     <ClInclude Include="AccelerationStructure\AccelerationStructure.h" />
     <ClInclude Include="AccelerationStructure\BoundingBox.h" />
     <ClInclude Include="Camera\Camera.h" />
-    <ClInclude Include="Configuration\src\ConfigList.h" />
-    <ClInclude Include="Configuration\src\UserInput.h" />
     <ClInclude Include="Film\Film.h" />
     <ClInclude Include="Geometry\Icosphere.h" />
     <ClInclude Include="Geometry\Shape.h" />
@@ -217,13 +215,6 @@
   <ItemGroup>
     <ClCompile Include="AccelerationStructure\src\BoundingBox.cpp" />
     <ClCompile Include="Camera\src\Camera.cpp" />
-    <ClCompile Include="Configuration\src\ConfigList.cpp" />
-    <ClCompile Include="Configuration\src\UserInput.cpp" />
-    <ClCompile Include="Configuration\test\UserInputTests.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="Film\src\Film.cpp" />
     <ClCompile Include="Geometry\src\Icosphere.cpp" />
     <ClCompile Include="Geometry\src\Shape.cpp" />
@@ -257,6 +248,7 @@
     <ClCompile Include="Transformations\src\TransformMatrix.cpp" />
     <ClCompile Include="Transformations\test\TransformationsTests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Utils\src\ColorTriad.cpp" />
     <ClCompile Include="Utils\src\Mat3.cpp" />
