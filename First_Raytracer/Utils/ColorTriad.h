@@ -9,13 +9,13 @@ namespace Utils
 	public:
 		ColorTriad() {};
 		ColorTriad(float r, float g, float b);
-		float getR();
+		int getR();
 		unsigned char getRByte();
 		void setR(float r);
-		float getG();
+		int getG();
 		unsigned char getGByte();
 		void setG(float g);
-		float getB();
+		int getB();
 		unsigned char getBByte();
 		void setB(float b);
 		ColorTriad& operator*=(const ColorTriad &other);
@@ -26,14 +26,15 @@ namespace Utils
 		ColorTriad operator+(const ColorTriad &other);
 
 	private:
-		float MIN{ 0.01f };
-		float MAX{ 100.0f };
-		float normalize(float value);
+		int MIN{ 0 };
+		int MAX{ 255 };
+		float normalize(int value);
+		int quantize(float value);
 		float clamp(float value);
-		unsigned char toByte(float value);
-		float r{ 0.0f };
-		float g{ 0.0f };
-		float b{ 0.0f };
+		unsigned char toByte(int value);
+		int r{ MIN };
+		int g{ MIN };
+		int b{ MIN };
 	};
 }
 

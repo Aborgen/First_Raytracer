@@ -11,7 +11,7 @@ namespace Utils
 		setB(b);
 	}
 
-	float ColorTriad::getR()
+	int ColorTriad::getR()
 	{
 		return r;
 	}
@@ -23,10 +23,10 @@ namespace Utils
 
 	void ColorTriad::setR(float r)
 	{
-		this->r = clamp(r);
+		this->r = quantize(clamp(r));
 	}
 
-	float ColorTriad::getG()
+	int ColorTriad::getG()
 	{
 		return g;
 	}
@@ -38,10 +38,10 @@ namespace Utils
 
 	void ColorTriad::setG(float g)
 	{
-		this->g = clamp(g);
+		this->g = quantize(clamp(g));
 	}
 
-	float ColorTriad::getB()
+	int ColorTriad::getB()
 	{
 		return b;
 	}
@@ -53,14 +53,14 @@ namespace Utils
 
 	void ColorTriad::setB(float b)
 	{
-		this->b = clamp(b);
+		this->b = quantize(clamp(b));
 	}
 
 	ColorTriad& ColorTriad::operator*=(const ColorTriad &other)
 	{
-		setR(r * other.r);
-		setG(g * other.g);
-		setB(b * other.b);
+		setR(normalize(r) * normalize(other.r));
+		setG(normalize(g) * normalize(other.g));
+		setB(normalize(b) * normalize(other.b));
 		return *this;
 	}
 
@@ -73,9 +73,9 @@ namespace Utils
 
 	ColorTriad& ColorTriad::operator*=(float scalar)
 	{
-		setR(r * scalar);
-		setG(g * scalar);
-		setB(b * scalar);
+		setR(normalize(r) * scalar);
+		setG(normalize(g) * scalar);
+		setB(normalize(b) * scalar);
 		return *this;
 	}
 
@@ -88,9 +88,9 @@ namespace Utils
 
 	ColorTriad& ColorTriad::operator+=(const ColorTriad &other)
 	{
-		setR(r + other.r);
-		setG(g + other.g);
-		setB(b + other.b);
+		setR(normalize(r) + normalize(other.r));
+		setG(normalize(g) + normalize(other.g));
+		setB(normalize(b) + normalize(other.b));
 		return *this;
 	}
 
@@ -101,30 +101,23 @@ namespace Utils
 		return temp;
 	}
 
-	float ColorTriad::normalize(float value)
+	float ColorTriad::normalize(int value)
 	{
-		if (value <= 1.0f) {
-			return value;
-		}
+		return (float)value / MAX;
+	}
 
-		return value / MAX;
+	int ColorTriad::quantize(float value)
+	{
+		return (int)std::floor(value * 255.0f + 0.5f);
 	}
 
 	float ColorTriad::clamp(float value)
 	{
-		return std::max(std::min(value, MAX), 0.0f);
+		return std::max(std::min(value, 1.0f), 0.0f);
 	}
 
-	unsigned char ColorTriad::toByte(float value)
+	unsigned char ColorTriad::toByte(int value)
 	{
-		value = normalize(value);
-		if (value >= 1.0) {
-			return 255;
-		}
-		else if (value <= 0) {
-			return 0;
-		}
-
-		return static_cast<unsigned char>(std::max(value, MIN) * 255.0f + 0.5f);
+		return static_cast<unsigned char>(value);
 	}
 }
