@@ -32,17 +32,18 @@ namespace Processing
 		Utils::ColorTriad finalColor = material.getAmbient() + material.getEmission();
 		for (const LightPtr &light : lights) {
 			Utils::Vec3 direction;
+			IntersectionInfo shadowInfo;
 			Light::Type type = light->getType();
 			if (type == Light::Type::DIRECTIONAL) {
 				direction = light->getCoordinates().reverse();
 			}
 			else if (type == Light::Type::POINT) {
 				direction = light->getCoordinates() - point;
+				shadowInfo.t = sqrt(direction.length());
 			}
 
 			Utils::Vec3 biasedOrigin = point + normal * 2e-4f;
 			Ray shadowRay(biasedOrigin, direction, Ray::Type::SHADOW);
-			IntersectionInfo shadowInfo;
 			bool lightOccluded = traceClosest(shadowRay, shadowInfo);
 			// In this case, the ray intersects a shape before reaching the light.
 			if (lightOccluded && shadowInfo.shape != info.shape) {
