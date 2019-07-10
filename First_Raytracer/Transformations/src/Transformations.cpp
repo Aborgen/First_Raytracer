@@ -56,4 +56,43 @@ namespace Utils
 
 		return scaleMatrix;
 	}
+
+	Vec3 Transformations::extractTranslation(const Mat4 &matrix)
+	{
+		return Vec3(matrix[0][3], matrix[1][3], matrix[2][3]);
+	}
+
+	Mat4 Transformations::extractRotation(const Mat4 &matrix)
+	{
+		Vec3 scale = extractScale(matrix);
+		Mat4 rotationMatrix(matrix);
+		rotationMatrix[0][0] /= scale.getX();
+		rotationMatrix[1][0] /= scale.getX();
+		rotationMatrix[2][0] /= scale.getX();
+		rotationMatrix[3][0] = 0.0f;
+
+		rotationMatrix[0][1] /= scale.getY();
+		rotationMatrix[1][1] /= scale.getY();
+		rotationMatrix[2][1] /= scale.getY();
+		rotationMatrix[3][1] = 0.0f;
+
+		rotationMatrix[0][2] /= scale.getZ();
+		rotationMatrix[1][2] /= scale.getZ();
+		rotationMatrix[2][2] /= scale.getZ();
+		rotationMatrix[3][2] = 0.0f;
+
+		rotationMatrix[0][3] = 0.0f;
+		rotationMatrix[1][3] = 0.0f;
+		rotationMatrix[2][3] = 0.0f;
+		rotationMatrix[3][3] = 1.0f;
+		return rotationMatrix;
+	}
+
+	Vec3 Transformations::extractScale(const Mat4 &matrix)
+	{
+		float i = Vec3(matrix[0][0], matrix[1][0], matrix[2][0]).length();
+		float j = Vec3(matrix[0][1], matrix[1][1], matrix[2][1]).length();
+		float k = Vec3(matrix[0][2], matrix[1][2], matrix[2][2]).length();
+		return Vec3(i, j, k);
+	}
 }
