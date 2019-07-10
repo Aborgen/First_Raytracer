@@ -172,11 +172,10 @@ namespace IO
 					break;
 				}
 				case ValidCommands::POP_TRANSFORM:
-					// Reset the transformation matrix.
-					transforms.reset();
+					transforms.resetToBase();
 					break;
 				case ValidCommands::PUSH_TRANSFORM:
-					// Unused
+					transforms.updateBase();
 					break;
 				case ValidCommands::ROTATE:
 				{
