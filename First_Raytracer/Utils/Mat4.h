@@ -20,7 +20,7 @@ namespace Utils
 			float rd0, float rd1, float rd2, float rd3
 		);
 
-		void identity();
+		Mat4& identity();
 
 		bool operator==(const Mat4 &other);
 		bool operator!=(const Mat4 &other);

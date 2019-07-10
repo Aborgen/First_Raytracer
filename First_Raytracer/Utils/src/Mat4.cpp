@@ -33,7 +33,7 @@ namespace Utils
 		row4[3] = rd3;
 	}
 
-	void Mat4::identity()
+	Mat4& Mat4::identity()
 	{
 		float *row1 = data[0].data();
 		row1[0] = 1.0f;
@@ -55,6 +55,8 @@ namespace Utils
 		row4[1] = 0.0f;
 		row4[2] = 0.0f;
 		row4[3] = 1.0f;
+
+		return *this;
 	}
 
 	bool Mat4::operator==(const Mat4 &other)
