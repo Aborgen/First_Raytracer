@@ -2,6 +2,8 @@
 #define ATTENUATION_H
 #pragma once
 
+#include "../Utils/ColorTriad.h"
+
 namespace Processing
 {
 	class Attenuation
@@ -9,6 +11,7 @@ namespace Processing
 	public:
 		Attenuation() {};
 		Attenuation(float constant, float linear, float quadratic);
+		Utils::ColorTriad compute(const Utils::ColorTriad &intensity, float distance);
 		void setAttenuation(float constant, float linear, float quadratic);
 		float getConstant();
 		void setConstant(float constant);
@@ -18,9 +21,9 @@ namespace Processing
 		void setQuadratic(float quadratic);
 
 	private:
-		float constant;
-		float linear;
-		float quadratic;
+		float constant{ 1.0f };
+		float linear{ 0.0f };
+		float quadratic{ 0.0f };
 	};
 }
 
