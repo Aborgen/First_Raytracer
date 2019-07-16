@@ -23,13 +23,16 @@ namespace Geometry
 		Utils::Vec3 getEdge1();
 		Utils::Vec3 getEdge2();
 		Utils::Vec3 getNormal();
+		BarryCentricCoordinates getBarryCentricCoordinates(const Processing::Ray &ray, float &determinant, float &t);
+		BarryCentricCoordinates getBarryCentricCoordinates(const Processing::Ray &ray);
 		std::optional<float> intersect(const Processing::Ray &ray);
-		Utils::Vec3 normalAtPoint(const Utils::Vec3 &point);
+		Utils::Vec3 normalAtPoint(const Processing::Ray &ray, float t);
 
 	private:
 		Utils::Vec3 a;
 		Utils::Vec3 b;
 		Utils::Vec3 c;
+		BarryCentricCoordinates _BCC(const Processing::Ray &ray, float &determinant, float &t);
 	};
 }
 

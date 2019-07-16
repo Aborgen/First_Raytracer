@@ -72,35 +72,62 @@ namespace Geometry
 		return Operations::normalize(normal);
 	}
 
-	std::optional<float> Triangle::intersect(const Processing::Ray &ray)
+
+	Shape::BarryCentricCoordinates Triangle::getBarryCentricCoordinates(const Processing::Ray &ray, float &determinant, float &t)
 	{
-		using namespace Utils;
+		return _BCC(ray, determinant, t);
+	}
+
+	Shape::BarryCentricCoordinates Triangle::getBarryCentricCoordinates(const Processing::Ray &ray)
+	{
+		float dummy = 0.0f;
+		return _BCC(ray, dummy, dummy);
+	}
+
+	Shape::BarryCentricCoordinates Triangle::_BCC(const Processing::Ray &ray, float &determinant, float &t)
+	{
+		using Utils::Vec3, Utils::Operations;
 		Vec3 direction = ray.getDirection();
 		Vec3 edge0 = getEdge0();
 		Vec3 edge1 = getEdge1();
 		Vec3 P = Operations::cross(direction, edge1);
-		float determinant = Operations::dot(edge0, P);
+		determinant = Operations::dot(edge0, P);
+		float invertedDeterminant = 1 / determinant;
+
+		Vec3 triangleToOrigin = ray.getOrigin() - getA();
+		float u = invertedDeterminant * Operations::dot(triangleToOrigin, P);
+
+		Vec3 q = Operations::cross(triangleToOrigin, edge0);
+		float v = invertedDeterminant * Operations::dot(direction, q);
+		// Possible intersection
+		t = invertedDeterminant * Operations::dot(edge1, q);
+
+		BarryCentricCoordinates coordinates;
+		coordinates.push_back(u);
+		coordinates.push_back(v);
+		return coordinates;
+	}
+
+	std::optional<float> Triangle::intersect(const Processing::Ray &ray)
+	{
+		float determinant = 0.0f, t = 0.0f;
+		BarryCentricCoordinates coordinates = getBarryCentricCoordinates(ray, determinant, t);
 		// A determinant that is close to 0 indicates that it does not intersect.
 		// Also catches back-facing triangles, as those will have a negative determinant.
 		if (determinant < std::numeric_limits<float>::epsilon()) {
 			return std::nullopt;
 		}
 
-		float invertedDeterminant = 1 / determinant;
-
-		Vec3 triangleToOrigin = ray.getOrigin() - getA();
-		float u = invertedDeterminant * Operations::dot(triangleToOrigin, P);
+		float u = coordinates.at(0);
+		float v = coordinates.at(1);
 		if (u < 0 || u > 1) {
 			return std::nullopt;
 		}
 
-		Vec3 q = Operations::cross(triangleToOrigin, edge0);
-		float v = invertedDeterminant * Operations::dot(direction, q);
 		if (v < 0 || u + v > 1) {
 			return std::nullopt;
 		}
 
-		float t = invertedDeterminant * Operations::dot(edge1, q);
 		if (t < std::numeric_limits<float>::epsilon()) {
 			return std::nullopt;
 		}
@@ -108,7 +135,7 @@ namespace Geometry
 		return t;
 	}
 
-	Utils::Vec3 Triangle::normalAtPoint(const Utils::Vec3 &point)
+	Utils::Vec3 Triangle::normalAtPoint(const Processing::Ray &ray, float t)
 	{
 		return getNormal();
 	}
