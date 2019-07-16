@@ -3,6 +3,7 @@
 #pragma once
 
 #include <optional>
+#include <vector>
 
 #include "../MaterialProps/MaterialProps.h"
 #include "../Utils/Mat4.h"
@@ -21,7 +22,7 @@ namespace Geometry
 		};
 
 		virtual std::optional<float> intersect(const Processing::Ray &ray) = 0;
-		virtual Utils::Vec3 normalAtPoint(const Utils::Vec3 &point) = 0;
+		virtual Utils::Vec3 normalAtPoint(const Processing::Ray &ray, float t) = 0;
 		Type getType();
 		Processing::MaterialProps getMaterial();
 		void setMaterial(Processing::MaterialProps material);
@@ -33,13 +34,19 @@ namespace Geometry
 		virtual ~Shape() {}
 
 	protected:
-		Shape(Type type) : type(type) { transformation.identity(); };
-		Shape(Type type, const Utils::Mat4 &transformation) : type(type), transformation(transformation) {};
-		Shape(Type type, const Utils::Mat4 &transformation, const Processing::MaterialProps &material) : type(type), transformation(transformation), material(material) {};
+		Shape(Type type) : type(type), transformation(Utils::Mat4().identity()) {};
+		Shape(Type type, const Utils::Mat4 &transformation) : type(type), transformation(transformation) { setNormalTransformation(); };
+		Shape(Type type, const Utils::Mat4 &transformation, const Processing::MaterialProps &material) : type(type), transformation(transformation), material(material) { setNormalTransformation(); };
 		const Type type;
 		Utils::Mat4 transformation;
+		Utils::Mat4 normalTransformation;
 		Processing::MaterialProps material;
+		typedef std::vector<float> BarryCentricCoordinates;
+
+	private:
+		void setNormalTransformation();
 	};
+
 }
 
 #endif // !SHAPE_H

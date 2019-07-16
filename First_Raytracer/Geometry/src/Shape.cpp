@@ -1,4 +1,5 @@
 #include "../Shape.h"
+#include "../Utils/Operations.h"
 
 namespace Geometry
 {
@@ -40,5 +41,13 @@ namespace Geometry
 	void Shape::setShinniness(float intensity)
 	{
 		material.setShininess(intensity);
+	}
+
+	void Shape::setNormalTransformation()
+	{
+		std::optional<Utils::Mat4> matrixInverse = Utils::Operations::inverse(transformation);
+		if (matrixInverse.has_value()) {
+			normalTransformation = Utils::Operations::transpose(matrixInverse.value());
+		}
 	}
 }
