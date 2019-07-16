@@ -54,12 +54,16 @@ namespace Geometry
 		commitTriangle(9, 8, 1);
 		// The triangle faces are then broken up into smaller and smaller triangles, 
 		// dependant on what level of detail is desired.
-
 		for (int _ = 0; _ < recursionDepth(); _++) {
 			refine();
 		}
+		// Store normals for each vertex.
+		for (int i = 0; i <= getVertexIndex(); i++) {
+			const Vec3 &vertex = getVertex(i);
+			pushNormal(vertex - center);
+		}
 
-		applyTransformation();
+		finalize();
 	}
 
 	// Each triangle is broken down into four new triangles.
