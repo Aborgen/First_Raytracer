@@ -27,7 +27,7 @@ namespace Processing
 		}
 
 		Utils::Vec3 point = ray.specificPoint(info.t);
-		Utils::Vec3 normal = info.shape->normalAtPoint(point);
+		Utils::Vec3 normal = info.shape->normalAtPoint(ray, info.t);
 		MaterialProps material = info.shape->getMaterial();
 		Utils::ColorTriad finalColor = material.getAmbient() + material.getEmission();
 		for (const LightPtr &light : lights) {
@@ -93,8 +93,10 @@ namespace Processing
 		if (specular.getR() + specular.getG() + specular.getB() > 0.0f) {
 			phong = specular * light->getColor() * std::pow(std::max(Operations::dot(normal, half), 0.0f), material.getShininess());
 		}
-		
-		return lambert + phong;
+
+		float distance = sqrt(direction.length());
+		ColorTriad attenuation = light->getAttenuation().compute(light->getColor(), distance);
+		return attenuation * (lambert + phong);
 	}
 
 	Utils::ColorTriad Raytracer::computeReflection(const Utils::Vec3 &incidentDirection, const Utils::Vec3 &hitPoint, const Utils::Vec3 &normal, int currentDepth)
