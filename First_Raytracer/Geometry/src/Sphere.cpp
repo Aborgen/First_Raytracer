@@ -67,9 +67,9 @@ namespace Geometry
 		}
 	}
 
-	Utils::Vec3 Sphere::normalAtPoint(const Utils::Vec3 &point)
+	Utils::Vec3 Sphere::normalAtPoint(const Processing::Ray &ray, float t)
 	{
-		Utils::Vec3 normal = point - center;
-		return Utils::Operations::normalize(normal);
+		Utils::Vec3 point = ray.specificPoint(t);
+		return Utils::Operations::normalize(point - center);
 	}
 }

@@ -20,7 +20,7 @@ namespace Geometry
 		float radius;
 		void transformSphere();
 		std::optional<float> findClosestRoot(float a, float b, float c);
-		Utils::Vec3 normalAtPoint(const Utils::Vec3 &point);
+		Utils::Vec3 normalAtPoint(const Processing::Ray &ray, float t);
 	};
 }
 
