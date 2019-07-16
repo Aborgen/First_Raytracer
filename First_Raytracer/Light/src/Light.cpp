@@ -32,6 +32,11 @@ namespace Processing
 	void Light::setAttenuation(float constant, float linear, float quadratic)
 	{
 		Attenuation attenuation(constant, linear, quadratic);
+		setAttenuation(attenuation);
+	}
+
+	void Light::setAttenuation(const Attenuation &attenuation)
+	{
 		this->attenuation = attenuation;
 	}
 

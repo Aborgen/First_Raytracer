@@ -168,6 +168,7 @@ namespace IO
 					parseLight(args, x, y, z, r, g, b);
 
 					PointLight light(x, y, z, r, g, b);
+					light.setAttenuation(attenuation);
 					instructions.pushLight<PointLight>(light);
 					break;
 				}

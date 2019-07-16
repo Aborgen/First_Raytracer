@@ -16,6 +16,7 @@ namespace Processing
 		void setColor(float r, float g, float b);
 		Attenuation getAttenuation();
 		void setAttenuation(float constant, float linear, float quadratic);
+		void setAttenuation(const Attenuation &attenuation);
 		Type getType();
 		Utils::Vec3 getCoordinates();
 		void setCoordinates(float x, float y, float z);
