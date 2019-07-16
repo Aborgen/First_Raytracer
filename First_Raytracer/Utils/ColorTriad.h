@@ -22,8 +22,11 @@ namespace Utils
 		ColorTriad operator*(const ColorTriad &other);
 		ColorTriad& operator*=(float scalar);
 		ColorTriad operator*(float scalar);
+		ColorTriad& operator/=(float scalar);
+		ColorTriad operator/(float scalar) const;
 		ColorTriad& operator+=(const ColorTriad &other);
 		ColorTriad operator+(const ColorTriad &other);
+		bool operator==(const ColorTriad &other);
 
 	private:
 		int MIN{ 0 };

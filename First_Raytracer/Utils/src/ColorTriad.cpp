@@ -86,6 +86,21 @@ namespace Utils
 		return temp;
 	}
 
+	ColorTriad& ColorTriad::operator/=(float scalar)
+	{
+		setR(normalize(r) / scalar);
+		setG(normalize(g) / scalar);
+		setB(normalize(b) / scalar);
+		return *this;
+	}
+
+	ColorTriad ColorTriad::operator/(float scalar) const
+	{
+		ColorTriad temp(*this);
+		temp /= scalar;
+		return temp;
+	}
+
 	ColorTriad& ColorTriad::operator+=(const ColorTriad &other)
 	{
 		setR(normalize(r) + normalize(other.r));
@@ -99,6 +114,15 @@ namespace Utils
 		ColorTriad temp(*this);
 		temp += other;
 		return temp;
+	}
+
+	bool ColorTriad::operator==(const ColorTriad &other)
+	{
+		return (
+			r == other.r &&
+			g == other.g &&
+			b == other.b
+		);
 	}
 
 	float ColorTriad::normalize(int value)
