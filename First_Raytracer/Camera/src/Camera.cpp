@@ -7,8 +7,8 @@ namespace Processing
 	{
 		this->position = eye;
 		this->center = center;
-		this->fovy = fovy;
-		this->fovx = 2 * atan(tan(fovy * 0.5) * screen.getAspect());
+		this->fovy = tan(Utils::Operations::toRadians(fovy) / 2);
+		this->fovx = this->fovy * screen.getAspect();
 		this->up = setUpVector(up);
 		this->screen = screen;
 		initCoordinateFrame();
@@ -51,8 +51,8 @@ namespace Processing
 		using namespace Utils;
 		float halfWidth = screen.getWidth() / 2.0f;
 		float halfHeight = screen.getHeight() / 2.0f;
-		float alpha = tan(fovx / 2) * ((rasterX - halfWidth) / halfWidth);
-		float beta = tan(fovy / 2) * ((halfHeight - rasterY) / halfHeight);
+		float alpha = fovx * ((rasterX + 0.5f - halfWidth) / halfWidth);
+		float beta = fovy * ((halfHeight - (rasterY + 0.5f)) / halfHeight);
 		// Direction is given as alpha * u + beta * v - w;
 		// u, v, and w correspond to rows 0, 1, and 2 of coordinateFrame.
 		// In other words, we want alpha of row 0, beta of row 1, and -1 of row 2.
@@ -61,7 +61,6 @@ namespace Processing
 		// making it possible to multiply with the given Mat4.
 		Mat4 frameT = Operations::transpose(coordinateFrame);
 		Vec3 quantities(alpha, beta, -1.0f);
-		Vec3 direction = Operations::vectorTransform(frameT, quantities);
-		return Operations::normalize(direction);
+		return Operations::vectorTransform(frameT, quantities, false);
 	}
 }
