@@ -39,7 +39,7 @@ namespace Processing
 			}
 			else if (type == Light::Type::POINT) {
 				direction = light->getCoordinates() - point;
-				shadowInfo.t = sqrt(direction.length());
+				shadowInfo.t = direction.length();
 			}
 
 			Utils::Vec3 biasedOrigin = point + normal * 2e-4f;
