@@ -59,7 +59,15 @@ SCENARIO("Basic transformations")
 			(
 				Approx(expected[0][0]).margin(0.01) == result[0][0] &&
 				Approx(expected[0][1]).margin(0.01) == result[0][1] &&
-				Approx(expected[0][2]).margin(0.01) == result[0][2]
+				Approx(expected[0][2]).margin(0.01) == result[0][2] &&
+
+				Approx(expected[1][0]).margin(0.01) == result[1][0] &&
+				Approx(expected[1][1]).margin(0.01) == result[1][1] &&
+				Approx(expected[1][2]).margin(0.01) == result[1][2] &&
+
+				Approx(expected[2][0]).margin(0.01) == result[2][0] &&
+				Approx(expected[2][1]).margin(0.01) == result[2][1] &&
+				Approx(expected[2][2]).margin(0.01) == result[2][2]
 			)
 		);
 	}
