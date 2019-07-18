@@ -9,7 +9,7 @@ namespace Processing
 		this->center = center;
 		this->fovy = tan(Utils::Operations::toRadians(fovy) / 2);
 		this->fovx = this->fovy * screen.getAspect();
-		this->up = setUpVector(up);
+		this->up = up;
 		this->screen = screen;
 		initCoordinateFrame();
 	}
@@ -51,8 +51,8 @@ namespace Processing
 		using namespace Utils;
 		float halfWidth = screen.getWidth() / 2.0f;
 		float halfHeight = screen.getHeight() / 2.0f;
-		float alpha = fovx * ((rasterX + 0.5f - halfWidth) / halfWidth);
-		float beta = fovy * ((halfHeight - (rasterY + 0.5f)) / halfHeight);
+		float alpha = fovx * (((rasterX - halfWidth) - 0.5f) / halfWidth);
+		float beta = fovy * (((halfHeight - rasterY) + 0.5f) / halfHeight);
 		// Direction is given as alpha * u + beta * v - w;
 		// u, v, and w correspond to rows 0, 1, and 2 of coordinateFrame.
 		// In other words, we want alpha of row 0, beta of row 1, and -1 of row 2.
