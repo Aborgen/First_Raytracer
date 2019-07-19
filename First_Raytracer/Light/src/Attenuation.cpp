@@ -14,7 +14,7 @@ namespace Processing
 	Utils::ColorTriad Attenuation::compute(const Utils::ColorTriad &intensity, float distance)
 	{
 		float distance2 = distance * distance;
-		float denominator = std::max((constant + linear * distance + quadratic * distance2), 1.0f);
+		float denominator = (constant + linear * distance + quadratic * distance2);
 		return intensity / denominator;
 	}
 
