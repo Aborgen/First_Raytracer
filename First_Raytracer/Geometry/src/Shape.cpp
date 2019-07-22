@@ -13,7 +13,7 @@ namespace Geometry
 		return material;
 	}
 
-	void Shape::setMaterial(Processing::MaterialProps material)
+	void Shape::setMaterial(const Processing::MaterialProps &material)
 	{
 		this->material = material;
 	}

@@ -25,7 +25,7 @@ namespace Geometry
 		virtual Utils::Vec3 normalAtPoint(const Processing::Ray &ray, float t) = 0;
 		Type getType();
 		Processing::MaterialProps getMaterial();
-		void setMaterial(Processing::MaterialProps material);
+		void setMaterial(const Processing::MaterialProps &material);
 		void setAmbient(float r, float g, float b);
 		void setEmission(float r, float g, float b);
 		void setDiffuse(float r, float g, float b);
