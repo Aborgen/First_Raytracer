@@ -8,6 +8,17 @@ namespace Geometry
 		return type;
 	}
 
+	Utils::Mat4 Shape::getTransformation()
+	{
+		return transformation;
+	}
+
+	void Shape::setTransformation(const Utils::Mat4 &transformation)
+	{
+		this->transformation = transformation;
+		setNormalTransformation();
+	}
+
 	Processing::MaterialProps Shape::getMaterial()
 	{
 		return material;

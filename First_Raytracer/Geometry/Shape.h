@@ -24,6 +24,8 @@ namespace Geometry
 		virtual std::optional<float> intersect(const Processing::Ray &ray) = 0;
 		virtual Utils::Vec3 normalAtPoint(const Processing::Ray &ray, float t) = 0;
 		Type getType();
+		Utils::Mat4 getTransformation();
+		void setTransformation(const Utils::Mat4 &transformation);
 		Processing::MaterialProps getMaterial();
 		void setMaterial(const Processing::MaterialProps &material);
 		void setAmbient(float r, float g, float b);
