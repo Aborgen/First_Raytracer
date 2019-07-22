@@ -132,7 +132,12 @@ namespace Utils
 
 	int ColorTriad::quantize(float value)
 	{
-		return (int)std::floor(value * 255.0f + 0.5f);
+		int valueI = static_cast<int>(value * 256.0f);
+		if (valueI == 256) {
+			return 255;
+		}
+
+		return valueI;
 	}
 
 	float ColorTriad::clamp(float value)
