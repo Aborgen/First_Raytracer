@@ -13,7 +13,7 @@ namespace Processing
 
 	Utils::ColorTriad Raytracer::traceRecursive(const Ray &ray, IntersectionInfo info, int currentDepth)
 	{
-		if (currentDepth >= maxDepth) {
+		if (currentDepth > maxDepth) {
 			return Utils::ColorTriad(0.0f, 0.0f, 0.0f);
 		}
 
@@ -26,15 +26,18 @@ namespace Processing
 			return backgroundColor;
 		}
 
-		Utils::Vec3 point = ray.specificPoint(info.t);
 		Utils::Vec3 normal = info.shape->normalAtPoint(ray, info.t);
+		Utils::Vec3 point = ray.specificPoint(info.t);
+		if (info.shape->getType() == Geometry::Shape::Type::TRIANGLE_MESH) {
+			point += normal * 2e-4f;
+		}
+
 		MaterialProps material = info.shape->getMaterial();
 		Utils::ColorTriad finalColor = material.getAmbient() + material.getEmission();
 		for (const LightPtr &light : lights) {
 			Utils::Vec3 direction;
 			IntersectionInfo shadowInfo;
-			Light::Type type = light->getType();
-			if (type == Light::Type::DIRECTIONAL) {
+			if (light->getType() == Light::Type::DIRECTIONAL) {
 				// Many resources seem to indicate that lighting engines expect the directional vector
 				// from directional light sources to be negated (-<i, j, k> = <-i, -j, -k>). This is due
 				// to the light's stored vector often being a direction which points away from the light source.
@@ -42,30 +45,32 @@ namespace Processing
 				// specifies that the numbers given already represent a direction going towards the light source.
 				direction = light->getCoordinates();
 			}
-			else if (type == Light::Type::POINT) {
+			else if (light->getType() == Light::Type::POINT) {
 				direction = light->getCoordinates() - point;
+				// This is to ensure that there can be no intersections occuring beyond the point light's position.
 				shadowInfo.t = direction.length();
 			}
 
-			Utils::Vec3 biasedPoint = point + normal * 2e-4f;
-			Ray shadowRay(biasedPoint, direction, Ray::Type::SHADOW);
+			// Setting the IntersectionInfo's shape member ensures that the shadow ray cannot intersect that specific shape.
 			shadowInfo.shape = info.shape;
+			Ray shadowRay(point, direction, Ray::Type::SHADOW);
 			bool lightOccluded = traceClosest(shadowRay, shadowInfo);
 			// In this case, the ray intersects a shape before reaching the light.
 			if (lightOccluded) {
 				continue;
 			}
 
-			Utils::ColorTriad reflection, specular = material.getSpecular();
-			if (specular.getR() + specular.getG() + specular.getB() > 0.0f) {
-				reflection = specular * computeReflection(ray.getDirection(), biasedPoint, normal, info.shape, currentDepth);
-			}
-
 			Utils::Vec3 half = Utils::Operations::normalize(shadowRay.getDirection() + ray.getDirection().reverse());
-			finalColor += computeLight(shadowRay.getDirection(), normal, half, light, material) + reflection;
+			finalColor += computeLight(shadowRay.getDirection(), normal, half, light, material);
 		}
 
-		return finalColor;
+
+		Utils::ColorTriad reflection, specular = material.getSpecular();
+		if (specular.getR() + specular.getG() + specular.getB() > 0.0f) {
+			reflection = specular * computeReflection(ray.getDirection(), point, normal, info.shape, currentDepth);
+		}
+
+		return finalColor + reflection;
 	}
 
 	bool Raytracer::traceClosest(const Ray &ray, IntersectionInfo &info)
@@ -115,7 +120,7 @@ namespace Processing
 
 		ColorTriad attenuation = light->getColor();
 		if (light->getType() == Light::Type::POINT) {
-			float distance = sqrt(direction.length());
+			float distance = direction.length();
 			attenuation = light->getAttenuation().compute(light->getColor(), distance);
 		}
 
@@ -127,6 +132,7 @@ namespace Processing
 		using Utils::ColorTriad, Utils::Vec3, Utils::Operations;
 		Vec3 reflectedDirection = incidentDirection - 2 * Operations::dot(normal, incidentDirection) * normal;
 		IntersectionInfo info;
+		// Setting the IntersectionInfo's shape member ensures that the recursive ray cannot intersect that specific shape.
 		info.shape = shape;
 		return traceRecursive(Ray(hitPoint, reflectedDirection, Ray::Type::RECURSIVE), info, currentDepth + 1);
 	}
